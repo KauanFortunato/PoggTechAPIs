@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2025 at 02:39 PM
+-- Generation Time: Apr 27, 2025 at 08:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -61,7 +61,8 @@ CREATE TABLE `chats` (
 
 INSERT INTO `chats` (`chat_id`, `product_id`, `timestamp`) VALUES
 (23, 3, '2025-03-12 12:12:54'),
-(24, 3, '2025-03-12 12:15:41');
+(24, 3, '2025-03-12 12:15:41'),
+(25, 4, '2025-04-14 15:54:58');
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,8 @@ CREATE TABLE `favorites` (
 INSERT INTO `favorites` (`favorite_id`, `user_id`, `product_id`, `tipo`, `created_at`) VALUES
 (129, 15, 20, 1, '2025-03-03 19:15:02'),
 (130, 15, 20, 0, '2025-03-03 19:15:35'),
-(132, 26, 3, 0, '2025-03-07 11:12:13');
+(132, 26, 3, 0, '2025-03-07 11:12:13'),
+(134, 15, 3, 1, '2025-04-02 14:22:46');
 
 -- --------------------------------------------------------
 
@@ -95,8 +97,36 @@ INSERT INTO `favorites` (`favorite_id`, `user_id`, `product_id`, `tipo`, `create
 CREATE TABLE `gallery` (
   `gallery_id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
-  `title` varchar(255) DEFAULT NULL
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `gallery`
+--
+
+INSERT INTO `gallery` (`gallery_id`, `product_id`, `created_at`) VALUES
+(5, 3, '2025-04-23 15:05:38'),
+(6, 6, '2025-04-23 15:05:38'),
+(7, 7, '2025-04-23 15:05:38'),
+(8, 8, '2025-04-23 15:05:38'),
+(9, 9, '2025-04-23 15:05:38'),
+(10, 10, '2025-04-23 15:05:38'),
+(11, 11, '2025-04-23 15:05:38'),
+(12, 12, '2025-04-23 15:05:38'),
+(13, 13, '2025-04-23 15:05:38'),
+(14, 14, '2025-04-23 15:05:38'),
+(15, 15, '2025-04-23 15:05:38'),
+(16, 16, '2025-04-23 15:05:38'),
+(17, 17, '2025-04-23 15:05:38'),
+(18, 18, '2025-04-23 15:05:38'),
+(19, 19, '2025-04-23 15:05:38'),
+(20, 20, '2025-04-23 15:05:38'),
+(21, 21, '2025-04-23 15:05:38'),
+(22, 22, '2025-04-23 15:05:38'),
+(23, 24, '2025-04-23 15:05:38'),
+(24, 4, '2025-04-23 15:05:38'),
+(25, 23, '2025-04-23 15:05:38'),
+(26, 5, '2025-04-23 15:05:38');
 
 -- --------------------------------------------------------
 
@@ -107,8 +137,7 @@ CREATE TABLE `gallery` (
 CREATE TABLE `images` (
   `image_id` int(11) NOT NULL,
   `gallery_id` int(11) DEFAULT NULL,
-  `img_url` varchar(255) DEFAULT NULL,
-  `caption` varchar(100) DEFAULT NULL
+  `path` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -123,17 +152,83 @@ CREATE TABLE `messages` (
   `sender_id` int(11) NOT NULL,
   `receiver_id` int(11) NOT NULL,
   `message` text NOT NULL,
-  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `is_read` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`id_message`, `chat_id`, `sender_id`, `receiver_id`, `message`, `timestamp`) VALUES
-(123, 23, 28, 15, 'Mordekai enviou', '2025-03-12 12:12:54'),
-(124, 24, 26, 15, 'Kauan Sites aleatorios', '2025-03-12 12:15:41'),
-(125, 23, 15, 28, 'Dono do produto', '2025-03-12 12:16:39');
+INSERT INTO `messages` (`id_message`, `chat_id`, `sender_id`, `receiver_id`, `message`, `timestamp`, `is_read`) VALUES
+(123, 23, 28, 15, 'Mordekai enviou', '2025-03-12 12:12:54', 1),
+(124, 24, 26, 15, 'Kauan Sites aleatorios', '2025-03-12 12:15:41', 1),
+(125, 23, 15, 28, 'Dono do produto', '2025-03-12 12:16:39', 0),
+(127, 23, 28, 15, 'Broo', '2025-04-11 20:29:47', 1),
+(128, 23, 28, 15, 'Broo', '2025-04-11 20:31:22', 1),
+(129, 23, 28, 15, 'Broo', '2025-04-11 20:32:14', 1),
+(130, 23, 28, 15, 'Broo', '2025-04-11 20:43:51', 1),
+(131, 23, 28, 15, 'Broo', '2025-04-11 20:44:25', 1),
+(132, 23, 28, 15, 'Broo', '2025-04-11 20:46:35', 1),
+(133, 23, 28, 15, 'Sua mae ainda ta disponivel?', '2025-04-11 20:46:55', 1),
+(134, 23, 28, 15, 'Sua mae ainda ta disponivel?', '2025-04-11 20:47:29', 1),
+(135, 23, 28, 15, 'E ai?', '2025-04-11 20:49:09', 1),
+(136, 23, 28, 15, 'E aiasdasdsa?', '2025-04-11 20:49:18', 1),
+(137, 23, 28, 15, 'E ai mano?', '2025-04-12 13:42:33', 1),
+(138, 23, 28, 15, 'E ai mano?', '2025-04-12 13:44:30', 1),
+(139, 23, 28, 15, 'E ai mano?', '2025-04-12 13:44:47', 1),
+(140, 23, 28, 15, 'E ai mano?', '2025-04-12 13:45:00', 1),
+(141, 23, 28, 15, 'E ai mano?', '2025-04-12 13:48:14', 1),
+(142, 23, 28, 15, 'E ai mano?', '2025-04-14 13:36:52', 1),
+(143, 23, 28, 15, 'E ai mano?', '2025-04-14 14:05:40', 1),
+(144, 24, 26, 15, 'E ai mano?', '2025-04-14 14:06:37', 1),
+(145, 25, 15, 18, 'Oi, esse item está disponível?', '2025-04-14 15:54:58', 1),
+(146, 25, 18, 15, 'Esta sim', '2025-04-14 15:56:45', 1),
+(147, 25, 15, 18, 'Mas vc tem quantos anos bb?', '2025-04-14 15:57:34', 1),
+(148, 24, 26, 15, 'E ai mano?', '2025-04-15 14:47:27', 1),
+(149, 24, 26, 15, 'E ai mano?', '2025-04-15 14:47:40', 1),
+(150, 24, 26, 15, 'E ai mano?', '2025-04-15 14:48:16', 1),
+(151, 24, 26, 15, 'E ai mano?', '2025-04-15 14:49:23', 1),
+(152, 24, 26, 15, 'E ai mano?', '2025-04-15 14:50:20', 1),
+(153, 24, 26, 15, 'E ai mano?', '2025-04-15 14:51:58', 1),
+(154, 24, 26, 15, 'E ai mano?', '2025-04-15 14:52:12', 1),
+(155, 24, 26, 15, 'E ai mano?', '2025-04-15 14:53:26', 1),
+(156, 24, 26, 15, 'E ai mano?', '2025-04-15 14:54:56', 1),
+(157, 24, 26, 15, 'E ai mano?', '2025-04-15 14:55:26', 1),
+(158, 24, 26, 15, 'E ai mano?', '2025-04-15 14:55:48', 1),
+(159, 24, 26, 15, 'E ai mano?', '2025-04-15 14:56:33', 1),
+(160, 24, 26, 15, 'E ai mano?', '2025-04-15 15:00:56', 1),
+(161, 24, 26, 15, 'E ai mano?', '2025-04-15 15:02:37', 1),
+(162, 24, 26, 15, 'E ai mano?', '2025-04-15 15:03:31', 1),
+(163, 24, 26, 15, 'E ai mano?', '2025-04-15 15:04:58', 1),
+(164, 24, 26, 15, 'E ai mano?', '2025-04-15 15:06:18', 1),
+(165, 24, 26, 15, 'E ai mano?', '2025-04-15 15:07:47', 1),
+(166, 24, 26, 15, 'E ai mano?', '2025-04-15 15:08:31', 1),
+(167, 24, 26, 15, 'E ai mano?', '2025-04-15 15:09:18', 1),
+(168, 24, 26, 15, 'E ai mano?', '2025-04-15 15:09:51', 1),
+(169, 24, 26, 15, 'E ai mano?', '2025-04-15 15:15:55', 1),
+(170, 24, 26, 15, 'E ai mano?', '2025-04-15 15:16:36', 1),
+(171, 24, 26, 15, 'E ai mano?', '2025-04-15 15:24:20', 1),
+(172, 24, 26, 15, 'E ai mano?', '2025-04-15 15:24:38', 1),
+(173, 24, 26, 15, 'E ai mano?', '2025-04-15 15:25:25', 1),
+(174, 24, 26, 15, 'E ai mano?', '2025-04-15 15:26:59', 1),
+(175, 24, 26, 15, 'E ai mano?', '2025-04-15 15:29:45', 1),
+(176, 24, 26, 15, 'E ai mano?', '2025-04-15 15:32:07', 1),
+(177, 24, 26, 15, 'E ai mano?', '2025-04-15 16:16:53', 1),
+(178, 24, 26, 15, 'E ai mano?', '2025-04-15 16:17:02', 1),
+(179, 24, 26, 15, 'E ai mano?', '2025-04-15 16:19:44', 1),
+(180, 24, 26, 15, 'E ai mano?', '2025-04-15 16:19:50', 1),
+(181, 24, 26, 15, 'E ai mano?', '2025-04-15 16:19:56', 1),
+(182, 24, 26, 15, 'E ai mano?', '2025-04-15 16:20:38', 1),
+(183, 24, 26, 15, 'E ai mano?', '2025-04-15 16:20:45', 1),
+(184, 24, 26, 15, 'E ai mano?', '2025-04-15 16:20:50', 1),
+(185, 24, 26, 15, 'E ai mano?', '2025-04-15 16:22:17', 1),
+(186, 24, 26, 15, 'E ai mano?', '2025-04-15 16:31:12', 1),
+(187, 24, 26, 15, 'E ai mano?', '2025-04-15 16:55:56', 1),
+(188, 24, 26, 15, 'E ai mano?', '2025-04-15 17:00:30', 1),
+(189, 24, 26, 15, 'E ai mano?', '2025-04-15 17:01:12', 1),
+(190, 24, 26, 15, 'E ai mano?', '2025-04-15 17:03:53', 1),
+(191, 24, 26, 15, 'E ai mano?', '2025-04-15 17:03:57', 1);
 
 -- --------------------------------------------------------
 
@@ -149,7 +244,8 @@ CREATE TABLE `products` (
   `price` decimal(10,2) NOT NULL,
   `price_before` decimal(10,2) DEFAULT NULL,
   `category` varchar(50) DEFAULT NULL,
-  `image_url` varchar(255) DEFAULT NULL,
+  `cover` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `seller_type` varchar(20) NOT NULL DEFAULT 'user'
@@ -159,29 +255,47 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `user_id`, `title`, `description`, `price`, `price_before`, `category`, `image_url`, `created_at`, `updated_at`, `seller_type`) VALUES
-(3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\r\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\r\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\r\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\r\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 553.02, 590.23, 'Consolas', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.frandroid.com%2Fwp-content%2Fuploads%2F2019%2F12%2Fmicrosoft-xbox-series-x-frandroid.png&f=1&nofb=1&ipt=281df20b316491d50fe00567631c17c72c5f055c2f346eb4a1d418755b3f64e4&ipo=images', '2024-12-05 20:28:39', '2025-02-21 19:12:21', 'admin'),
-(4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2016%2F07%2FXbox-Free-Download-PNG.png&f=1&nofb=1&ipt=f1e2015ce576a3b63e40ab904d61db31b73a96df9fd250d40612ce6475e4f112&ipo=images', '2025-01-09 18:40:07', '2025-02-21 19:12:21', 'admin'),
-(5, 19, '2DS Azul/Preto', 'O Nintendo 2DS mantém muitas das mesmas características de hardware como o Nintendo DS 3 incluindo o mesmo Nintendo 3DS gameplay controla, ao contrário de compatibilidade com a vasta biblioteca existente de jogos de Nintendo DS, bem como recursos de conectividade sem fio, como acesso a Nintendo eShop, além de funcionalidade StreetPass e o SpotPass.', 85.00, 122.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/3DS%20Consolas/S2DSAZUC_l.jpg', '2025-01-09 18:59:43', '2025-02-21 19:12:21', 'user'),
-(6, 15, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.mobygames.com%2Fimages%2Fcovers%2Fl%2F310047-grand-theft-auto-v-xbox-360-front-cover.png&f=1&nofb=1&ipt=a5a027b8d145bae2e159a60e0958edc92e65b02d9d1624ac08dd830a1b841c64&ipo=images', '2025-01-09 18:59:43', '2025-02-21 19:13:26', 'admin'),
-(7, 15, 'New Super Mario Bros', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 28.00, NULL, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/DS%20Jogos/045496463106_l.jpg', '2025-01-11 23:26:18', '2025-01-11 23:26:18', 'admin'),
-(8, 15, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/DS%20Jogos/045496470685_l.jpg', '2025-01-11 23:26:18', '2025-02-21 19:12:21', 'admin'),
-(9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', NULL, 55.92, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Playstation4%20Acessorios/0711719894650_l.jpg', '2025-01-11 23:29:49', '2025-01-11 23:29:49', 'user'),
-(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 12.32, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Playstation4%20Acessorios/SPS3ACCMOVE_l.jpg', '2025-01-11 23:29:49', '2025-01-11 23:29:49', 'admin'),
-(11, 15, 'Xbox 360 Kinect (Sem FA)', NULL, 10.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Xbox%20360%20Acess%C3%B3rios/S360KINSNXB_l.jpg', '2025-01-11 23:29:49', '2025-01-11 23:29:49', 'admin'),
-(12, 15, 'Oficial Gamecube Indigo Controller', NULL, 48.99, 71.99, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Acess%C3%B3rios/4902370505559_l.jpg', '2025-01-11 23:31:19', '2025-02-21 19:12:21', 'admin'),
-(13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/045496370008_l.jpg', '2025-01-11 23:31:19', '2025-01-11 23:31:19', 'admin'),
-(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\r\n', NULL, 225.00, 250.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/SGCUGAMETS003_l.jpg', '2025-01-11 23:44:12', '2025-02-21 19:12:51', 'admin'),
-(15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', NULL, 165.00, 180.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Consolas/0454964NSL32BL01_l.jpg', '2025-01-11 23:44:12', '2025-02-21 19:12:58', 'admin'),
-(16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', NULL, 265.00, NULL, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Consolas/0454964NS64V3WH02_l.jpg', '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
-(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', '', 15.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Acessorios/SNSWVAL08_l.jpg', '2025-01-11 23:44:12', '2025-02-21 19:12:21', 'admin'),
-(18, 15, 'Official Nintendo Switch Preto Carry Case', NULL, 8.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Acessorios/45496430597_l.jpg', '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
-(19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', NULL, 42.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Acessorios/04549643PGRR_l.jpg', '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
-(20, 15, 'PS Vita Preto 3G, Descontada', NULL, 140.00, 155.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/PS%20Vita%20Consolas/SPSVNEG3GC_l.jpg', '2025-01-11 23:44:12', '2025-02-21 19:13:10', 'admin'),
-(21, 15, 'King Kong', NULL, 1.50, NULL, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/PC%20Jogos/3307210201669_l.jpg', '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
-(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/Playstation2%20Jogos/4012927120088_l.jpg', '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
-(23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/Playstation2%20Jogos/5030917027598_l.jpg', '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'user'),
-(24, 15, 'Gameboy Advance, Branco', NULL, 90.00, 100.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/GBA%20Consolas/SNINGBACAW002_l.jpg', '2025-02-19 00:10:21', '2025-02-21 19:12:36', 'user');
+INSERT INTO `products` (`product_id`, `user_id`, `title`, `description`, `price`, `price_before`, `category`, `cover`, `location`, `created_at`, `updated_at`, `seller_type`) VALUES
+(3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\r\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\r\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\r\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\r\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 523.02, 590.23, 'Consolas', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.frandroid.com%2Fwp-content%2Fuploads%2F2019%2F12%2Fmicrosoft-xbox-series-x-frandroid.png&f=1&nofb=1&ipt=281df20b316491d50fe00567631c17c72c5f055c2f346eb4a1d418755b3f64e4&ipo=images', NULL, '2024-12-05 20:28:39', '2025-04-26 15:08:13', 'admin'),
+(4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2016%2F07%2FXbox-Free-Download-PNG.png&f=1&nofb=1&ipt=f1e2015ce576a3b63e40ab904d61db31b73a96df9fd250d40612ce6475e4f112&ipo=images', NULL, '2025-01-09 18:40:07', '2025-02-21 19:12:21', 'admin'),
+(5, 19, '2DS Azul/Preto', 'O Nintendo 2DS mantém muitas das mesmas características de hardware como o Nintendo DS 3 incluindo o mesmo Nintendo 3DS gameplay controla, ao contrário de compatibilidade com a vasta biblioteca existente de jogos de Nintendo DS, bem como recursos de conectividade sem fio, como acesso a Nintendo eShop, além de funcionalidade StreetPass e o SpotPass.', 85.00, 122.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/3DS%20Consolas/S2DSAZUC_l.jpg', NULL, '2025-01-09 18:59:43', '2025-02-21 19:12:21', 'user'),
+(6, 15, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.mobygames.com%2Fimages%2Fcovers%2Fl%2F310047-grand-theft-auto-v-xbox-360-front-cover.png&f=1&nofb=1&ipt=a5a027b8d145bae2e159a60e0958edc92e65b02d9d1624ac08dd830a1b841c64&ipo=images', NULL, '2025-01-09 18:59:43', '2025-02-21 19:13:26', 'admin'),
+(7, 15, 'New Super Mario Bros', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 23.00, 28.00, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/DS%20Jogos/045496463106_l.jpg', NULL, '2025-01-11 23:26:18', '2025-04-26 15:09:53', 'admin'),
+(8, 15, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/DS%20Jogos/045496470685_l.jpg', NULL, '2025-01-11 23:26:18', '2025-02-21 19:12:21', 'admin'),
+(9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', NULL, 54.92, 55.92, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Playstation4%20Acessorios/0711719894650_l.jpg', NULL, '2025-01-11 23:29:49', '2025-04-26 15:10:37', 'user'),
+(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Playstation4%20Acessorios/SPS3ACCMOVE_l.jpg', NULL, '2025-01-11 23:29:49', '2025-04-26 15:09:39', 'admin'),
+(11, 15, 'Xbox 360 Kinect (Sem FA)', NULL, 10.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Xbox%20360%20Acess%C3%B3rios/S360KINSNXB_l.jpg', NULL, '2025-01-11 23:29:49', '2025-01-11 23:29:49', 'admin'),
+(12, 15, 'Oficial Gamecube Indigo Controller', NULL, 48.99, 71.99, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Acess%C3%B3rios/4902370505559_l.jpg', NULL, '2025-01-11 23:31:19', '2025-02-21 19:12:21', 'admin'),
+(13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/045496370008_l.jpg', NULL, '2025-01-11 23:31:19', '2025-01-11 23:31:19', 'admin'),
+(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\r\n', NULL, 225.00, 250.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/SGCUGAMETS003_l.jpg', NULL, '2025-01-11 23:44:12', '2025-02-21 19:12:51', 'admin'),
+(15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', NULL, 165.00, 180.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Consolas/0454964NSL32BL01_l.jpg', NULL, '2025-01-11 23:44:12', '2025-02-21 19:12:58', 'admin'),
+(16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', NULL, 265.00, NULL, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Consolas/0454964NS64V3WH02_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
+(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', '', 15.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Acessorios/SNSWVAL08_l.jpg', NULL, '2025-01-11 23:44:12', '2025-02-21 19:12:21', 'admin'),
+(18, 15, 'Official Nintendo Switch Preto Carry Case', NULL, 8.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Acessorios/45496430597_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
+(19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', NULL, 42.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Acessorios/04549643PGRR_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
+(20, 15, 'PS Vita Preto 3G, Descontada', NULL, 140.00, 155.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/PS%20Vita%20Consolas/SPSVNEG3GC_l.jpg', NULL, '2025-01-11 23:44:12', '2025-02-21 19:13:10', 'admin'),
+(21, 15, 'King Kong', NULL, 1.50, NULL, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/PC%20Jogos/3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
+(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/Playstation2%20Jogos/4012927120088_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
+(23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/Playstation2%20Jogos/5030917027598_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'user'),
+(24, 15, 'Gameboy Advance, Branco', NULL, 90.00, 100.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/GBA%20Consolas/SNINGBACAW002_l.jpg', NULL, '2025-02-19 00:10:21', '2025-02-21 19:12:36', 'user');
+
+--
+-- Triggers `products`
+--
+DELIMITER $$
+CREATE TRIGGER `create_gallery_afeter_product` AFTER INSERT ON `products` FOR EACH ROW BEGIN
+    INSERT INTO gallery (product_id) VALUES (NEW.product_id);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_price_before` BEFORE UPDATE ON `products` FOR EACH ROW BEGIN
+  IF NEW.price < OLD.price THEN
+    SET NEW.price_before = OLD.price;
+  END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -199,28 +313,28 @@ CREATE TABLE `products_views` (
 --
 
 INSERT INTO `products_views` (`product_id`, `view_count`) VALUES
-(3, 12),
-(4, 28),
-(5, 14),
-(6, 14),
-(7, 10),
+(3, 22),
+(4, 29),
+(5, 18),
+(6, 15),
+(7, 11),
 (8, 9),
 (9, 4),
 (10, 6),
-(11, 5),
+(11, 6),
 (12, 6),
-(13, 11),
-(14, 20),
-(15, 9),
+(13, 14),
+(14, 21),
+(15, 10),
 (16, 11),
-(17, 13),
-(18, 4),
-(19, 8),
-(20, 3),
-(21, 9),
-(22, 11),
-(23, 6),
-(24, 19);
+(17, 16),
+(18, 25),
+(19, 10),
+(20, 4),
+(21, 13),
+(22, 14),
+(23, 7),
+(24, 23);
 
 -- --------------------------------------------------------
 
@@ -265,7 +379,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `firebase_uid`, `name`, `last_name`, `email`, `phone`, `created_at`) VALUES
-(15, 'bCXhKqZvrYTAZm867tMzpyNWWz33', 'Kauan', 'Fortunato', 'kauanmatiasfortunato@gmail.com', '910 937 234', '2024-11-27 20:52:50'),
+(15, 'bCXhKqZvrYTAZm867tMzpyNWWz33', 'Kauan', 'Fortunato', 'kauanmatiasfortunato@gmail.com', '910937520', '2024-11-27 20:52:50'),
 (18, 'A2YOrJ9js0ZUcec9r9EW9o4kXEZ2', 'Diogo', 'Dioguinho', 'sayodiggo@gmail.com', '', '2024-12-02 00:17:17'),
 (19, 'gO3K6796eQTMiVgss8MTarijpCg1', 'Rodrigo', 'Alexandre', 'rodrigoalexandre@gmail.com', '', '2024-12-06 22:35:17'),
 (20, 'sC0UoxF2GwNtSiF2dWTo9UTFxN22', 'Bitman', 'Biman', 'bitman@gmail.com', '', '2024-12-06 23:42:22'),
@@ -289,6 +403,14 @@ CREATE TABLE `users_tokens` (
   `token` varchar(255) NOT NULL,
   `create_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users_tokens`
+--
+
+INSERT INTO `users_tokens` (`id_token`, `user_id`, `token`, `create_at`) VALUES
+(16, 15, 'cfqdAvsOTqurJQWIaM3Efe:APA91bGozKvoQ-OnoMCawcnIxnUJlhJJ-99KxuaQSgyAS-WZOLo10-kcR8tR3yeJHfyWoEtfTYdiVsn8IeI_67_5jn6zWOhl2bFxSUrwbRNXO7G7LPsZrqI', '2025-04-14 15:58:39'),
+(18, 15, 'eg9zGf7ESXesfzacTf2xMh:APA91bGguHAI1OUyeyMvpbbTPxlcHjKTGy98gA8p5ICsVxLIGhQCIRDy9PuY8u11RiF8kr-Oxuc9ZrkL9pb91nswS2v7rD1QjzKq03pFNQ0S0ahcrlRDy4Y', '2025-04-21 18:54:00');
 
 -- --------------------------------------------------------
 
@@ -521,7 +643,69 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (229, 15, 4, 'view', '2025-03-10 18:33:31'),
 (230, 15, 3, 'view', '2025-03-10 18:35:23'),
 (231, 28, 3, 'view', '2025-03-12 12:12:30'),
-(232, 26, 3, 'view', '2025-03-12 12:15:12');
+(232, 26, 3, 'view', '2025-03-12 12:15:12'),
+(233, 15, 3, 'view', '2025-03-31 13:07:28'),
+(234, 15, 24, 'view', '2025-04-02 13:04:48'),
+(235, 15, 6, 'view', '2025-04-02 13:08:36'),
+(236, 15, 17, 'view', '2025-04-03 13:10:33'),
+(237, 15, 5, 'view', '2025-04-03 17:39:05'),
+(238, 15, 22, 'view', '2025-04-03 17:39:12'),
+(239, 15, 13, 'view', '2025-04-03 17:40:08'),
+(240, 15, 24, 'view', '2025-04-03 17:41:03'),
+(241, 15, 24, 'view', '2025-04-03 17:41:05'),
+(242, 15, 3, 'view', '2025-04-05 15:53:31'),
+(243, 15, 18, 'view', '2025-04-05 16:03:38'),
+(244, 15, 18, 'view', '2025-04-05 16:03:44'),
+(245, 15, 18, 'view', '2025-04-05 16:07:16'),
+(246, 15, 17, 'view', '2025-04-05 16:07:20'),
+(247, 15, 18, 'view', '2025-04-05 16:08:14'),
+(248, 15, 18, 'view', '2025-04-05 16:08:47'),
+(249, 15, 18, 'view', '2025-04-05 16:09:16'),
+(250, 15, 18, 'view', '2025-04-05 16:09:35'),
+(251, 15, 18, 'view', '2025-04-05 16:12:25'),
+(252, 15, 17, 'view', '2025-04-05 16:12:30'),
+(253, 15, 18, 'view', '2025-04-05 16:12:35'),
+(254, 15, 18, 'view', '2025-04-05 16:13:27'),
+(255, 15, 18, 'view', '2025-04-05 16:13:33'),
+(256, 15, 18, 'view', '2025-04-05 16:13:35'),
+(257, 15, 18, 'view', '2025-04-05 16:13:38'),
+(258, 15, 18, 'view', '2025-04-05 16:15:47'),
+(259, 15, 18, 'view', '2025-04-05 16:16:00'),
+(260, 15, 18, 'view', '2025-04-05 16:16:35'),
+(261, 15, 18, 'view', '2025-04-05 16:18:40'),
+(262, 15, 18, 'view', '2025-04-05 16:25:53'),
+(263, 15, 18, 'view', '2025-04-05 16:25:57'),
+(264, 15, 3, 'view', '2025-04-05 16:26:16'),
+(265, 15, 3, 'view', '2025-04-05 16:27:08'),
+(266, 15, 3, 'view', '2025-04-05 16:27:15'),
+(267, 15, 18, 'view', '2025-04-05 16:27:17'),
+(268, 15, 3, 'view', '2025-04-05 16:27:36'),
+(269, 15, 3, 'view', '2025-04-05 16:27:40'),
+(270, 15, 3, 'view', '2025-04-05 16:27:45'),
+(271, 15, 18, 'view', '2025-04-07 12:24:33'),
+(272, 15, 5, 'view', '2025-04-08 11:49:24'),
+(273, 15, 5, 'view', '2025-04-10 16:42:17'),
+(274, 15, 15, 'view', '2025-04-10 17:02:34'),
+(275, 15, 14, 'view', '2025-04-12 13:00:43'),
+(276, 15, 19, 'view', '2025-04-12 13:01:41'),
+(277, 15, 23, 'view', '2025-04-12 13:01:43'),
+(278, 15, 24, 'view', '2025-04-12 13:01:47'),
+(279, 15, 20, 'view', '2025-04-12 13:01:50'),
+(280, 15, 21, 'view', '2025-04-12 13:07:09'),
+(281, 15, 3, 'view', '2025-04-14 14:55:54'),
+(282, 15, 13, 'view', '2025-04-14 15:54:47'),
+(283, 15, 11, 'view', '2025-04-14 15:54:51'),
+(284, 15, 13, 'view', '2025-04-14 15:54:53'),
+(285, 15, 4, 'view', '2025-04-14 15:54:56'),
+(286, 15, 19, 'view', '2025-04-16 16:04:36'),
+(287, 15, 7, 'view', '2025-04-21 14:38:32'),
+(288, 15, 22, 'view', '2025-04-21 18:25:14'),
+(290, 15, 21, 'view', '2025-04-25 14:20:35'),
+(291, 15, 21, 'view', '2025-04-25 14:55:22'),
+(293, 15, 22, 'view', '2025-04-26 14:22:46'),
+(294, 15, 21, 'view', '2025-04-26 14:22:49'),
+(295, 15, 5, 'view', '2025-04-26 14:22:53'),
+(296, 15, 3, 'view', '2025-04-27 18:13:58');
 
 -- --------------------------------------------------------
 
@@ -538,7 +722,7 @@ CREATE TABLE `v_cart_fav` (
 ,`title` varchar(150)
 ,`price` decimal(10,2)
 ,`category` varchar(50)
-,`image_url` varchar(255)
+,`cover` varchar(255)
 ,`seller_type` varchar(20)
 );
 
@@ -579,7 +763,7 @@ CREATE TABLE `v_popular_products` (
 ,`price` decimal(10,2)
 ,`price_before` decimal(10,2)
 ,`category` varchar(50)
-,`image_url` varchar(255)
+,`cover` varchar(255)
 ,`created_at` timestamp
 ,`updated_at` timestamp
 ,`seller_type` varchar(20)
@@ -601,10 +785,35 @@ CREATE TABLE `v_product_details` (
 ,`price_before` decimal(10,2)
 ,`discount_percentage` decimal(17,2)
 ,`category` varchar(50)
-,`image_url` varchar(255)
+,`cover` varchar(255)
+,`location` varchar(255)
 ,`created_at` timestamp
 ,`updated_at` timestamp
 ,`seller_type` varchar(20)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_product_full_details`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_product_full_details` (
+`product_id` int(11)
+,`user_id` int(11)
+,`title` varchar(150)
+,`description` text
+,`price` decimal(10,2)
+,`price_before` decimal(10,2)
+,`discount_percentage` decimal(17,2)
+,`category` varchar(50)
+,`cover` varchar(255)
+,`location` varchar(255)
+,`created_at` varchar(19)
+,`updated_at` varchar(19)
+,`seller_type` varchar(20)
+,`views` int(11)
+,`favorites_count` bigint(21)
 );
 
 -- --------------------------------------------------------
@@ -625,7 +834,7 @@ CREATE TABLE `v_user_chats` (
 ,`chat_with_name` varchar(100)
 ,`chat_with_last_name` varchar(100)
 ,`last_message` mediumtext
-,`image_product` varchar(255)
+,`cover_product` varchar(255)
 ,`last_message_time` timestamp
 ,`last_message_time_format` varchar(10)
 );
@@ -637,7 +846,7 @@ CREATE TABLE `v_user_chats` (
 --
 DROP TABLE IF EXISTS `v_cart_fav`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_cart_fav`  AS SELECT `favorites`.`favorite_id` AS `favorite_id`, `favorites`.`product_id` AS `product_id`, `favorites`.`user_id` AS `user_id`, `favorites`.`tipo` AS `tipo`, `favorites`.`created_at` AS `created_at`, `products`.`title` AS `title`, `products`.`price` AS `price`, `products`.`category` AS `category`, `products`.`image_url` AS `image_url`, `products`.`seller_type` AS `seller_type` FROM (`favorites` join `products` on(`favorites`.`product_id` = `products`.`product_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_cart_fav`  AS SELECT `favorites`.`favorite_id` AS `favorite_id`, `favorites`.`product_id` AS `product_id`, `favorites`.`user_id` AS `user_id`, `favorites`.`tipo` AS `tipo`, `favorites`.`created_at` AS `created_at`, `products`.`title` AS `title`, `products`.`price` AS `price`, `products`.`category` AS `category`, `products`.`cover` AS `cover`, `products`.`seller_type` AS `seller_type` FROM (`favorites` join `products` on(`favorites`.`product_id` = `products`.`product_id`)) ;
 
 -- --------------------------------------------------------
 
@@ -655,7 +864,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_popular_products`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_popular_products`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, `p`.`category` AS `category`, `p`.`image_url` AS `image_url`, `p`.`created_at` AS `created_at`, `p`.`updated_at` AS `updated_at`, `p`.`seller_type` AS `seller_type`, `pv`.`view_count` AS `view_count` FROM (`products` `p` join `products_views` `pv` on(`p`.`product_id` = `pv`.`product_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_popular_products`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, `p`.`category` AS `category`, `p`.`cover` AS `cover`, `p`.`created_at` AS `created_at`, `p`.`updated_at` AS `updated_at`, `p`.`seller_type` AS `seller_type`, `pv`.`view_count` AS `view_count` FROM (`products` `p` join `products_views` `pv` on(`p`.`product_id` = `pv`.`product_id`)) ;
 
 -- --------------------------------------------------------
 
@@ -664,7 +873,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_product_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_details`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, round((`p`.`price_before` - `p`.`price`) / `p`.`price_before` * 100,2) AS `discount_percentage`, `p`.`category` AS `category`, `p`.`image_url` AS `image_url`, `p`.`created_at` AS `created_at`, `p`.`updated_at` AS `updated_at`, `p`.`seller_type` AS `seller_type` FROM `products` AS `p` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_details`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, round((`p`.`price_before` - `p`.`price`) / `p`.`price_before` * 100,2) AS `discount_percentage`, `p`.`category` AS `category`, `p`.`cover` AS `cover`, `p`.`location` AS `location`, `p`.`created_at` AS `created_at`, `p`.`updated_at` AS `updated_at`, `p`.`seller_type` AS `seller_type` FROM `products` AS `p` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_product_full_details`
+--
+DROP TABLE IF EXISTS `v_product_full_details`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_full_details`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, round((`p`.`price_before` - `p`.`price`) / `p`.`price_before` * 100,2) AS `discount_percentage`, `p`.`category` AS `category`, `p`.`cover` AS `cover`, `p`.`location` AS `location`, date_format(`p`.`created_at`,'%d/%m/%y %H:%i') AS `created_at`, date_format(`p`.`updated_at`,'%d/%m/%y %H:%i') AS `updated_at`, `p`.`seller_type` AS `seller_type`, ifnull(`pv`.`view_count`,0) AS `views`, count(distinct `f`.`favorite_id`) AS `favorites_count` FROM ((`products` `p` left join `products_views` `pv` on(`p`.`product_id` = `pv`.`product_id`)) left join `favorites` `f` on(`p`.`product_id` = `f`.`product_id`)) GROUP BY `p`.`product_id` ;
 
 -- --------------------------------------------------------
 
@@ -673,7 +891,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_user_chats`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_user_chats`  AS SELECT `p`.`user_id` AS `owner_id`, `c`.`chat_id` AS `chat_id`, `c`.`product_id` AS `product_id`, `p`.`title` AS `product_title`, `p`.`price` AS `product_price`, `m`.`id_message` AS `id_message`, `m`.`sender_id` AS `user_id`, `m`.`receiver_id` AS `chat_with`, `u2`.`name` AS `chat_with_name`, `u2`.`last_name` AS `chat_with_last_name`, `m`.`message` AS `last_message`, `p`.`image_url` AS `image_product`, `m`.`timestamp` AS `last_message_time`, date_format(`m`.`timestamp`,'%H:%i') AS `last_message_time_format` FROM (((`chats` `c` join `messages` `m` on(`c`.`chat_id` = `m`.`chat_id`)) join `products` `p` on(`c`.`product_id` = `p`.`product_id`)) join `users` `u2` on(`m`.`receiver_id` = `u2`.`user_id`)) WHERE `m`.`timestamp` = (select max(`m2`.`timestamp`) from `messages` `m2` where `m2`.`chat_id` = `m`.`chat_id`)union select `p`.`user_id` AS `owner_id`,`c`.`chat_id` AS `chat_id`,`c`.`product_id` AS `product_id`,`p`.`title` AS `product_title`,`p`.`price` AS `product_price`,`m`.`id_message` AS `id_message`,`m`.`receiver_id` AS `user_id`,`m`.`sender_id` AS `chat_with`,`u1`.`name` AS `chat_with_name`,`u1`.`last_name` AS `chat_with_last_name`,`m`.`message` AS `last_message`,`p`.`image_url` AS `image_product`,`m`.`timestamp` AS `last_message_time`,date_format(`m`.`timestamp`,'%H:%i') AS `last_message_time_format` from (((`chats` `c` join `messages` `m` on(`c`.`chat_id` = `m`.`chat_id`)) join `products` `p` on(`c`.`product_id` = `p`.`product_id`)) join `users` `u1` on(`m`.`sender_id` = `u1`.`user_id`)) where `m`.`timestamp` = (select max(`m2`.`timestamp`) from `messages` `m2` where `m2`.`chat_id` = `m`.`chat_id`)  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_user_chats`  AS SELECT `p`.`user_id` AS `owner_id`, `c`.`chat_id` AS `chat_id`, `c`.`product_id` AS `product_id`, `p`.`title` AS `product_title`, `p`.`price` AS `product_price`, `m`.`id_message` AS `id_message`, `m`.`sender_id` AS `user_id`, `m`.`receiver_id` AS `chat_with`, `u2`.`name` AS `chat_with_name`, `u2`.`last_name` AS `chat_with_last_name`, `m`.`message` AS `last_message`, `p`.`cover` AS `cover_product`, `m`.`timestamp` AS `last_message_time`, date_format(`m`.`timestamp`,'%H:%i') AS `last_message_time_format` FROM (((`chats` `c` join `messages` `m` on(`c`.`chat_id` = `m`.`chat_id`)) join `products` `p` on(`c`.`product_id` = `p`.`product_id`)) join `users` `u2` on(`m`.`receiver_id` = `u2`.`user_id`)) WHERE `m`.`timestamp` = (select max(`m2`.`timestamp`) from `messages` `m2` where `m2`.`chat_id` = `m`.`chat_id`)union select `p`.`user_id` AS `owner_id`,`c`.`chat_id` AS `chat_id`,`c`.`product_id` AS `product_id`,`p`.`title` AS `product_title`,`p`.`price` AS `product_price`,`m`.`id_message` AS `id_message`,`m`.`receiver_id` AS `user_id`,`m`.`sender_id` AS `chat_with`,`u1`.`name` AS `chat_with_name`,`u1`.`last_name` AS `chat_with_last_name`,`m`.`message` AS `last_message`,`p`.`cover` AS `cover_product`,`m`.`timestamp` AS `last_message_time`,date_format(`m`.`timestamp`,'%H:%i') AS `last_message_time_format` from (((`chats` `c` join `messages` `m` on(`c`.`chat_id` = `m`.`chat_id`)) join `products` `p` on(`c`.`product_id` = `p`.`product_id`)) join `users` `u1` on(`m`.`sender_id` = `u1`.`user_id`)) where `m`.`timestamp` = (select max(`m2`.`timestamp`) from `messages` `m2` where `m2`.`chat_id` = `m`.`chat_id`)  ;
 
 --
 -- Indexes for dumped tables
@@ -731,6 +949,7 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`product_id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `fk_category` (`category`);
+ALTER TABLE `products` ADD FULLTEXT KEY `title` (`title`,`description`,`category`);
 
 --
 -- Indexes for table `products_views`
@@ -759,6 +978,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `users_tokens`
   ADD PRIMARY KEY (`id_token`),
+  ADD UNIQUE KEY `no_dup` (`id_token`,`user_id`),
   ADD KEY `user_id` (`user_id`);
 
 --
@@ -783,37 +1003,37 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `favorite_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `favorite_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -831,13 +1051,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users_tokens`
 --
 ALTER TABLE `users_tokens`
-  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `user_history`
 --
 ALTER TABLE `user_history`
-  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=233;
+  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=297;
 
 --
 -- Constraints for dumped tables

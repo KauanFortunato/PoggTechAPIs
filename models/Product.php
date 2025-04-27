@@ -566,7 +566,7 @@ class Product
 
     public function getMyProducts($user_id)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM v_product_details WHERE user_id = ? ORDER BY product_id DESC");
+        $stmt = $this->conn->prepare("SELECT * FROM v_product_full_details WHERE user_id = ? ORDER BY product_id DESC");
         $stmt->bind_param('i', $user_id);
         $stmt->execute();
         $result = $stmt->get_result();
