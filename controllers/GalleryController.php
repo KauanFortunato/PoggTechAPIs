@@ -19,4 +19,6 @@ class GalleryController
     {
         return $this->gallery->getProductImages($product_id);
     }
+
+    public function addImageGallery($product_id) {}
 }

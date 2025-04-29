@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2025 at 08:15 PM
+-- Generation Time: Apr 29, 2025 at 11:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -126,7 +126,8 @@ INSERT INTO `gallery` (`gallery_id`, `product_id`, `created_at`) VALUES
 (23, 24, '2025-04-23 15:05:38'),
 (24, 4, '2025-04-23 15:05:38'),
 (25, 23, '2025-04-23 15:05:38'),
-(26, 5, '2025-04-23 15:05:38');
+(26, 5, '2025-04-23 15:05:38'),
+(41, 45, '2025-04-29 16:36:11');
 
 -- --------------------------------------------------------
 
@@ -139,6 +140,71 @@ CREATE TABLE `images` (
   `gallery_id` int(11) DEFAULT NULL,
   `path` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `images`
+--
+
+INSERT INTO `images` (`image_id`, `gallery_id`, `path`) VALUES
+(49, 41, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6810fffbb91064.08592938.jpg'),
+(50, 5, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_microsoft-xbox-series-x-frandroid-20828593.png'),
+(51, 5, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Xbox-Series-X-Test-1987881512.jpg'),
+(52, 5, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_1603387292316-1_9szne9sb-4097509527.jpeg'),
+(53, 24, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Xbox-Free-Download-PNG-721582555.png'),
+(54, 24, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_s-l1600-2392549085.jpg'),
+(55, 24, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_microsoft-xbox-360-s-slim-500gb-console-kinect-40-sport-bundle-2660298083.jpg'),
+(56, 26, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_S2DSAZUC_l.webp'),
+(57, 26, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_81Rw0RTY7-L-3412856433.jpg'),
+(58, 26, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_P1040543-1664434788.jpg'),
+(59, 6, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_310047-grand-theft-auto-v-xbox-360-front-cover-3516295299.png'),
+(60, 6, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_gta5+xbox+360-4013109471.jpg'),
+(61, 6, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_maxresdefault-1674275056.jpg'),
+(62, 7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496463106_l.webp'),
+(63, 7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_maxresdefault-2961303710.jpg'),
+(64, 8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496470685_l.webp'),
+(65, 8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_thumb-1920-675017-3002037112.jpg'),
+(66, 9, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0711719894650_l.webp'),
+(67, 9, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_controle-dualshock-4-playstation-4-branco-glacial-4283629037.jpg'),
+(68, 9, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Controle-PS4-branco-original-20211211203934.3013630015-2776290154.jpg'),
+(69, 10, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPS3ACCMOVE_l.webp'),
+(70, 10, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_219d14f79b-1992264298.jpg'),
+(71, 10, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_m27033734871_1-648256890.jpg'),
+(72, 11, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_S360KINSNXB_l'),
+(73, 11, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_81rcVeXg0eL._SL1500_-3398597712.jpg'),
+(74, 12, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4902370505559_l.webp'),
+(75, 12, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_530-4256306619.jpg'),
+(76, 12, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_nintendo-gamecube-indigo-controller-eu-front-1586193238-21-679705842.jpg'),
+(77, 13, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496370008_l.webp'),
+(78, 13, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_8bqpngw7mcy41-2363194276.jpg'),
+(79, 14, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SGCUGAMETS003_l.webp'),
+(80, 14, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Nintendo-Pack-GameCube-Tales-Of-Symphonia-4242111777.jpg'),
+(81, 15, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NSL32BL01_l.webp'),
+(82, 15, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_nintendoSwitchLiteBlue2.jpeg'),
+(83, 15, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_nintendoSwitchLiteBlue1.jpeg'),
+(84, 15, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_switch-lite-blue.original-228031678.jpg'),
+(85, 15, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_nintendo-switch-lite-blue.large-2499490508.jpg'),
+(86, 15, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_maxresdefault-4184497264.jpg'),
+(87, 16, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NS64V3WH02_l.webp'),
+(88, 16, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_analisis-nintendo-switch-oled-2508427-1487409988.jpg'),
+(89, 16, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_switch-oled-box-1530977926.jpg'),
+(90, 17, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNSWVAL08_l.webp'),
+(91, 17, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_carga-juega-joy-conjpg-3958737233.jpg'),
+(92, 18, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_45496430597_l.webp'),
+(93, 18, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_91rnayc9sql-sl1500-11f07-4159512826.jpg'),
+(94, 19, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_04549643PGRR_l.webp'),
+(95, 20, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPSVNEG3GC_l.webp'),
+(96, 20, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_pa.218733.10-2175641084.jpg'),
+(97, 20, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_s-l1200-1441668164.jpg'),
+(98, 20, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_71TJsL5wVqL._SL1500_-3134506695.jpg'),
+(99, 21, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_3307210201669_l.jpg'),
+(100, 21, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_maxresdefault-3827021646.jpg'),
+(101, 22, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4012927120088_l.webp'),
+(102, 22, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_216719835-1908607705.jpg'),
+(103, 23, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNINGBACAW002_l.webp'),
+(104, 23, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_D_NQ_NP_960854-MLB73805607416_012024-O-3674319310.webp'),
+(105, 23, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_D_NQ_NP_2X_665115-MLB25195695981_112016-F-1009604948.jpg'),
+(106, 25, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_5030917027598_l.webp'),
+(107, 25, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_s-l1600-426613892.jpg');
 
 -- --------------------------------------------------------
 
@@ -259,25 +325,26 @@ INSERT INTO `products` (`product_id`, `user_id`, `title`, `description`, `price`
 (3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\r\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\r\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\r\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\r\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 523.02, 590.23, 'Consolas', 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages.frandroid.com%2Fwp-content%2Fuploads%2F2019%2F12%2Fmicrosoft-xbox-series-x-frandroid.png&f=1&nofb=1&ipt=281df20b316491d50fe00567631c17c72c5f055c2f346eb4a1d418755b3f64e4&ipo=images', NULL, '2024-12-05 20:28:39', '2025-04-26 15:08:13', 'admin'),
 (4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2016%2F07%2FXbox-Free-Download-PNG.png&f=1&nofb=1&ipt=f1e2015ce576a3b63e40ab904d61db31b73a96df9fd250d40612ce6475e4f112&ipo=images', NULL, '2025-01-09 18:40:07', '2025-02-21 19:12:21', 'admin'),
 (5, 19, '2DS Azul/Preto', 'O Nintendo 2DS mantém muitas das mesmas características de hardware como o Nintendo DS 3 incluindo o mesmo Nintendo 3DS gameplay controla, ao contrário de compatibilidade com a vasta biblioteca existente de jogos de Nintendo DS, bem como recursos de conectividade sem fio, como acesso a Nintendo eShop, além de funcionalidade StreetPass e o SpotPass.', 85.00, 122.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/3DS%20Consolas/S2DSAZUC_l.jpg', NULL, '2025-01-09 18:59:43', '2025-02-21 19:12:21', 'user'),
-(6, 15, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.mobygames.com%2Fimages%2Fcovers%2Fl%2F310047-grand-theft-auto-v-xbox-360-front-cover.png&f=1&nofb=1&ipt=a5a027b8d145bae2e159a60e0958edc92e65b02d9d1624ac08dd830a1b841c64&ipo=images', NULL, '2025-01-09 18:59:43', '2025-02-21 19:13:26', 'admin'),
-(7, 15, 'New Super Mario Bros', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 23.00, 28.00, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/DS%20Jogos/045496463106_l.jpg', NULL, '2025-01-11 23:26:18', '2025-04-26 15:09:53', 'admin'),
-(8, 15, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/DS%20Jogos/045496470685_l.jpg', NULL, '2025-01-11 23:26:18', '2025-02-21 19:12:21', 'admin'),
-(9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', NULL, 54.92, 55.92, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Playstation4%20Acessorios/0711719894650_l.jpg', NULL, '2025-01-11 23:29:49', '2025-04-26 15:10:37', 'user'),
-(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Playstation4%20Acessorios/SPS3ACCMOVE_l.jpg', NULL, '2025-01-11 23:29:49', '2025-04-26 15:09:39', 'admin'),
-(11, 15, 'Xbox 360 Kinect (Sem FA)', NULL, 10.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Xbox%20360%20Acess%C3%B3rios/S360KINSNXB_l.jpg', NULL, '2025-01-11 23:29:49', '2025-01-11 23:29:49', 'admin'),
-(12, 15, 'Oficial Gamecube Indigo Controller', NULL, 48.99, 71.99, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Acess%C3%B3rios/4902370505559_l.jpg', NULL, '2025-01-11 23:31:19', '2025-02-21 19:12:21', 'admin'),
-(13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/045496370008_l.jpg', NULL, '2025-01-11 23:31:19', '2025-01-11 23:31:19', 'admin'),
-(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\r\n', NULL, 225.00, 250.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/SGCUGAMETS003_l.jpg', NULL, '2025-01-11 23:44:12', '2025-02-21 19:12:51', 'admin'),
-(15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', NULL, 165.00, 180.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Consolas/0454964NSL32BL01_l.jpg', NULL, '2025-01-11 23:44:12', '2025-02-21 19:12:58', 'admin'),
-(16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', NULL, 265.00, NULL, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Consolas/0454964NS64V3WH02_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
-(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', '', 15.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Acessorios/SNSWVAL08_l.jpg', NULL, '2025-01-11 23:44:12', '2025-02-21 19:12:21', 'admin'),
-(18, 15, 'Official Nintendo Switch Preto Carry Case', NULL, 8.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Acessorios/45496430597_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
-(19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', NULL, 42.00, NULL, 'Acessórios', 'https://pt.static.webuy.com/product_images/Jogos/Switch%20Acessorios/04549643PGRR_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
-(20, 15, 'PS Vita Preto 3G, Descontada', NULL, 140.00, 155.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/PS%20Vita%20Consolas/SPSVNEG3GC_l.jpg', NULL, '2025-01-11 23:44:12', '2025-02-21 19:13:10', 'admin'),
-(21, 15, 'King Kong', NULL, 1.50, NULL, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/PC%20Jogos/3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
-(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/Playstation2%20Jogos/4012927120088_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'admin'),
-(23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 'https://pt.static.webuy.com/product_images/Jogos/Playstation2%20Jogos/5030917027598_l.jpg', NULL, '2025-01-11 23:44:12', '2025-01-11 23:44:12', 'user'),
-(24, 15, 'Gameboy Advance, Branco', NULL, 90.00, 100.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/GBA%20Consolas/SNINGBACAW002_l.jpg', NULL, '2025-02-19 00:10:21', '2025-02-21 19:12:36', 'user');
+(6, 15, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_310047-grand-theft-auto-v-xbox-360-front-cover-3516295299.png', NULL, '2025-01-09 18:59:43', '2025-04-29 16:52:41', 'admin'),
+(7, 15, 'New Super Mario Bros 2ds', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 23.00, 28.00, 'Jogos', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496463106_l.webp', NULL, '2025-01-11 23:26:18', '2025-04-29 16:56:31', 'admin'),
+(8, 15, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496470685_l.webp', NULL, '2025-01-11 23:26:18', '2025-04-29 16:58:55', 'admin'),
+(9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', NULL, 54.92, 55.92, 'Acessórios', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0711719894650_l.webp', NULL, '2025-01-11 23:29:49', '2025-04-29 17:04:03', 'user'),
+(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPS3ACCMOVE_l.webp', NULL, '2025-01-11 23:29:49', '2025-04-29 17:07:23', 'admin'),
+(11, 15, 'Xbox 360 Kinect (Sem FA)', NULL, 10.00, NULL, 'Acessórios', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_S360KINSNXB_l', NULL, '2025-01-11 23:29:49', '2025-04-29 17:09:34', 'admin'),
+(12, 15, 'Oficial Gamecube Indigo Controller', NULL, 48.99, 71.99, 'Acessórios', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4902370505559_l.webp', NULL, '2025-01-11 23:31:19', '2025-04-29 21:03:11', 'admin'),
+(13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Consolas', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496370008_l.webp', NULL, '2025-01-11 23:31:19', '2025-04-29 21:04:37', 'admin'),
+(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\n', NULL, 225.00, 250.00, 'Consolas', 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/SGCUGAMETS003_l.jpg', NULL, '2025-01-11 23:44:12', '2025-04-29 21:05:37', 'admin'),
+(15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', NULL, 165.00, 180.00, 'Consolas', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NSL32BL01_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:12:52', 'admin'),
+(16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', NULL, 265.00, NULL, 'Consolas', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NS64V3WH02_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:15:26', 'admin'),
+(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', '', 15.00, NULL, 'Acessórios', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNSWVAL08_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:17:07', 'admin'),
+(18, 15, 'Official Nintendo Switch Preto Carry Case', NULL, 8.00, NULL, 'Acessórios', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_45496430597_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:18:28', 'admin'),
+(19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', NULL, 42.00, NULL, 'Acessórios', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_04549643PGRR_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:20:45', 'admin'),
+(20, 15, 'PS Vita Preto 3G, Descontada', NULL, 140.00, 155.00, 'Consolas', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPSVNEG3GC_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:22:18', 'admin'),
+(21, 15, 'King Kong pc game', NULL, 1.50, NULL, 'Jogos', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-04-29 21:25:26', 'admin'),
+(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4012927120088_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:26:50', 'admin'),
+(23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_5030917027598_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:32:44', 'user'),
+(24, 15, 'Gameboy Advance, Branco', NULL, 90.00, 100.00, 'Consolas', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNINGBACAW002_l.webp', NULL, '2025-02-19 00:10:21', '2025-04-29 21:31:33', 'user'),
+(45, 15, 'jbdjxjxjxjxsgsgshjsv. sys us us su su su d', '7sbys su. s7s. 7s usu su d 7ddu du d7 d7 d', 868.00, NULL, 'Jogos', 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6810fffbb91064.08592938.jpg', 'HSR Layout, Bengaluru, Karnataka, India', '2025-04-29 16:36:11', '2025-04-29 16:36:11', 'user');
 
 --
 -- Triggers `products`
@@ -313,28 +380,28 @@ CREATE TABLE `products_views` (
 --
 
 INSERT INTO `products_views` (`product_id`, `view_count`) VALUES
-(3, 22),
-(4, 29),
-(5, 18),
-(6, 15),
-(7, 11),
-(8, 9),
-(9, 4),
-(10, 6),
-(11, 6),
+(3, 29),
+(4, 61),
+(5, 22),
+(6, 32),
+(7, 16),
+(8, 14),
+(9, 5),
+(10, 9),
+(11, 9),
 (12, 6),
 (13, 14),
 (14, 21),
-(15, 10),
-(16, 11),
+(15, 14),
+(16, 13),
 (17, 16),
-(18, 25),
+(18, 41),
 (19, 10),
 (20, 4),
-(21, 13),
+(21, 15),
 (22, 14),
-(23, 7),
-(24, 23);
+(23, 10),
+(24, 41);
 
 -- --------------------------------------------------------
 
@@ -705,7 +772,129 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (293, 15, 22, 'view', '2025-04-26 14:22:46'),
 (294, 15, 21, 'view', '2025-04-26 14:22:49'),
 (295, 15, 5, 'view', '2025-04-26 14:22:53'),
-(296, 15, 3, 'view', '2025-04-27 18:13:58');
+(296, 15, 3, 'view', '2025-04-27 18:13:58'),
+(297, 15, 15, 'view', '2025-04-28 10:13:36'),
+(298, 15, 10, 'view', '2025-04-28 10:13:47'),
+(299, 15, 15, 'view', '2025-04-28 10:18:08'),
+(300, 15, 15, 'view', '2025-04-28 10:18:22'),
+(301, 15, 18, 'view', '2025-04-28 10:18:24'),
+(302, 15, 10, 'view', '2025-04-28 10:26:04'),
+(303, 15, 10, 'view', '2025-04-28 10:26:16'),
+(304, 15, 23, 'view', '2025-04-29 10:09:51'),
+(305, 15, 23, 'view', '2025-04-29 10:10:18'),
+(306, 15, 8, 'view', '2025-04-29 10:10:45'),
+(307, 15, 8, 'view', '2025-04-29 10:10:54'),
+(308, 15, 8, 'view', '2025-04-29 10:11:09'),
+(309, 15, 15, 'view', '2025-04-29 10:11:16'),
+(310, 15, 18, 'view', '2025-04-29 10:11:28'),
+(311, 15, 6, 'view', '2025-04-29 10:11:40'),
+(312, 15, 6, 'view', '2025-04-29 10:12:18'),
+(313, 15, 6, 'view', '2025-04-29 10:13:18'),
+(314, 15, 6, 'view', '2025-04-29 10:13:58'),
+(315, 15, 6, 'view', '2025-04-29 10:16:43'),
+(316, 15, 6, 'view', '2025-04-29 10:17:43'),
+(317, 15, 6, 'view', '2025-04-29 10:17:54'),
+(318, 15, 6, 'view', '2025-04-29 10:20:19'),
+(319, 15, 6, 'view', '2025-04-29 10:21:59'),
+(320, 15, 6, 'view', '2025-04-29 10:22:39'),
+(321, 15, 6, 'view', '2025-04-29 10:23:20'),
+(322, 15, 6, 'view', '2025-04-29 10:26:49'),
+(323, 15, 6, 'view', '2025-04-29 10:28:32'),
+(324, 15, 6, 'view', '2025-04-29 10:30:42'),
+(325, 15, 6, 'view', '2025-04-29 10:33:10'),
+(326, 15, 6, 'view', '2025-04-29 12:37:09'),
+(327, 15, 9, 'view', '2025-04-29 12:51:13'),
+(328, 15, 3, 'view', '2025-04-29 12:53:44'),
+(329, 15, 3, 'view', '2025-04-29 12:53:52'),
+(330, 15, 3, 'view', '2025-04-29 12:54:05'),
+(331, 15, 3, 'view', '2025-04-29 12:55:49'),
+(332, 15, 11, 'view', '2025-04-29 12:56:13'),
+(333, 15, 11, 'view', '2025-04-29 12:56:40'),
+(334, 15, 11, 'view', '2025-04-29 13:02:53'),
+(335, 15, 18, 'view', '2025-04-29 13:03:27'),
+(336, 15, 18, 'view', '2025-04-29 13:03:40'),
+(337, 15, 18, 'view', '2025-04-29 13:08:55'),
+(338, 15, 18, 'view', '2025-04-29 13:09:30'),
+(339, 15, 18, 'view', '2025-04-29 13:11:45'),
+(340, 15, 18, 'view', '2025-04-29 13:12:14'),
+(341, 15, 18, 'view', '2025-04-29 13:14:52'),
+(342, 15, 18, 'view', '2025-04-29 13:16:09'),
+(343, 15, 18, 'view', '2025-04-29 13:16:39'),
+(344, 15, 18, 'view', '2025-04-29 13:17:09'),
+(345, 15, 18, 'view', '2025-04-29 13:17:22'),
+(346, 15, 18, 'view', '2025-04-29 13:18:52'),
+(347, 15, 18, 'view', '2025-04-29 13:19:34'),
+(348, 15, 4, 'view', '2025-04-29 13:20:01'),
+(349, 15, 4, 'view', '2025-04-29 13:20:40'),
+(350, 15, 4, 'view', '2025-04-29 13:21:11'),
+(351, 15, 24, 'view', '2025-04-29 13:21:34'),
+(352, 15, 24, 'view', '2025-04-29 13:24:14'),
+(353, 15, 24, 'view', '2025-04-29 13:25:37'),
+(354, 15, 24, 'view', '2025-04-29 13:25:49'),
+(355, 15, 4, 'view', '2025-04-29 13:26:08'),
+(356, 15, 4, 'view', '2025-04-29 13:34:40'),
+(357, 15, 24, 'view', '2025-04-29 13:34:55'),
+(358, 15, 24, 'view', '2025-04-29 13:35:24'),
+(359, 15, 24, 'view', '2025-04-29 13:36:45'),
+(360, 15, 24, 'view', '2025-04-29 13:38:43'),
+(361, 15, 24, 'view', '2025-04-29 13:39:42'),
+(362, 15, 24, 'view', '2025-04-29 13:40:16'),
+(363, 15, 24, 'view', '2025-04-29 13:40:24'),
+(364, 15, 24, 'view', '2025-04-29 13:41:31'),
+(365, 15, 4, 'view', '2025-04-29 13:41:36'),
+(366, 15, 4, 'view', '2025-04-29 13:41:39'),
+(367, 15, 4, 'view', '2025-04-29 13:42:10'),
+(368, 15, 4, 'view', '2025-04-29 13:42:48'),
+(369, 15, 4, 'view', '2025-04-29 13:43:56'),
+(370, 15, 4, 'view', '2025-04-29 13:48:21'),
+(371, 15, 4, 'view', '2025-04-29 13:48:42'),
+(372, 15, 4, 'view', '2025-04-29 13:49:35'),
+(373, 15, 4, 'view', '2025-04-29 13:49:53'),
+(374, 15, 4, 'view', '2025-04-29 13:50:27'),
+(375, 15, 4, 'view', '2025-04-29 13:51:00'),
+(376, 15, 4, 'view', '2025-04-29 13:51:22'),
+(377, 15, 4, 'view', '2025-04-29 13:52:18'),
+(378, 15, 4, 'view', '2025-04-29 13:52:54'),
+(379, 15, 4, 'view', '2025-04-29 13:53:11'),
+(380, 15, 4, 'view', '2025-04-29 13:53:25'),
+(381, 15, 4, 'view', '2025-04-29 13:53:38'),
+(382, 15, 4, 'view', '2025-04-29 13:53:58'),
+(383, 15, 4, 'view', '2025-04-29 13:55:57'),
+(384, 15, 4, 'view', '2025-04-29 13:56:30'),
+(385, 15, 4, 'view', '2025-04-29 14:10:26'),
+(386, 15, 23, 'view', '2025-04-29 14:10:36'),
+(387, 15, 21, 'view', '2025-04-29 14:10:53'),
+(388, 15, 21, 'view', '2025-04-29 14:13:24'),
+(389, 15, 16, 'view', '2025-04-29 14:15:05'),
+(390, 15, 7, 'view', '2025-04-29 14:15:55'),
+(391, 15, 7, 'view', '2025-04-29 14:15:59'),
+(392, 15, 7, 'view', '2025-04-29 14:19:58'),
+(393, 15, 7, 'view', '2025-04-29 14:20:40'),
+(394, 15, 7, 'view', '2025-04-29 14:20:44'),
+(395, 15, 16, 'view', '2025-04-29 14:20:45'),
+(396, 15, 4, 'view', '2025-04-29 14:20:50'),
+(397, 15, 24, 'view', '2025-04-29 15:54:42'),
+(398, 15, 24, 'view', '2025-04-29 15:54:48'),
+(405, 15, 24, 'view', '2025-04-29 16:16:32'),
+(411, 15, 24, 'view', '2025-04-29 16:25:52'),
+(412, 15, 24, 'view', '2025-04-29 16:25:54'),
+(415, 15, 18, 'view', '2025-04-29 16:30:37'),
+(416, 15, 24, 'view', '2025-04-29 16:30:46'),
+(417, 15, 3, 'view', '2025-04-29 16:30:50'),
+(418, 15, 5, 'view', '2025-04-29 16:30:55'),
+(419, 15, 5, 'view', '2025-04-29 16:31:10'),
+(420, 15, 3, 'view', '2025-04-29 16:41:18'),
+(421, 15, 4, 'view', '2025-04-29 16:44:57'),
+(422, 15, 4, 'view', '2025-04-29 16:45:11'),
+(423, 15, 4, 'view', '2025-04-29 16:46:01'),
+(424, 15, 4, 'view', '2025-04-29 16:46:40'),
+(425, 15, 5, 'view', '2025-04-29 16:50:14'),
+(426, 15, 6, 'view', '2025-04-29 16:53:38'),
+(427, 15, 8, 'view', '2025-04-29 17:01:01'),
+(428, 15, 8, 'view', '2025-04-29 21:01:12'),
+(429, 15, 4, 'view', '2025-04-29 21:01:18'),
+(430, 15, 5, 'view', '2025-04-29 21:01:21'),
+(431, 15, 3, 'view', '2025-04-29 21:01:26');
 
 -- --------------------------------------------------------
 
@@ -1015,13 +1204,13 @@ ALTER TABLE `favorites`
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -1033,7 +1222,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -1057,7 +1246,7 @@ ALTER TABLE `users_tokens`
 -- AUTO_INCREMENT for table `user_history`
 --
 ALTER TABLE `user_history`
-  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=297;
+  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=432;
 
 --
 -- Constraints for dumped tables

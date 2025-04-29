@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'GET') {
     $response = $galleryController->getProductImages($product_id);
 
     if ($response["success"]) {
-        echo json_encode(["success" => true, "message" => "Imagens encontradas com sucesso", "images" => $response["images"]]);
+        echo json_encode(["success" => true, "message" => "Imagens encontradas com sucesso", "data" => $response["images"]]);
     } else {
         echo json_encode(["success" => false, "message" => $response["message"]]);
     }
