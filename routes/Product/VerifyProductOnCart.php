@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $response = $productController->verifyProductOnCart($user_id, $product_id, $tipo);
 
     if ($response["success"] === true) {
-        echo json_encode(["success" => true, "message" => "Mensagens encontradas", "data" => $response["isFavorite"]]);
+        echo json_encode(["success" => true, "message" => "Mensagens encontradas", "data" => $response["isSaved"]]);
     } else {
         echo json_encode(["success" => false, "message" => $response['message']]);
     }

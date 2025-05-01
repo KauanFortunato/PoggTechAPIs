@@ -144,7 +144,7 @@ class Product
 
     public function getProduct($product_id)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM v_product_details WHERE product_id LIKE ?");
+        $stmt = $this->conn->prepare("SELECT * FROM v_product_details WHERE product_id = ? AND quantity > 0");
         $stmt->bind_param('i', $product_id);
 
         if ($stmt->execute()) {
@@ -161,7 +161,7 @@ class Product
 
     public function getPopularProducts()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM v_popular_products ORDER BY view_count DESC LIMIT 6");
+        $stmt = $this->conn->prepare("SELECT * FROM v_popular_products WHERE quantity > 0 ORDER BY view_count DESC LIMIT 6");
 
         if ($stmt === false) {
             die("Erro na preparação da consulta: " . $this->conn->error);
@@ -313,7 +313,7 @@ class Product
 
     public function addProductOnCart($user_id, $product_id, $tipo)
     {
-        $stmt = $this->conn->prepare("INSERT INTO favorites (user_id, product_id, tipo) VALUES (?, ?, ?)");
+        $stmt = $this->conn->prepare("INSERT INTO saved (user_id, product_id, tipo) VALUES (?, ?, ?)");
         $stmt->bind_param("iii", $user_id, $product_id, $tipo);
 
         if ($stmt->execute()) {
@@ -363,16 +363,16 @@ class Product
             return ["success" => false, "message" => "Erro ao preparar a consulta: " . $this->conn->error];
         }
 
-        $favorites = [];
+        $saved = [];
 
         while ($row = $result->fetch_assoc()) {
-            $favorites[] = $row['product_id'];
+            $saved[] = $row['product_id'];
         }
 
         $stmt->close();
 
-        if (!empty($favorites)) {
-            return ["success" => true, "products" => $favorites];
+        if (!empty($saved)) {
+            return ["success" => true, "products" => $saved];
         } else {
             return ["success" => false, "message" => "Nenhum produto foi encontrado"];
         }
@@ -380,7 +380,7 @@ class Product
 
     public function verifyProductOnCart($user_id, $product_id, $tipo)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM favorites WHERE user_id LIKE ? AND product_id LIKE ? AND tipo LIKE ?");
+        $stmt = $this->conn->prepare("SELECT * FROM saved WHERE user_id LIKE ? AND product_id LIKE ? AND tipo LIKE ?");
         $stmt->bind_param('iii', $user_id, $product_id, $tipo);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -394,7 +394,7 @@ class Product
         $stmt->close();
 
         if (!empty($product)) {
-            return ["success" => true, "isFavorite" => $product['tipo']];
+            return ["success" => true, "isSaved" => $product['tipo']];
         } else {
             return ["success" => false, "message" => "Nenhum produto foi encontrado"];
         }
@@ -402,7 +402,7 @@ class Product
 
     public function removeProductOnCart($user_id, $product_id, $tipo)
     {
-        $stmt = $this->conn->prepare("DELETE FROM favorites WHERE user_id LIKE ? AND product_id LIKE ? AND tipo LIKE ?");
+        $stmt = $this->conn->prepare("DELETE FROM saved WHERE user_id LIKE ? AND product_id LIKE ? AND tipo LIKE ?");
         $stmt->bind_param("iii", $user_id, $product_id, $tipo);
         if ($stmt->execute()) {
             $stmt->close();
