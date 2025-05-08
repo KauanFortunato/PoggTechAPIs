@@ -33,10 +33,16 @@ class ProductController
         return $this->product->getAllProducts();
     }
 
-    public function getProductByCategories($category, $quantity = 6)
+    public function getProductByCategories($category, $quantity = 9)
     {
         return $this->product->getProductByCategories($category, $quantity);
     }
+
+    public function getDistributedProductsByCategories($categories, $quantity = 9)
+    {
+        return $this->product->getDistributedProductsByCategories($categories, $quantity);
+    }
+
 
     public function addProductOnCart($user_id, $product_id, $tipo)
     {

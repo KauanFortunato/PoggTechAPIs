@@ -248,6 +248,91 @@ class Product
         return ["success" => true, "categories" => $categories];
     }
 
+    public function getProductByCategories($categories, $quantity = 9)
+    {
+        if (empty($categories)) {
+            return ["success" => false, "message" => "Nenhuma categoria informada"];
+        }
+
+        if (is_string($categories)) {
+            $categories = array_map('trim', explode(',', $categories));
+        }
+
+        if (!is_array($categories) || count($categories) === 0) {
+            return ["success" => false, "message" => "Categorias inválidas"];
+        }
+
+        $placeholders = implode(',', array_fill(0, count($categories), '?'));
+
+        $sql = "SELECT * FROM products WHERE category IN ($placeholders) ORDER BY RAND() LIMIT ?";
+
+        $stmt = $this->conn->prepare($sql);
+
+        if ($stmt === false) {
+            return ["success" => false, "message" => "Erro ao preparar a consulta: " . $this->conn->error];
+        }
+
+        $types = str_repeat('s', count($categories)) . 'i';
+        $params = array_merge($categories, [$quantity]);
+
+        $stmt->bind_param($types, ...$params);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $products = [];
+        while ($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+
+        $stmt->close();
+
+        if (!empty($products)) {
+            return ["success" => true, "products" => $products];
+        } else {
+            return ["success" => false, "message" => "Nenhum produto encontrado"];
+        }
+    }
+
+    public function getDistributedProductsByCategories($categories, $totalQuantity = 6)
+    {
+        if (empty($categories)) {
+            return ["success" => false, "message" => "Nenhuma categoria informada"];
+        }
+
+        if (is_string($categories)) {
+            $categories = array_map('trim', explode(',', $categories));
+        }
+
+        if (!is_array($categories) || count($categories) === 0) {
+            return ["success" => false, "message" => "Categorias inválidas"];
+        }
+
+        $products = [];
+        $quantityPerCategory = ceil($totalQuantity / count($categories));
+
+        foreach ($categories as $category) {
+            $stmt = $this->conn->prepare("SELECT * FROM products WHERE category = ? ORDER BY RAND() LIMIT ?");
+            if ($stmt === false) {
+                return ["success" => false, "message" => "Erro ao preparar: " . $this->conn->error];
+            }
+
+            $stmt->bind_param('si', $category, $quantityPerCategory);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            while ($row = $result->fetch_assoc()) {
+                $products[] = $row;
+            }
+
+            $stmt->close();
+        }
+
+        shuffle($products);
+
+        $products = array_slice($products, 0, $totalQuantity);
+
+        return ["success" => true, "products" => $products];
+    }
     public function getAllProducts()
     {
         $stmt = $this->conn->prepare("SELECT * FROM products ORDER BY product_id DESC");
@@ -270,44 +355,6 @@ class Product
             return ["success" => true, "products" => $products];
         } else {
             return ["success" => false, "message" => "Nenhum produto foi encontrado"];
-        }
-    }
-
-    public function getProductByCategories($categories, $quantity = 6)
-    {
-        if (empty($categories)) {
-            return ["success" => false, "message" => "Nenhuma categoria informada"];
-        }
-
-        $placeholders = implode(',', array_fill(0, count($categories), '?'));
-
-        $sql = "SELECT * FROM products WHERE category IN ($placeholders) ORDER BY RAND() LIMIT ?";
-
-        $stmt = $this->conn->prepare($sql);
-
-        if ($stmt === false) {
-            return ["success" => false, "message" => "Erro ao preparar a consulta: " . $this->conn->error];
-        }
-
-        $types = str_repeat('s', count($categories)) . 'i';
-
-        $params = array_merge($categories, [$quantity]);
-
-        $stmt->bind_param($types, ...$params);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        $products = [];
-        while ($row = $result->fetch_assoc()) {
-            $products[] = $row;
-        }
-
-        $stmt->close();
-
-        if (!empty($products)) {
-            return ["success" => true, "products" => $products];
-        } else {
-            return ["success" => false, "message" => "Nenhum produto encontrado"];
         }
     }
 

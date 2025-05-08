@@ -7,7 +7,7 @@ use App\Controllers\ProductController;
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $user_id = $_GET["user_id"];
-    $quantity = $_GET["quantity"] ?? 6;
+    $quantity = $_GET["quantity"] ?? 9;
 
     $productController = new ProductController($conn);
 
@@ -15,8 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $response = $productController->getFavCategory($user_id);
 
     if ($response["success"] === true) {
-        // Buscar produtos dessas categorias
-        $response = $productController->getProductByCategories($response["categories"], $quantity);
+        $response = $productController->getDistributedProductsByCategories($response["categories"], $quantity);
         echo json_encode(["success" => true, "message" => "Produtos encontrados", "data" => $response["products"]]);
     } else {
         echo json_encode($response);
