@@ -33,9 +33,9 @@ class ProductController
         return $this->product->getAllProducts();
     }
 
-    public function getProductByCategories($category, $quantity = 9)
+    public function getProductByCategories($category, $all = false, $quantity = 9)
     {
-        return $this->product->getProductByCategories($category, $quantity);
+        return $this->product->getProductByCategories($category, $all, $quantity);
     }
 
     public function getDistributedProductsByCategories($categories, $quantity = 9)
@@ -84,9 +84,9 @@ class ProductController
         return $this->product->getRecommendedProducts($user_id);
     }
 
-    public function getFavCategory($user_id)
+    public function getFavCategories($user_id)
     {
-        return $this->product->getFavCategory($user_id);
+        return $this->product->getFavCategories($user_id);
     }
 
     public function searchProducts($search)

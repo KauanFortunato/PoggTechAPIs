@@ -203,7 +203,7 @@ class Product
         }
     }
 
-    public function getFavCategory($user_id)
+    public function getFavCategories($user_id)
     {
         // Primeira consulta: obter as categorias favoritas do utilizador
         $stmt = $this->conn->prepare("SELECT p.category, COUNT(*) as total 
@@ -248,7 +248,7 @@ class Product
         return ["success" => true, "categories" => $categories];
     }
 
-    public function getProductByCategories($categories, $quantity = 9)
+    public function getProductByCategories($categories, $all = false, $quantity = 9)
     {
         if (empty($categories)) {
             return ["success" => false, "message" => "Nenhuma categoria informada"];
@@ -264,7 +264,11 @@ class Product
 
         $placeholders = implode(',', array_fill(0, count($categories), '?'));
 
-        $sql = "SELECT * FROM products WHERE category IN ($placeholders) ORDER BY RAND() LIMIT ?";
+        if ($all === true) {
+            $sql = "SELECT * FROM products WHERE category IN ($placeholders) ORDER BY RAND()";
+        } else {
+            $sql = "SELECT * FROM products WHERE category IN ($placeholders) ORDER BY RAND() LIMIT ?";
+        }
 
         $stmt = $this->conn->prepare($sql);
 
@@ -272,8 +276,14 @@ class Product
             return ["success" => false, "message" => "Erro ao preparar a consulta: " . $this->conn->error];
         }
 
+
         $types = str_repeat('s', count($categories)) . 'i';
-        $params = array_merge($categories, [$quantity]);
+
+        if ($all === true) {
+            $params = array_merge($categories);
+        } else {
+            $params = array_merge($categories, [$quantity]);
+        }
 
         $stmt->bind_param($types, ...$params);
         $stmt->execute();

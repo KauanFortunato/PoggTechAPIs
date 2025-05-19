@@ -7,9 +7,10 @@ use App\Controllers\ProductController;
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $category = $_GET["category"];
+    $all = $_GET["all"];
 
     $productController = new ProductController($conn);
-    $response = $productController->getProductByCategories($category);
+    $response = $productController->getProductByCategories($category, $all);
 
     if ($response["success"] === true) {
         echo json_encode($response["products"]);

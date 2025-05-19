@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $user_id = $_GET["user_id"];
 
     $productController = new ProductController($conn);
-    $response = $productController->getFavCategory($user_id);
+    $response = $productController->getFavCategories($user_id);
 
     if ($response["success"] === true) {
         $response = $productController->getProductByCategories($response["categories"][0]);

@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $productController = new ProductController($conn);
 
     // Buscar as categorias favoritas do utilizador
-    $response = $productController->getFavCategory($user_id);
+    $response = $productController->getFavCategories($user_id);
 
     if ($response["success"] === true) {
         $response = $productController->getDistributedProductsByCategories($response["categories"], $quantity);
