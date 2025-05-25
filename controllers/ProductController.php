@@ -49,6 +49,11 @@ class ProductController
         return $this->product->addProductOnCart($user_id, $product_id, $tipo);
     }
 
+    public function removeOneFromCart($user_id, $product_id, $tipo)
+    {
+        return $this->product->removeOneFromCart($user_id, $product_id, $tipo);
+    }
+
     public function getAllProductsFromCart($user_id, $tipo)
     {
         return $this->product->getAllProductsFromCart($user_id, $tipo);

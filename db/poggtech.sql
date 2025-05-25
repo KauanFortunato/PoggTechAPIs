@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2025 at 05:08 PM
+-- Generation Time: May 26, 2025 at 12:52 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `icon` varchar(255) NOT NULL DEFAULT 'ic_all_categories',
   `description` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -38,12 +39,12 @@ CREATE TABLE `categories` (
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`category_id`, `name`, `description`, `created_at`) VALUES
-(1, 'Consolas', 'Consolas de todas as marcas.', '2024-11-23 21:49:49'),
-(2, 'Jogos', 'Videojogos', '2024-11-23 21:49:49'),
-(3, 'Acessórios', 'Dispositivos para usar com consolas.', '2024-11-23 21:49:49'),
-(4, 'Colecionáveis', 'Action figures, peluches, posters, etc.', '2025-05-08 12:43:42'),
-(5, 'Retro Gaming', 'Consolas antigas (ex: NES, Mega Drive), cartuchos, etc.', '2025-05-08 12:44:50');
+INSERT INTO `categories` (`category_id`, `name`, `icon`, `description`, `created_at`) VALUES
+(1, 'Consolas', 'ic_category_consoles', 'Consolas de todas as marcas.', '2024-11-23 21:49:49'),
+(2, 'Jogos', 'ic_category_games', 'Videojogos', '2024-11-23 21:49:49'),
+(3, 'Acessórios', 'ic_category_accessories', 'Dispositivos para usar com consolas.', '2024-11-23 21:49:49'),
+(4, 'Colecionáveis', 'ic_category_collectables', 'Action figures, peluches, posters, etc.', '2025-05-08 12:43:42'),
+(5, 'Retro Gaming', 'ic_category_retro', 'Consolas antigas (ex: NES, Mega Drive), cartuchos, etc.', '2025-05-08 12:44:50');
 
 -- --------------------------------------------------------
 
@@ -105,7 +106,8 @@ INSERT INTO `gallery` (`gallery_id`, `product_id`, `created_at`) VALUES
 (23, 24, '2025-04-23 15:05:38'),
 (24, 4, '2025-04-23 15:05:38'),
 (25, 23, '2025-04-23 15:05:38'),
-(26, 5, '2025-04-23 15:05:38');
+(26, 5, '2025-04-23 15:05:38'),
+(42, 46, '2025-05-11 13:56:22');
 
 -- --------------------------------------------------------
 
@@ -181,7 +183,10 @@ INSERT INTO `images` (`image_id`, `gallery_id`, `path`) VALUES
 (104, 23, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_D_NQ_NP_960854-MLB73805607416_012024-O-3674319310.webp'),
 (105, 23, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_D_NQ_NP_2X_665115-MLB25195695981_112016-F-1009604948.jpg'),
 (106, 25, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_5030917027598_l.webp'),
-(107, 25, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_s-l1600-426613892.jpg');
+(107, 25, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_s-l1600-426613892.jpg'),
+(108, 42, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6820ac864dcad6.85035500.jpg'),
+(109, 42, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6820ac864df164.74578465.jpg'),
+(110, 42, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6820ac864e1774.66367431.jpg');
 
 -- --------------------------------------------------------
 
@@ -272,7 +277,40 @@ INSERT INTO `messages` (`id_message`, `chat_id`, `sender_id`, `receiver_id`, `me
 (189, 24, 26, 15, 'E ai mano?', '2025-04-15 17:01:12', 1),
 (190, 24, 26, 15, 'E ai mano?', '2025-04-15 17:03:53', 1),
 (191, 24, 26, 15, 'E ai mano?', '2025-04-15 17:03:57', 1),
-(192, 26, 28, 15, 'Oi, esse item está disponível?', '2025-05-07 23:57:34', 0);
+(192, 26, 28, 15, 'Oi, esse item está disponível?', '2025-05-07 23:57:34', 0),
+(193, 24, 26, 15, 'E ai mano?', '2025-05-09 14:37:31', 1),
+(194, 26, 15, 28, 'E ai mano?', '2025-05-09 14:38:42', 1),
+(195, 26, 15, 28, 'E ai mano?', '2025-05-09 14:38:45', 1),
+(196, 26, 15, 28, 'E ai mano?', '2025-05-09 14:38:55', 1),
+(197, 23, 15, 28, 'E ai mano?', '2025-05-09 14:39:24', 1),
+(198, 24, 26, 15, 'E ai mano?', '2025-05-10 14:07:14', 0),
+(199, 23, 15, 28, 'E ai mano?', '2025-05-10 14:08:46', 1),
+(200, 23, 15, 28, 'E ai mano?', '2025-05-10 14:08:51', 1),
+(201, 23, 15, 28, 'E ai mano?', '2025-05-10 14:08:54', 1),
+(202, 23, 15, 28, 'E ai mano?', '2025-05-10 14:09:16', 1),
+(203, 24, 26, 15, 'E ai mano?', '2025-05-11 13:35:57', 0),
+(204, 23, 15, 28, 'E ai mano?', '2025-05-11 13:36:30', 1),
+(205, 23, 15, 28, 'Vai querer o produto?', '2025-05-11 14:30:14', 1),
+(206, 23, 15, 28, 'Vai querer o produto?', '2025-05-11 14:30:24', 1),
+(207, 23, 15, 28, 'Vai querer o produto?', '2025-05-11 14:30:57', 1),
+(208, 26, 28, 15, 'Oi, esse item está disponível?', '2025-05-11 14:36:17', 0),
+(209, 23, 15, 28, 'Vai querer o produto?', '2025-05-11 18:01:10', 1),
+(210, 23, 28, 15, 'Nigga', '2025-05-11 18:01:50', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `status` enum('pending','completed','failed') DEFAULT 'pending',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -316,13 +354,14 @@ INSERT INTO `products` (`product_id`, `user_id`, `title`, `description`, `price`
 (15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', NULL, 165.00, 180.00, 'Consolas', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NSL32BL01_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:12:52', 'admin'),
 (16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', NULL, 265.00, NULL, 'Consolas', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NS64V3WH02_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:15:26', 'admin'),
 (17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', '', 15.00, NULL, 'Acessórios', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNSWVAL08_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:17:07', 'admin'),
-(18, 15, 'Official Nintendo Switch Preto Carry Case', NULL, 8.00, NULL, 'Acessórios', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_45496430597_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:18:28', 'admin'),
+(18, 15, 'Official Nintendo Switch Preto Carry Case', NULL, 8.00, NULL, 'Acessórios', 10, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_45496430597_l.webp', NULL, '2025-01-11 23:44:12', '2025-05-23 11:32:27', 'admin'),
 (19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', NULL, 42.00, NULL, 'Acessórios', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_04549643PGRR_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:20:45', 'admin'),
 (20, 15, 'PS Vita Preto 3G, Descontada', NULL, 140.00, 155.00, 'Retro Gaming', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPSVNEG3GC_l.webp', NULL, '2025-01-11 23:44:12', '2025-05-08 13:52:49', 'admin'),
 (21, 15, 'King Kong pc game', NULL, 1.50, NULL, 'Jogos', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-04-29 21:25:26', 'admin'),
 (22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4012927120088_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:26:50', 'admin'),
 (23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_5030917027598_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:32:44', 'user'),
-(24, 15, 'Gameboy Advance, Branco', NULL, 90.00, 100.00, 'Retro Gaming', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNINGBACAW002_l.webp', NULL, '2025-02-19 00:10:21', '2025-05-08 13:52:56', 'user');
+(24, 15, 'Gameboy Advance, Branco', NULL, 90.00, 100.00, 'Retro Gaming', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNINGBACAW002_l.webp', NULL, '2025-02-19 00:10:21', '2025-05-08 13:52:56', 'user'),
+(46, 28, 'tralalero tralala', 'xghxhxhxhxhxhxhxxxbxbhxhxhxdtdygdgdgdgdgg', 25.00, NULL, 'Colecionáveis', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6820ac864dcad6.85035500.jpg', 'Rua de Santa Catarina, Porto, Portugal', '2025-05-11 13:56:22', '2025-05-11 13:56:22', 'user');
 
 --
 -- Triggers `products`
@@ -358,28 +397,29 @@ CREATE TABLE `products_views` (
 --
 
 INSERT INTO `products_views` (`product_id`, `view_count`) VALUES
-(3, 42),
-(4, 68),
+(3, 68),
+(4, 109),
 (5, 29),
-(6, 38),
-(7, 16),
+(6, 41),
+(7, 19),
 (8, 14),
-(9, 9),
-(10, 21),
-(11, 11),
-(12, 29),
-(13, 18),
+(9, 12),
+(10, 23),
+(11, 15),
+(12, 73),
+(13, 26),
 (14, 22),
-(15, 42),
-(16, 13),
-(17, 22),
-(18, 43),
-(19, 16),
-(20, 8),
+(15, 76),
+(16, 26),
+(17, 23),
+(18, 66),
+(19, 22),
+(20, 9),
 (21, 15),
-(22, 14),
+(22, 16),
 (23, 10),
-(24, 47);
+(24, 56),
+(46, 16);
 
 -- --------------------------------------------------------
 
@@ -414,6 +454,7 @@ CREATE TABLE `saved` (
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `tipo` tinyint(1) NOT NULL DEFAULT 0,
+  `quantity` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -421,13 +462,11 @@ CREATE TABLE `saved` (
 -- Dumping data for table `saved`
 --
 
-INSERT INTO `saved` (`saved_id`, `user_id`, `product_id`, `tipo`, `created_at`) VALUES
-(129, 15, 20, 1, '2025-03-03 19:15:02'),
-(130, 15, 20, 0, '2025-03-03 19:15:35'),
-(132, 26, 3, 0, '2025-03-07 11:12:13'),
-(134, 15, 3, 1, '2025-04-02 14:22:46'),
-(169, 28, 3, 1, '2025-05-07 22:37:16'),
-(174, 28, 3, 0, '2025-05-08 01:18:13');
+INSERT INTO `saved` (`saved_id`, `user_id`, `product_id`, `tipo`, `quantity`, `created_at`) VALUES
+(203, 28, 18, 0, 3, '2025-05-23 17:15:30'),
+(234, 28, 4, 0, 1, '2025-05-23 14:55:25'),
+(260, 28, 19, 0, 1, '2025-05-23 17:39:03'),
+(261, 28, 18, 1, 1, '2025-05-23 17:50:58');
 
 -- --------------------------------------------------------
 
@@ -462,6 +501,17 @@ INSERT INTO `users` (`user_id`, `firebase_uid`, `name`, `last_name`, `email`, `p
 (27, 'B0etnmMLDJh4pUuF4vc9QCXMyiv2', 'bor', 'Bro', 'cuzinhoroxo@gmail.com', '', '2025-02-26 20:39:15'),
 (28, '6P6mwx4gURUuk4CDPda8zQbcB1q1', 'Mordekai', 'AS', 'mordekaias360@gmail.com', '123 XXX XXX', '2025-03-10 17:49:41');
 
+--
+-- Triggers `users`
+--
+DELIMITER $$
+CREATE TRIGGER `trg_create_wallet_after_user_insert` AFTER INSERT ON `users` FOR EACH ROW BEGIN
+    INSERT INTO wallet (user_id, balance)
+    VALUES (NEW.user_id, 0.00);
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -481,7 +531,7 @@ CREATE TABLE `users_tokens` (
 
 INSERT INTO `users_tokens` (`id_token`, `user_id`, `token`, `create_at`) VALUES
 (16, 15, 'cfqdAvsOTqurJQWIaM3Efe:APA91bGozKvoQ-OnoMCawcnIxnUJlhJJ-99KxuaQSgyAS-WZOLo10-kcR8tR3yeJHfyWoEtfTYdiVsn8IeI_67_5jn6zWOhl2bFxSUrwbRNXO7G7LPsZrqI', '2025-04-14 15:58:39'),
-(25, 28, 'eg9zGf7ESXesfzacTf2xMh:APA91bGguHAI1OUyeyMvpbbTPxlcHjKTGy98gA8p5ICsVxLIGhQCIRDy9PuY8u11RiF8kr-Oxuc9ZrkL9pb91nswS2v7rD1QjzKq03pFNQ0S0ahcrlRDy4Y', '2025-05-08 00:36:42');
+(32, 28, 'eg9zGf7ESXesfzacTf2xMh:APA91bGguHAI1OUyeyMvpbbTPxlcHjKTGy98gA8p5ICsVxLIGhQCIRDy9PuY8u11RiF8kr-Oxuc9ZrkL9pb91nswS2v7rD1QjzKq03pFNQ0S0ahcrlRDy4Y', '2025-05-10 14:16:06');
 
 -- --------------------------------------------------------
 
@@ -1029,7 +1079,246 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (560, 28, 19, 'view', '2025-05-08 01:19:49'),
 (561, 28, 19, 'view', '2025-05-08 12:37:16'),
 (562, 28, 19, 'view', '2025-05-08 12:37:22'),
-(563, 28, 19, 'view', '2025-05-08 12:43:49');
+(563, 28, 19, 'view', '2025-05-08 12:43:49'),
+(564, 28, 15, 'view', '2025-05-09 12:27:24'),
+(565, 28, 19, 'view', '2025-05-09 12:33:20'),
+(566, 28, 12, 'view', '2025-05-09 14:27:45'),
+(567, 28, 12, 'view', '2025-05-09 15:44:27'),
+(568, 28, 13, 'view', '2025-05-09 15:44:30'),
+(569, 28, 15, 'view', '2025-05-09 15:44:41'),
+(570, 28, 12, 'view', '2025-05-09 15:44:47'),
+(571, 28, 13, 'view', '2025-05-09 15:48:50'),
+(572, 28, 9, 'view', '2025-05-09 15:48:52'),
+(573, 28, 4, 'view', '2025-05-09 15:51:54'),
+(574, 28, 3, 'view', '2025-05-09 15:52:00'),
+(575, 28, 3, 'view', '2025-05-09 15:57:04'),
+(576, 28, 3, 'view', '2025-05-10 14:35:01'),
+(577, 28, 3, 'view', '2025-05-10 14:35:06'),
+(578, 28, 24, 'view', '2025-05-10 15:08:22'),
+(579, 28, 13, 'view', '2025-05-10 15:08:25'),
+(580, 28, 13, 'view', '2025-05-10 15:53:01'),
+(581, 28, 13, 'view', '2025-05-10 15:55:47'),
+(582, 28, 13, 'view', '2025-05-10 15:56:03'),
+(583, 28, 4, 'view', '2025-05-10 15:57:53'),
+(584, 28, 4, 'view', '2025-05-10 16:02:27'),
+(585, 28, 15, 'view', '2025-05-10 16:02:37'),
+(586, 28, 15, 'view', '2025-05-10 16:06:22'),
+(587, 28, 15, 'view', '2025-05-10 16:07:56'),
+(588, 28, 15, 'view', '2025-05-10 16:08:55'),
+(589, 28, 15, 'view', '2025-05-10 16:08:58'),
+(590, 28, 15, 'view', '2025-05-10 16:09:01'),
+(591, 28, 15, 'view', '2025-05-10 16:09:03'),
+(592, 28, 15, 'view', '2025-05-10 16:09:05'),
+(593, 28, 15, 'view', '2025-05-10 16:09:18'),
+(594, 28, 15, 'view', '2025-05-10 16:09:21'),
+(595, 28, 15, 'view', '2025-05-10 16:09:23'),
+(596, 28, 15, 'view', '2025-05-10 16:16:43'),
+(597, 28, 15, 'view', '2025-05-10 16:16:46'),
+(598, 28, 15, 'view', '2025-05-10 16:16:51'),
+(599, 28, 15, 'view', '2025-05-11 13:33:53'),
+(600, 28, 15, 'view', '2025-05-11 13:33:56'),
+(601, 28, 15, 'view', '2025-05-11 13:33:58'),
+(602, 28, 15, 'view', '2025-05-11 13:34:03'),
+(603, 28, 15, 'view', '2025-05-11 13:34:35'),
+(604, 28, 15, 'view', '2025-05-11 13:34:48'),
+(605, 28, 15, 'view', '2025-05-11 13:34:50'),
+(606, 28, 15, 'view', '2025-05-11 13:34:52'),
+(607, 28, 15, 'view', '2025-05-11 13:34:54'),
+(608, 28, 15, 'view', '2025-05-11 13:35:01'),
+(609, 28, 15, 'view', '2025-05-11 13:35:04'),
+(610, 28, 6, 'view', '2025-05-11 13:35:10'),
+(611, 28, 6, 'view', '2025-05-11 13:38:17'),
+(612, 28, 6, 'view', '2025-05-11 13:38:20'),
+(613, 28, 46, 'view', '2025-05-11 13:56:55'),
+(614, 28, 46, 'view', '2025-05-11 13:57:42'),
+(615, 28, 46, 'view', '2025-05-11 14:17:53'),
+(616, 28, 3, 'view', '2025-05-11 14:34:36'),
+(617, 28, 24, 'view', '2025-05-11 14:36:04'),
+(618, 28, 46, 'view', '2025-05-11 17:55:09'),
+(619, 28, 46, 'view', '2025-05-11 17:58:04'),
+(620, 28, 46, 'view', '2025-05-11 17:58:10'),
+(621, 28, 46, 'view', '2025-05-11 17:58:26'),
+(622, 28, 46, 'view', '2025-05-11 17:58:34'),
+(623, 28, 11, 'view', '2025-05-11 18:00:51'),
+(624, 28, 24, 'view', '2025-05-11 18:00:56'),
+(625, 28, 18, 'view', '2025-05-11 19:03:27'),
+(626, 28, 12, 'view', '2025-05-11 19:03:32'),
+(627, 28, 12, 'view', '2025-05-11 19:04:54'),
+(628, 28, 12, 'view', '2025-05-11 19:04:56'),
+(629, 28, 12, 'view', '2025-05-11 19:08:32'),
+(630, 28, 12, 'view', '2025-05-11 19:09:30'),
+(631, 28, 12, 'view', '2025-05-11 19:09:33'),
+(632, 28, 12, 'view', '2025-05-11 19:11:32'),
+(633, 28, 12, 'view', '2025-05-11 19:11:34'),
+(634, 28, 12, 'view', '2025-05-11 19:11:37'),
+(635, 28, 12, 'view', '2025-05-11 19:11:45'),
+(636, 28, 12, 'view', '2025-05-11 19:12:02'),
+(637, 28, 12, 'view', '2025-05-11 19:12:18'),
+(638, 28, 12, 'view', '2025-05-11 19:12:22'),
+(639, 28, 12, 'view', '2025-05-11 19:12:52'),
+(640, 28, 12, 'view', '2025-05-11 19:12:55'),
+(641, 28, 12, 'view', '2025-05-11 19:13:48'),
+(642, 28, 12, 'view', '2025-05-11 19:14:32'),
+(643, 28, 18, 'view', '2025-05-11 19:14:34'),
+(644, 28, 24, 'view', '2025-05-11 19:14:36'),
+(645, 28, 24, 'view', '2025-05-11 19:16:23'),
+(646, 28, 24, 'view', '2025-05-11 19:16:29'),
+(647, 28, 24, 'view', '2025-05-11 19:16:42'),
+(648, 28, 24, 'view', '2025-05-11 19:19:18'),
+(649, 28, 24, 'view', '2025-05-11 19:19:25'),
+(650, 28, 3, 'view', '2025-05-11 19:19:54'),
+(651, 28, 3, 'view', '2025-05-11 19:19:58'),
+(652, 28, 3, 'view', '2025-05-11 19:23:44'),
+(653, 28, 3, 'view', '2025-05-11 19:28:27'),
+(654, 28, 3, 'view', '2025-05-11 19:28:29'),
+(655, 28, 3, 'view', '2025-05-11 19:28:31'),
+(656, 28, 3, 'view', '2025-05-11 19:28:36'),
+(657, 28, 3, 'view', '2025-05-11 19:36:50'),
+(658, 28, 3, 'view', '2025-05-11 19:36:53'),
+(659, 28, 3, 'view', '2025-05-11 19:36:57'),
+(660, 28, 3, 'view', '2025-05-11 19:37:04'),
+(661, 28, 3, 'view', '2025-05-11 20:25:22'),
+(662, 28, 3, 'view', '2025-05-11 20:46:58'),
+(663, 28, 11, 'view', '2025-05-13 19:35:26'),
+(664, 28, 16, 'view', '2025-05-17 10:49:07'),
+(665, 28, 16, 'view', '2025-05-17 13:11:42'),
+(666, 28, 11, 'view', '2025-05-17 14:27:56'),
+(667, 28, 22, 'view', '2025-05-17 14:30:34'),
+(668, 28, 22, 'view', '2025-05-17 14:30:37'),
+(669, 28, 7, 'view', '2025-05-17 14:40:09'),
+(670, 28, 7, 'view', '2025-05-17 15:39:03'),
+(671, 28, 46, 'view', '2025-05-19 16:25:44'),
+(672, 28, 46, 'view', '2025-05-19 16:26:13'),
+(673, 28, 46, 'view', '2025-05-19 16:26:28'),
+(674, 28, 46, 'view', '2025-05-19 16:26:43'),
+(675, 28, 7, 'view', '2025-05-19 16:26:46'),
+(676, 28, 46, 'view', '2025-05-19 16:27:09'),
+(677, 28, 4, 'view', '2025-05-19 16:27:12'),
+(678, 28, 4, 'view', '2025-05-19 16:27:33'),
+(679, 28, 15, 'view', '2025-05-19 16:27:47'),
+(680, 28, 15, 'view', '2025-05-19 16:27:58'),
+(681, 28, 3, 'view', '2025-05-19 16:28:03'),
+(682, 28, 16, 'view', '2025-05-19 16:28:52'),
+(683, 28, 16, 'view', '2025-05-19 16:30:11'),
+(684, 28, 16, 'view', '2025-05-19 16:30:57'),
+(685, 28, 16, 'view', '2025-05-19 17:11:36'),
+(686, 28, 4, 'view', '2025-05-19 17:39:16'),
+(687, 28, 3, 'view', '2025-05-19 17:43:45'),
+(688, 28, 4, 'view', '2025-05-19 17:44:57'),
+(689, 28, 15, 'view', '2025-05-19 17:45:03'),
+(690, 28, 4, 'view', '2025-05-19 17:45:07'),
+(691, 28, 4, 'view', '2025-05-19 17:45:10'),
+(692, 28, 4, 'view', '2025-05-19 17:45:19'),
+(693, 28, 16, 'view', '2025-05-19 17:46:02'),
+(694, 28, 16, 'view', '2025-05-19 17:47:11'),
+(695, 28, 16, 'view', '2025-05-19 17:47:18'),
+(696, 28, 4, 'view', '2025-05-19 17:48:12'),
+(697, 28, 4, 'view', '2025-05-19 17:48:33'),
+(698, 28, 15, 'view', '2025-05-19 17:48:52'),
+(699, 28, 16, 'view', '2025-05-19 17:49:27'),
+(700, 28, 3, 'view', '2025-05-19 17:49:31'),
+(701, 28, 3, 'view', '2025-05-19 17:50:37'),
+(702, 28, 3, 'view', '2025-05-19 17:50:43'),
+(703, 28, 3, 'view', '2025-05-19 17:50:46'),
+(704, 28, 46, 'view', '2025-05-19 17:51:32'),
+(705, 28, 46, 'view', '2025-05-19 17:51:57'),
+(706, 28, 3, 'view', '2025-05-19 17:52:01'),
+(707, 28, 16, 'view', '2025-05-19 17:52:04'),
+(708, 28, 4, 'view', '2025-05-19 17:52:08'),
+(709, 28, 16, 'view', '2025-05-19 17:52:32'),
+(710, 28, 3, 'view', '2025-05-23 09:43:19'),
+(711, 28, 46, 'view', '2025-05-23 10:22:48'),
+(712, 28, 15, 'view', '2025-05-23 10:22:52'),
+(713, 28, 17, 'view', '2025-05-23 10:22:58'),
+(714, 28, 15, 'view', '2025-05-23 10:23:17'),
+(715, 28, 15, 'view', '2025-05-23 10:25:19'),
+(716, 28, 18, 'view', '2025-05-23 10:25:27'),
+(717, 28, 18, 'view', '2025-05-23 10:26:29'),
+(718, 28, 18, 'view', '2025-05-23 10:26:35'),
+(719, 28, 18, 'view', '2025-05-23 10:27:44'),
+(720, 28, 18, 'view', '2025-05-23 10:27:48'),
+(721, 28, 18, 'view', '2025-05-23 10:27:50'),
+(722, 28, 18, 'view', '2025-05-23 10:29:38'),
+(723, 28, 18, 'view', '2025-05-23 10:30:13'),
+(724, 28, 18, 'view', '2025-05-23 10:30:24'),
+(725, 28, 18, 'view', '2025-05-23 10:31:38'),
+(726, 28, 18, 'view', '2025-05-23 11:00:24'),
+(727, 28, 18, 'view', '2025-05-23 11:02:20'),
+(728, 28, 18, 'view', '2025-05-23 11:03:09'),
+(729, 28, 4, 'view', '2025-05-23 11:07:59'),
+(730, 28, 12, 'view', '2025-05-23 11:59:07'),
+(731, 28, 12, 'view', '2025-05-23 12:12:36'),
+(732, 28, 4, 'view', '2025-05-23 13:48:26'),
+(733, 28, 4, 'view', '2025-05-23 13:48:47'),
+(734, 28, 4, 'view', '2025-05-23 13:51:50'),
+(735, 28, 4, 'view', '2025-05-23 13:52:03'),
+(736, 28, 4, 'view', '2025-05-23 13:52:42'),
+(737, 28, 4, 'view', '2025-05-23 13:52:52'),
+(738, 28, 4, 'view', '2025-05-23 13:53:26'),
+(739, 28, 12, 'view', '2025-05-23 13:53:34'),
+(740, 28, 4, 'view', '2025-05-23 13:53:38'),
+(741, 28, 4, 'view', '2025-05-23 13:56:40'),
+(742, 28, 4, 'view', '2025-05-23 13:56:51'),
+(743, 28, 4, 'view', '2025-05-23 13:57:09'),
+(744, 28, 4, 'view', '2025-05-23 13:58:36'),
+(745, 28, 4, 'view', '2025-05-23 13:58:38'),
+(746, 28, 4, 'view', '2025-05-23 13:58:42'),
+(747, 28, 4, 'view', '2025-05-23 13:59:36'),
+(748, 28, 4, 'view', '2025-05-23 13:59:45'),
+(749, 28, 4, 'view', '2025-05-23 14:03:09'),
+(750, 28, 12, 'view', '2025-05-23 14:03:13'),
+(751, 28, 12, 'view', '2025-05-23 14:03:40'),
+(752, 28, 12, 'view', '2025-05-23 14:05:25'),
+(753, 28, 12, 'view', '2025-05-23 14:05:34'),
+(754, 28, 12, 'view', '2025-05-23 14:06:02'),
+(755, 28, 4, 'view', '2025-05-23 14:06:05'),
+(756, 28, 4, 'view', '2025-05-23 14:06:26'),
+(757, 28, 4, 'view', '2025-05-23 14:06:36'),
+(758, 28, 4, 'view', '2025-05-23 14:08:18'),
+(759, 28, 12, 'view', '2025-05-23 14:08:25'),
+(760, 28, 12, 'view', '2025-05-23 14:09:18'),
+(761, 28, 12, 'view', '2025-05-23 14:09:31'),
+(762, 28, 12, 'view', '2025-05-23 14:09:58'),
+(763, 28, 12, 'view', '2025-05-23 14:11:49'),
+(764, 28, 12, 'view', '2025-05-23 14:11:51'),
+(765, 28, 12, 'view', '2025-05-23 14:12:47'),
+(766, 28, 12, 'view', '2025-05-23 14:13:07'),
+(767, 28, 12, 'view', '2025-05-23 14:13:54'),
+(768, 28, 4, 'view', '2025-05-23 14:14:14'),
+(769, 28, 4, 'view', '2025-05-23 14:16:14'),
+(770, 28, 4, 'view', '2025-05-23 14:17:36'),
+(771, 28, 4, 'view', '2025-05-23 14:17:41'),
+(772, 28, 12, 'view', '2025-05-23 14:17:45'),
+(773, 28, 12, 'view', '2025-05-23 14:21:34'),
+(774, 28, 4, 'view', '2025-05-23 14:55:24'),
+(775, 28, 18, 'view', '2025-05-23 15:11:24'),
+(776, 28, 18, 'view', '2025-05-23 15:11:29'),
+(777, 28, 18, 'view', '2025-05-23 15:12:25'),
+(778, 28, 18, 'view', '2025-05-23 16:03:17'),
+(779, 28, 18, 'view', '2025-05-23 17:15:28'),
+(780, 28, 20, 'view', '2025-05-23 17:17:12'),
+(781, 28, 9, 'view', '2025-05-23 17:22:38'),
+(782, 28, 12, 'view', '2025-05-23 17:22:44'),
+(783, 28, 12, 'view', '2025-05-23 17:22:51'),
+(784, 28, 12, 'view', '2025-05-23 17:25:54'),
+(785, 28, 12, 'view', '2025-05-23 17:26:18'),
+(786, 28, 13, 'view', '2025-05-23 17:32:03'),
+(787, 28, 12, 'view', '2025-05-23 17:32:06'),
+(788, 28, 11, 'view', '2025-05-23 17:33:29'),
+(789, 28, 4, 'view', '2025-05-23 17:33:32'),
+(790, 28, 16, 'view', '2025-05-23 17:33:36'),
+(791, 28, 19, 'view', '2025-05-23 17:33:39'),
+(792, 28, 19, 'view', '2025-05-23 17:37:24'),
+(793, 28, 19, 'view', '2025-05-23 17:37:27'),
+(794, 28, 19, 'view', '2025-05-23 17:38:47'),
+(795, 28, 19, 'view', '2025-05-23 17:39:00'),
+(796, 28, 9, 'view', '2025-05-23 17:44:04'),
+(797, 28, 13, 'view', '2025-05-23 17:44:06'),
+(798, 28, 10, 'view', '2025-05-23 17:44:08'),
+(799, 28, 18, 'view', '2025-05-23 17:44:35'),
+(800, 28, 18, 'view', '2025-05-23 17:50:47'),
+(801, 28, 10, 'view', '2025-05-23 17:50:49'),
+(802, 28, 18, 'view', '2025-05-23 17:51:03');
 
 -- --------------------------------------------------------
 
@@ -1042,6 +1331,7 @@ CREATE TABLE `v_cart_fav` (
 ,`product_id` int(11)
 ,`user_id` int(11)
 ,`tipo` tinyint(1)
+,`quantity` int(11)
 ,`created_at` timestamp
 ,`title` varchar(150)
 ,`price` decimal(10,2)
@@ -1169,11 +1459,40 @@ CREATE TABLE `v_user_chats` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `wallet`
+--
+
+CREATE TABLE `wallet` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `balance` decimal(10,2) DEFAULT 0.00
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `wallet`
+--
+
+INSERT INTO `wallet` (`id`, `user_id`, `balance`) VALUES
+(1, 22, 0.00),
+(2, 23, 0.00),
+(3, 28, 123.56),
+(4, 18, 0.00),
+(5, 27, 0.00),
+(6, 15, 0.00),
+(7, 26, 0.00),
+(8, 21, 0.00),
+(9, 19, 0.00),
+(10, 25, 0.00),
+(11, 20, 0.00);
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `v_cart_fav`
 --
 DROP TABLE IF EXISTS `v_cart_fav`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_cart_fav`  AS SELECT `saved`.`saved_id` AS `favorite_id`, `saved`.`product_id` AS `product_id`, `saved`.`user_id` AS `user_id`, `saved`.`tipo` AS `tipo`, `saved`.`created_at` AS `created_at`, `products`.`title` AS `title`, `products`.`price` AS `price`, `products`.`category` AS `category`, `products`.`cover` AS `cover`, `products`.`seller_type` AS `seller_type` FROM (`saved` join `products` on(`saved`.`product_id` = `products`.`product_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_cart_fav`  AS SELECT `saved`.`saved_id` AS `favorite_id`, `saved`.`product_id` AS `product_id`, `saved`.`user_id` AS `user_id`, `saved`.`tipo` AS `tipo`, `saved`.`quantity` AS `quantity`, `saved`.`created_at` AS `created_at`, `products`.`title` AS `title`, `products`.`price` AS `price`, `products`.`category` AS `category`, `products`.`cover` AS `cover`, `products`.`seller_type` AS `seller_type` FROM (`saved` join `products` on(`saved`.`product_id` = `products`.`product_id`)) ;
 
 -- --------------------------------------------------------
 
@@ -1262,6 +1581,14 @@ ALTER TABLE `messages`
   ADD KEY `messages_ibfk_4` (`chat_id`);
 
 --
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -1289,6 +1616,7 @@ ALTER TABLE `reviews`
 --
 ALTER TABLE `saved`
   ADD PRIMARY KEY (`saved_id`),
+  ADD UNIQUE KEY `unique_cart_item` (`user_id`,`product_id`,`tipo`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `product_id` (`product_id`);
 
@@ -1317,6 +1645,13 @@ ALTER TABLE `user_history`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `wallet`
+--
+ALTER TABLE `wallet`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1336,25 +1671,31 @@ ALTER TABLE `chats`
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
+  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -1366,7 +1707,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `saved`
 --
 ALTER TABLE `saved`
-  MODIFY `saved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+  MODIFY `saved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -1378,13 +1719,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users_tokens`
 --
 ALTER TABLE `users_tokens`
-  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `user_history`
 --
 ALTER TABLE `user_history`
-  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=564;
+  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=803;
+
+--
+-- AUTO_INCREMENT for table `wallet`
+--
+ALTER TABLE `wallet`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables
@@ -1415,6 +1762,13 @@ ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `messages_ibfk_4` FOREIGN KEY (`chat_id`) REFERENCES `chats` (`chat_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `payments`
+--
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`
@@ -1455,6 +1809,12 @@ ALTER TABLE `users_tokens`
 ALTER TABLE `user_history`
   ADD CONSTRAINT `user_history_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `user_history_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `wallet`
+--
+ALTER TABLE `wallet`
+  ADD CONSTRAINT `wallet_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

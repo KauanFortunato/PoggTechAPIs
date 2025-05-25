@@ -343,6 +343,7 @@ class Product
 
         return ["success" => true, "products" => $products];
     }
+
     public function getAllProducts()
     {
         $stmt = $this->conn->prepare("SELECT * FROM products ORDER BY product_id DESC");
@@ -370,7 +371,33 @@ class Product
 
     public function addProductOnCart($user_id, $product_id, $tipo)
     {
-        $stmt = $this->conn->prepare("INSERT INTO saved (user_id, product_id, tipo) VALUES (?, ?, ?)");
+        if ($tipo == 0) {
+            $stock = null;
+            $currentQuantity = null;
+
+            $stmt = $this->conn->prepare("SELECT quantity FROM products WHERE product_id = ?");
+            $stmt->bind_param("i", $product_id);
+            $stmt->execute();
+            $stmt->bind_result($stock);
+            $stmt->fetch();
+            $stmt->close();
+
+            $stmt = $this->conn->prepare("SELECT quantity FROM saved WHERE user_id = ? AND product_id = ? AND tipo = ?");
+            $stmt->bind_param("iii", $user_id, $product_id, $tipo);
+            $stmt->execute();
+            $stmt->bind_result($currentQuantity);
+            $exists = $stmt->fetch();
+            $stmt->close();
+
+            if (!$exists) $currentQuantity = 0;
+
+            if ($currentQuantity >= $stock) {
+                return ["success" => false, "message" => "Não há mais stock disponível."];
+            }
+        }
+
+        $stmt = $this->conn->prepare("INSERT INTO saved (user_id, product_id, tipo) VALUES (?, ?, ?) 
+                                  ON DUPLICATE KEY UPDATE quantity = quantity + 1");
         $stmt->bind_param("iii", $user_id, $product_id, $tipo);
 
         if ($stmt->execute()) {
@@ -383,6 +410,47 @@ class Product
         }
     }
 
+    public function removeOneFromCart($user_id, $product_id, $tipo)
+    {
+        $quantity = null;
+
+        $stmt = $this->conn->prepare("SELECT quantity FROM saved WHERE user_id = ? AND product_id = ? AND tipo = ?");
+        $stmt->bind_param("iii", $user_id, $product_id, $tipo);
+        $stmt->execute();
+        $stmt->bind_result($quantity);
+        $exists = $stmt->fetch();
+        $stmt->close();
+
+        if (!$exists) {
+            return ["success" => false, "message" => "Produto não encontrado no carrinho."];
+        }
+
+        if ($quantity <= 1) {
+            $stmt = $this->conn->prepare("DELETE FROM saved WHERE user_id = ? AND product_id = ? AND tipo = ?");
+            $stmt->bind_param("iii", $user_id, $product_id, $tipo);
+
+            if ($stmt->execute()) {
+                $stmt->close();
+                return ["success" => true, "message" => "Produto removido do carrinho."];
+            } else {
+                $error = $stmt->error;
+                $stmt->close();
+                return ["success" => false, "message" => "Erro ao remover: $error"];
+            }
+        } else {
+            $stmt = $this->conn->prepare("UPDATE saved SET quantity = quantity - 1 WHERE user_id = ? AND product_id = ? AND tipo = ?");
+            $stmt->bind_param("iii", $user_id, $product_id, $tipo);
+
+            if ($stmt->execute()) {
+                $stmt->close();
+                return ["success" => true, "message" => "Quantidade atualizada."];
+            } else {
+                $error = $stmt->error;
+                $stmt->close();
+                return ["success" => false, "message" => "Erro ao atualizar: $error"];
+            }
+        }
+    }
     public function getAllProductsFromCart($user_id, $tipo)
     {
         $stmt = $this->conn->prepare("SELECT * FROM v_cart_fav WHERE user_id LIKE ? AND tipo LIKE ?");
