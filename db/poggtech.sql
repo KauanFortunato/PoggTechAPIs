@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2025 at 12:52 AM
+-- Generation Time: May 26, 2025 at 09:21 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -300,17 +300,94 @@ INSERT INTO `messages` (`id_message`, `chat_id`, `sender_id`, `receiver_id`, `me
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `status` enum('pendente','pago','cancelado') DEFAULT 'pendente',
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `total_amount`, `status`, `created_at`) VALUES
+(1, 28, 42.00, 'pago', '2025-05-26 19:21:38'),
+(2, 15, 15.00, 'pendente', '2025-05-26 19:26:41'),
+(3, 15, 15.00, 'pendente', '2025-05-26 19:26:59'),
+(4, 28, 42.00, 'pago', '2025-05-26 19:27:23'),
+(5, 28, 42.00, 'pago', '2025-05-26 19:27:41'),
+(6, 28, 42.00, 'pago', '2025-05-26 19:27:45'),
+(7, 28, 42.00, 'pago', '2025-05-26 19:28:11'),
+(8, 28, 42.00, 'pago', '2025-05-26 19:28:36'),
+(9, 15, 15.00, 'pendente', '2025-05-26 19:28:54'),
+(10, 28, 42.00, 'pago', '2025-05-26 19:29:37'),
+(11, 28, 42.00, 'pago', '2025-05-26 19:30:32'),
+(12, 28, 42.00, 'pago', '2025-05-26 19:30:36'),
+(13, 28, 42.00, 'pago', '2025-05-26 19:34:49'),
+(14, 28, 42.00, 'pago', '2025-05-26 19:34:58'),
+(15, 28, 42.00, 'pago', '2025-05-26 19:35:41'),
+(16, 28, 42.00, 'pago', '2025-05-26 19:39:38'),
+(17, 28, 42.00, 'pago', '2025-05-26 19:40:35'),
+(18, 28, 42.00, 'pago', '2025-05-26 19:42:42'),
+(19, 28, 42.00, 'pago', '2025-05-26 19:43:17'),
+(20, 15, 15.00, 'pendente', '2025-05-26 19:44:09'),
+(21, 28, 15.00, 'pago', '2025-05-26 19:44:36'),
+(22, 28, 42.00, 'pago', '2025-05-26 19:45:25'),
+(23, 28, 42.00, 'pago', '2025-05-26 19:47:01'),
+(24, 28, 42.00, 'pago', '2025-05-26 19:47:43'),
+(25, 28, 15.00, 'pago', '2025-05-26 19:47:48'),
+(26, 28, 42.00, 'pago', '2025-05-26 19:48:28'),
+(27, 28, 42.00, 'pendente', '2025-05-26 20:06:25');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1,
+  `unit_price` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `unit_price`) VALUES
+(1, 22, 19, 1, 42.00),
+(2, 26, 19, 1, 42.00);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `payments`
 --
 
 CREATE TABLE `payments` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
-  `status` enum('pending','completed','failed') DEFAULT 'pending',
+  `status` enum('pendente','concluido','falhou') DEFAULT 'pendente',
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `user_id`, `order_id`, `amount`, `status`, `created_at`) VALUES
+(6, 28, 26, 42.00, 'concluido', '2025-05-26 19:48:28'),
+(7, 28, 27, 42.00, 'falhou', '2025-05-26 20:06:25');
 
 -- --------------------------------------------------------
 
@@ -398,7 +475,7 @@ CREATE TABLE `products_views` (
 
 INSERT INTO `products_views` (`product_id`, `view_count`) VALUES
 (3, 68),
-(4, 109),
+(4, 111),
 (5, 29),
 (6, 41),
 (7, 19),
@@ -412,8 +489,8 @@ INSERT INTO `products_views` (`product_id`, `view_count`) VALUES
 (15, 76),
 (16, 26),
 (17, 23),
-(18, 66),
-(19, 22),
+(18, 68),
+(19, 23),
 (20, 9),
 (21, 15),
 (22, 16),
@@ -463,8 +540,6 @@ CREATE TABLE `saved` (
 --
 
 INSERT INTO `saved` (`saved_id`, `user_id`, `product_id`, `tipo`, `quantity`, `created_at`) VALUES
-(203, 28, 18, 0, 3, '2025-05-23 17:15:30'),
-(234, 28, 4, 0, 1, '2025-05-23 14:55:25'),
 (260, 28, 19, 0, 1, '2025-05-23 17:39:03'),
 (261, 28, 18, 1, 1, '2025-05-23 17:50:58');
 
@@ -1318,7 +1393,12 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (799, 28, 18, 'view', '2025-05-23 17:44:35'),
 (800, 28, 18, 'view', '2025-05-23 17:50:47'),
 (801, 28, 10, 'view', '2025-05-23 17:50:49'),
-(802, 28, 18, 'view', '2025-05-23 17:51:03');
+(802, 28, 18, 'view', '2025-05-23 17:51:03'),
+(803, 28, 4, 'view', '2025-05-26 13:12:18'),
+(804, 28, 18, 'view', '2025-05-26 13:12:49'),
+(805, 28, 19, 'view', '2025-05-26 13:14:02'),
+(806, 28, 4, 'view', '2025-05-26 13:41:22'),
+(807, 28, 18, 'view', '2025-05-26 18:40:32');
 
 -- --------------------------------------------------------
 
@@ -1475,7 +1555,7 @@ CREATE TABLE `wallet` (
 INSERT INTO `wallet` (`id`, `user_id`, `balance`) VALUES
 (1, 22, 0.00),
 (2, 23, 0.00),
-(3, 28, 123.56),
+(3, 28, 39.56),
 (4, 18, 0.00),
 (5, 27, 0.00),
 (6, 15, 0.00),
@@ -1581,12 +1661,27 @@ ALTER TABLE `messages`
   ADD KEY `messages_ibfk_4` (`chat_id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indexes for table `payments`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
-  ADD KEY `product_id` (`product_id`);
+  ADD KEY `payments_ibfk_2` (`order_id`);
 
 --
 -- Indexes for table `products`
@@ -1686,10 +1781,22 @@ ALTER TABLE `messages`
   MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
 
 --
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -1725,7 +1832,7 @@ ALTER TABLE `users_tokens`
 -- AUTO_INCREMENT for table `user_history`
 --
 ALTER TABLE `user_history`
-  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=803;
+  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=808;
 
 --
 -- AUTO_INCREMENT for table `wallet`
@@ -1764,11 +1871,24 @@ ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_4` FOREIGN KEY (`chat_id`) REFERENCES `chats` (`chat_id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+
+--
+-- Constraints for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
+
+--
 -- Constraints for table `payments`
 --
 ALTER TABLE `payments`
   ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`
