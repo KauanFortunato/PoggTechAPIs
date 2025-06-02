@@ -68,6 +68,11 @@ class Order
             $stmt->bind_param("di", $total, $user_id);
             $stmt->execute();
 
+            // Remover produtos do carrinho
+            $stmt = $this->conn->prepare("DELETE FROM saved WHERE user_id = ? AND tipo = 0 ");
+            $stmt->bind_param("i", $user_id);
+            $stmt->execute();
+
             // Registrar pagamento
             $stmt = $this->conn->prepare("INSERT INTO payments (order_id, user_id, amount, status) VALUES (?, ?, ?, 'concluido')");
             $stmt->bind_param("iid", $orderId, $user_id, $total);
