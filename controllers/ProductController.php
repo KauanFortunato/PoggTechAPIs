@@ -43,10 +43,14 @@ class ProductController
         return $this->product->getDistributedProductsByCategories($categories, $quantity);
     }
 
-
-    public function addProductOnCart($user_id, $product_id, $tipo)
+    public function addProductOnCart($user_id, $product_id, $tipo, $quantity)
     {
-        return $this->product->addProductOnCart($user_id, $product_id, $tipo);
+        return $this->product->addProductOnCart($user_id, $product_id, $tipo, $quantity);
+    }
+
+    public function saveProduct($user_id, $product_id, $tipo)
+    {
+        return $this->product->saveProduct($user_id, $product_id, $tipo);
     }
 
     public function removeOneFromCart($user_id, $product_id, $tipo)

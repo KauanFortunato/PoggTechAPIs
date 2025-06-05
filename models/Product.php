@@ -369,40 +369,58 @@ class Product
         }
     }
 
-    public function addProductOnCart($user_id, $product_id, $tipo)
+    public function addProductOnCart($user_id, $product_id, $tipo, $quantity)
     {
-        if ($tipo == 0) {
-            $stock = null;
-            $currentQuantity = null;
+        $stock = null;
+        $currentQuantity = null;
 
-            $stmt = $this->conn->prepare("SELECT quantity FROM products WHERE product_id = ?");
-            $stmt->bind_param("i", $product_id);
-            $stmt->execute();
-            $stmt->bind_result($stock);
-            $stmt->fetch();
-            $stmt->close();
+        $stmt = $this->conn->prepare("SELECT quantity FROM products WHERE product_id = ?");
+        $stmt->bind_param("i", $product_id);
+        $stmt->execute();
+        $stmt->bind_result($stock);
+        $stmt->fetch();
+        $stmt->close();
 
-            $stmt = $this->conn->prepare("SELECT quantity FROM saved WHERE user_id = ? AND product_id = ? AND tipo = ?");
-            $stmt->bind_param("iii", $user_id, $product_id, $tipo);
-            $stmt->execute();
-            $stmt->bind_result($currentQuantity);
-            $exists = $stmt->fetch();
-            $stmt->close();
+        $stmt = $this->conn->prepare("SELECT quantity FROM saved WHERE user_id = ? AND product_id = ? AND tipo = ?");
+        $stmt->bind_param("iii", $user_id, $product_id, $tipo);
+        $stmt->execute();
+        $stmt->bind_result($currentQuantity);
+        $exists = $stmt->fetch();
+        $stmt->close();
 
-            if (!$exists) $currentQuantity = 0;
+        if (!$exists) $currentQuantity = 0;
 
-            if ($currentQuantity >= $stock) {
-                return ["success" => false, "message" => "Não há mais stock disponível."];
-            }
+        if ($currentQuantity >= $stock) {
+            return ["success" => false, "message" => "Não há mais stock disponível."];
         }
 
+        if ($stock >= $quantity) {
+            $stmt = $this->conn->prepare("INSERT INTO saved (user_id, product_id, tipo, quantity) VALUES (?, ?, ?, ?) 
+                                  ON DUPLICATE KEY UPDATE quantity = quantity + ?");
+            $stmt->bind_param("iiiii", $user_id, $product_id, $tipo, $quantity, $quantity);
+        } else {
+            return ["success" => false, "message" => "Não há essa quantitidade em stock."];
+        }
+
+        if ($stmt->execute()) {
+            $stmt->close();
+            return ["success" => true, "message" => "Adicionado ao carrinho com sucesso."];
+        } else {
+            $error = $stmt->error;
+            $stmt->close();
+            return ["success" => false, "message" => "Erro ao adicionar: $error"];
+        }
+    }
+
+    public function saveProduct($user_id, $product_id, $tipo)
+    {
         $stmt = $this->conn->prepare("INSERT INTO saved (user_id, product_id, tipo) VALUES (?, ?, ?) 
                                   ON DUPLICATE KEY UPDATE quantity = quantity + 1");
         $stmt->bind_param("iii", $user_id, $product_id, $tipo);
 
         if ($stmt->execute()) {
             $stmt->close();
-            return ["success" => true, "message" => "Adicionado com sucesso."];
+            return ["success" => true, "message" => "Adicionado aos salvos com sucesso."];
         } else {
             $error = $stmt->error;
             $stmt->close();
@@ -566,21 +584,23 @@ class Product
         $terms = explode(' ', $cleanedSearch);
 
         $likeConditions = [];
-        $soundexConditions = [];
         $types = '';
         $params = [];
 
+        // LIKE + SOUNDEX para cada palavra individualmente
         foreach ($terms as $term) {
-            $likeConditions[] = "(SOUNDEX(title) = SOUNDEX(?) OR SOUNDEX(description) = SOUNDEX(?) OR SOUNDEX(category) = SOUNDEX(?))";
-            $types .= 'sss';
-            array_push($params, $term, $term, $term);
+            $likeConditions[] = "(title LIKE ? OR description LIKE ? OR category LIKE ? OR SOUNDEX(title) = SOUNDEX(?) OR SOUNDEX(description) = SOUNDEX(?) OR SOUNDEX(category) = SOUNDEX(?))";
+            $types .= 'ssssss';
+            $likeTerm = "%" . $term . "%";
+            array_push($params, $likeTerm, $likeTerm, $likeTerm, $term, $term, $term);
         }
 
         $likeQuery = implode(' OR ', $likeConditions);
+
         $sql = "
         SELECT *, 
-            MATCH(title, description, category) AGAINST(?) AS relevance
-        FROM v_product_details
+            MATCH(title, description, category) AGAINST(? IN NATURAL LANGUAGE MODE) AS relevance
+        FROM products
         WHERE ($likeQuery)
         OR MATCH(title, description, category) AGAINST(? IN NATURAL LANGUAGE MODE)
         ORDER BY relevance DESC
@@ -600,11 +620,57 @@ class Product
             $result = $stmt->get_result();
             $products = $result->fetch_all(MYSQLI_ASSOC);
             $stmt->close();
+
+            // Se nenhum resultado, tentar fallback apenas com LIKE/SOUNDEX
+            if (empty($products)) {
+                return $this->fallbackSearch($terms);
+            }
+
             return ["success" => true, "products" => $products];
         } else {
             $error = $stmt->error;
             $stmt->close();
             return ["success" => false, "message" => "Erro ao fazer a consulta: $error"];
+        }
+    }
+
+    private function fallbackSearch($terms)
+    {
+        $likeConditions = [];
+        $types = '';
+        $params = [];
+
+        foreach ($terms as $term) {
+            $likeConditions[] = "(title LIKE ? OR description LIKE ? OR category LIKE ?)";
+            $types .= 'sss';
+            $likeTerm = "%" . $term . "%";
+            array_push($params, $likeTerm, $likeTerm, $likeTerm);
+        }
+
+        $likeQuery = implode(' OR ', $likeConditions);
+
+        $sql = "
+        SELECT * FROM products
+        WHERE $likeQuery
+        ORDER BY title ASC
+    ";
+
+        $stmt = $this->conn->prepare($sql);
+        if ($stmt === false) {
+            return ["success" => false, "message" => "Erro ao preparar fallback: " . $this->conn->error];
+        }
+
+        $stmt->bind_param($types, ...$params);
+
+        if ($stmt->execute()) {
+            $result = $stmt->get_result();
+            $products = $result->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return ["success" => true, "products" => $products];
+        } else {
+            $error = $stmt->error;
+            $stmt->close();
+            return ["success" => false, "message" => "Erro no fallback: $error"];
         }
     }
 

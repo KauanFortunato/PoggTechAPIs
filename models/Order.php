@@ -96,4 +96,68 @@ class Order
             "data" => $orderId
         ];
     }
+
+    public function getOrders($user_id)
+    {
+        $user_id = intval($user_id);
+
+        $result = [];
+
+        $query = "
+            SELECT id, total_amount, status, created_at
+            FROM orders
+            WHERE user_id = $user_id
+            ORDER BY created_at DESC";
+
+        $orderResult = $this->conn->query($query);
+
+        if (!$orderResult) {
+            echo json_encode(['error' => 'Erro ao buscar pedidos: ' . $this->conn->error]);
+            return;
+        }
+
+        while ($order = $orderResult->fetch_assoc()) {
+            $order_id = intval($order['id']);
+
+            $created_at_raw = $order['created_at'];
+            $created_at_formatted = date('d-m, Y', strtotime($created_at_raw));
+
+            // Busca até 4 imagens dos produtos da order
+            $imgQuery = "
+                SELECT p.cover
+                FROM order_items oi
+                JOIN products p ON oi.product_id = p.product_id
+                WHERE oi.order_id = $order_id
+                LIMIT 3";
+
+            $imgResult = $this->conn->query($imgQuery);
+
+            $images = [];
+            if ($imgResult) {
+                while ($img = $imgResult->fetch_assoc()) {
+                    $images[] = $img['cover'];
+                }
+            }
+
+            $countQuery = "SELECT COUNT(*) AS total_products FROM order_items WHERE order_id = $order_id";
+            $countResult = $this->conn->query($countQuery);
+            $count = $countResult->fetch_assoc();
+
+            $result[] = [
+                'id' => $order['id'],
+                'total_amount' => $order['total_amount'],
+                'status' => $order['status'],
+                'created_at' => $order['created_at'],
+                'created_at_format' => $created_at_formatted,
+                'images' => $images,
+                'total_products' => $count['total_products']
+            ];
+        }
+
+        return [
+            "success" => true,
+            "message" => "Pedidos encontrado",
+            "data" => $result
+        ];
+    }
 }

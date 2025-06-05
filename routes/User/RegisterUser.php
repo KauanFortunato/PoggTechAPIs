@@ -11,9 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $last_name = $_POST['last_name'] ?? '';
     $email = $_POST['email'] ?? '';
     $phone = $_POST['phone'] ?? '';
+    $avatar = $_POST['avatar'] ?? 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png';
 
     $userController = new UserController($conn);
-    $response = $userController->registerUser($firebase_uid, $name, $last_name, $email, $phone);
+    $response = $userController->registerUser($firebase_uid, $name, $last_name, $email, $phone, $avatar);
 
     echo json_encode($response);
 } else {

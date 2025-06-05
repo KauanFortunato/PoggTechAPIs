@@ -11,10 +11,10 @@ class User
         $this->conn = $conn;
     }
 
-    public function createUser($firebase_uid, $name, $last_name, $email, $phone)
+    public function createUser($firebase_uid, $name, $last_name, $email, $phone, $avatar)
     {
-        $stmt = $this->conn->prepare("INSERT INTO users (firebase_uid, name, last_name, email, phone) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $firebase_uid, $name, $last_name, $email, $phone);
+        $stmt = $this->conn->prepare("INSERT INTO users (firebase_uid, name, last_name, email, avatar, phone) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $firebase_uid, $name, $last_name, $email, $avatar, $phone);
         if ($stmt->execute()) {
             $stmt->close();
             return ["success" => true, "message" => "Cadastro Concluído."];

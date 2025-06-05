@@ -23,9 +23,9 @@ class Wallet
         }
 
         if ($result->num_rows > 0) {
-            $category = $result->fetch_assoc();
+            $wallet = $result->fetch_assoc();
             $stmt->close();
-            return ["success" => true, "wallet" => $category];
+            return ["success" => true, "wallet" => $wallet];
         } else {
             $stmt->close();
             return ["success" => false, "message" => "Carteira não foi encontrada"];

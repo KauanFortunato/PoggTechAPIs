@@ -11,9 +11,19 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
     $user_id = $_POST['user_id'];
     $product_id = $_POST['product_id'];
     $tipo = $_POST['tipo'];
+    $quantity = isset($_POST['quantity']) && (int)$_POST['quantity'] > 0 ? (int)$_POST['quantity'] : 1;
 
     $productController = new ProductController($conn);
-    $response = $productController->addProductOnCart($user_id, $product_id, $tipo);
+
+    if ($tipo == 0) {
+        $response = $productController->addProductOnCart($user_id, $product_id, $tipo, $quantity);
+    } else {
+        if ($tipo === 1) {
+            $response = $productController->saveProduct($user_id, $product_id, $tipo);
+        } else {
+            $response = ["success" => false, "message" => "Tipo não é válido", "quantity" => $quantity];
+        }
+    }
 
     echo json_encode($response);
 } else {
