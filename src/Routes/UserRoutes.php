@@ -1,0 +1,80 @@
+<?php
+
+use App\Controllers\UserController;
+use App\Utils\Response;
+
+global $router, $conn;
+
+$controller = new UserController($conn);
+
+// POST /user →  Cadastro de usuário (register)
+$router->post('/user', function () use ($conn) {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!$data) {
+        $data = $_POST;
+    }
+
+    if (!isset($data['avatar']) || empty($data['avatar'])) {
+        $data['avatar'] = "http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png";
+    }
+
+    $controller = new UserController($conn);
+    $result = $controller->registerUser(
+        $data['firebase_uid'],
+        $data['name'],
+        $data['last_name'],
+        $data['email'],
+        $data['phone'],
+        $data['avatar']
+    );
+
+    if ($result['success']) {
+        Response::success(null, $result['message']);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// GET /user/{firebase_uid} → Buscar usuário pelo firebase_uid
+$router->get('/user/([a-zA-Z0-9_]+)', function ($firebase_uid) use ($conn) {
+    $controller = new UserController($conn);
+    $result = $controller->getUser($firebase_uid);
+
+    if ($result['success']) {
+        Response::success($result['data']);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// GET /user/id/{user_id} → Buscar usuário pelo user_id
+$router->get('/user/id/(\d+)', function ($user_id) use ($conn) {
+    $controller = new UserController($conn);
+    $result = $controller->getUserById($user_id);
+
+    if ($result) {
+        Response::success($result);
+    } else {
+        Response::error('Usuário não encontrado');
+    }
+});
+
+// PUT /user → Atualizar usuário (PUT)
+$router->put('/user', function () use ($conn) {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $controller = new UserController($conn);
+    $result = $controller->updateUser(
+        $data['name'],
+        $data['last_name'],
+        $data['phone'],
+        $data['firebase_uid']
+    );
+
+    if ($result['success']) {
+        Response::success(null, $result['message']);
+    } else {
+        Response::error($result['message']);
+    }
+});

@@ -13,6 +13,7 @@ class ComposerStaticInit0147c12cd53c8cd2ab6d796f0dbbecde
         '1f87db08236948d07391152dccb70f04' => __DIR__ . '/..' . '/google/apiclient-services/autoload.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         'a8d3953fd9959404dd22d3dfcd0a79f0' => __DIR__ . '/..' . '/google/apiclient/src/aliases.php',
+        'fd1f861a8aa944ab136d39e0e7169f6c' => __DIR__ . '/../..' . '/src/Utils/NotificationHelper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -47,8 +48,7 @@ class ComposerStaticInit0147c12cd53c8cd2ab6d796f0dbbecde
         ),
         'A' => 
         array (
-            'App\\Models\\' => 11,
-            'App\\Controllers\\' => 16,
+            'App\\' => 4,
         ),
     );
 
@@ -110,13 +110,19 @@ class ComposerStaticInit0147c12cd53c8cd2ab6d796f0dbbecde
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
-        'App\\Models\\' => 
+        'App\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/models',
+            0 => __DIR__ . '/../..' . '/src',
         ),
-        'App\\Controllers\\' => 
+    );
+
+    public static $prefixesPsr0 = array (
+        'B' => 
         array (
-            0 => __DIR__ . '/../..' . '/controllers',
+            'Bramus' => 
+            array (
+                0 => __DIR__ . '/..' . '/bramus/router/src',
+            ),
         ),
     );
 
@@ -149,6 +155,7 @@ class ComposerStaticInit0147c12cd53c8cd2ab6d796f0dbbecde
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit0147c12cd53c8cd2ab6d796f0dbbecde::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit0147c12cd53c8cd2ab6d796f0dbbecde::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit0147c12cd53c8cd2ab6d796f0dbbecde::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit0147c12cd53c8cd2ab6d796f0dbbecde::$classMap;
 
         }, null, ClassLoader::class);
