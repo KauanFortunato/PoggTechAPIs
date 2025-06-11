@@ -48,18 +48,6 @@ $router->get('/user/([a-zA-Z0-9_]+)', function ($firebase_uid) use ($conn) {
     }
 });
 
-// GET /user/id/{user_id} → Buscar usuário pelo user_id
-$router->get('/user/id/(\d+)', function ($user_id) use ($conn) {
-    $controller = new UserController($conn);
-    $result = $controller->getUserById($user_id);
-
-    if ($result) {
-        Response::success($result);
-    } else {
-        Response::error('Usuário não encontrado');
-    }
-});
-
 // PUT /user → Atualizar usuário (PUT)
 $router->put('/user', function () use ($conn) {
     $data = json_decode(file_get_contents('php://input'), true);
@@ -76,5 +64,53 @@ $router->put('/user', function () use ($conn) {
         Response::success(null, $result['message']);
     } else {
         Response::error($result['message']);
+    }
+});
+
+$router->post('/user/avatar', function () use ($conn) {
+    if (!isset($_POST['firebase_uid']) || !isset($_FILES['avatar'])) {
+        Response::error('Dados incompletos para atualizar o avatar');
+        return;
+    }
+
+    $firebaseUid = $_POST['firebase_uid'];
+    $avatarFile = $_FILES['avatar'];
+
+    require_once __DIR__ . '/../controllers/UserController.php';
+    $controller = new UserController($conn);
+    $result = $controller->updateUserAvatar($firebaseUid, $avatarFile);
+
+    if ($result['success']) {
+        Response::success($result['data'], $result['message']);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// GET /user/id/{user_id} → Buscar usuário pelo user_id
+$router->get('/user/id/(\d+)', function ($user_id) use ($conn) {
+    $controller = new UserController($conn);
+    $result = $controller->getUserById($user_id);
+
+    if ($result) {
+        Response::success($result);
+    } else {
+        Response::error('Usuário não encontrado');
+    }
+});
+
+$router->get('/health', function () use ($conn) {
+    try {
+        $stmt = $conn->query("SELECT 1");
+        if ($stmt) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => true, 'message' => 'Conexão com banco de dados OK']);
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Conexão falhou']);
+        }
+    } catch (\PDOException $e) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'message' => 'Erro de conexão: ' . $e->getMessage()]);
     }
 });

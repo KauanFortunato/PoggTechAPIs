@@ -18,3 +18,4 @@ require_once __DIR__ . '/ProductRoutes.php';
 require_once __DIR__ . '/RecomendationRoutes.php';
 require_once __DIR__ . '/ReviewRoutes.php';
 require_once __DIR__ . '/WalletRoutes.php';
+require_once __DIR__ . '/CartRoutes.php';

@@ -43,14 +43,14 @@ class ProductController
         return $this->product->getDistributedProductsByCategories($categories, $quantity);
     }
 
-    public function addProductOnCart($user_id, $product_id, $tipo, $quantity)
+    public function addProductOnCart($user_id, $product_id, $quantity)
     {
-        return $this->product->addProductOnCart($user_id, $product_id, $tipo, $quantity);
+        return $this->product->addProductOnCart($user_id, $product_id, $quantity);
     }
 
-    public function saveProduct($user_id, $product_id, $tipo)
+    public function saveProduct($user_id, $product_id)
     {
-        return $this->product->saveProduct($user_id, $product_id, $tipo);
+        return $this->product->saveProduct($user_id, $product_id);
     }
 
     public function removeOneFromCart($user_id, $product_id, $tipo)
@@ -83,9 +83,9 @@ class ProductController
         return $this->product->attProductViews($product_id);
     }
 
-    public function getPopularProducts($all)
+    public function getPopularProducts($all, $quantity)
     {
-        return $this->product->getPopularProducts($all);
+        return $this->product->getPopularProducts($all, $quantity);
     }
 
     public function getRecommendedProducts($user_id)

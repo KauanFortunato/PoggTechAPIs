@@ -5,13 +5,13 @@ use App\Utils\Response;
 
 global $router, $conn;
 
-// GET /Messages → get last message
+// GET /Messages → get product images
 $router->get('/gallery/product/(\d+)', function ($product_id) use ($conn) {
     $controller = new GalleryController($conn);
     $result = $controller->getProductImages($product_id);
 
-    if ($result) {
-        Response::success($result, "Última mensagem encontrada");
+    if ($result['success']) {
+        Response::success($result['data'], "Última mensagem encontrada");
     } else {
         Response::error("Nenhuma mensagem encontrada");
     }

@@ -83,4 +83,58 @@ class User
             return ["success" => false, "message" => "Erro ao atualizar usuário: " . $e->getMessage()];
         }
     }
+
+    public function updateUserAvatar($firebase_uid, $file)
+    {
+        try {
+            if (!isset($file) || $file['error'] !== UPLOAD_ERR_OK) {
+                return ["success" => false, "message" => "Falha no upload do arquivo"];
+            }
+
+            // 1. Buscar avatar atual
+            $stmt = $this->conn->prepare("SELECT avatar FROM users WHERE firebase_uid = :firebase_uid");
+            $stmt->execute([':firebase_uid' => $firebase_uid]);
+            $current = $stmt->fetch(PDO::FETCH_ASSOC);
+            $oldAvatar = $current ? $current['avatar'] : null;
+
+            // 2. Preparar diretório
+            $uploadDir = __DIR__ . '/../../uploads/avatars/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0775, true);
+            }
+
+            // 3. Criar nome único e mover
+            $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+            $uniqueName = uniqid('avatar_', true) . '.' . $ext;
+            $relativePath = 'uploads/avatars/' . $uniqueName;
+            $uploadPath = $uploadDir . $uniqueName;
+
+            if (!move_uploaded_file($file['tmp_name'], $uploadPath)) {
+                return ["success" => false, "message" => "Erro ao mover arquivo para pasta de destino"];
+            }
+
+            $publicUrl = BASE_URL . $relativePath;
+
+            // 4. Atualizar no banco
+            $stmt = $this->conn->prepare("UPDATE users SET avatar = :avatar WHERE firebase_uid = :firebase_uid");
+            $stmt->execute([
+                ':avatar' => $publicUrl,
+                ':firebase_uid' => $firebase_uid
+            ]);
+
+            // 5. Apagar imagem anterior (se for um arquivo real)
+            if ($oldAvatar) {
+                $oldRelativePath = str_replace(BASE_URL, '', $oldAvatar);
+                $oldFullPath = __DIR__ . '/../../' . $oldRelativePath;
+
+                if (file_exists($oldFullPath)) {
+                    unlink($oldFullPath);
+                }
+            }
+
+            return ["success" => true, "message" => "Avatar atualizado com sucesso", "data" => $publicUrl];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => "Erro no banco: " . $e->getMessage()];
+        }
+    }
 }

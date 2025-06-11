@@ -32,4 +32,9 @@ class UserController
     {
         return $this->user->updateUser($name, $last_name, $phone, $firebase_uid);
     }
+
+    public function updateUserAvatar($firebase_uid, $avatar)
+    {
+        return $this->user->updateUserAvatar($firebase_uid, $avatar);
+    }
 }

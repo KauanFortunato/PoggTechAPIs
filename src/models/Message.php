@@ -20,7 +20,7 @@ class Message
             $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
             $stmt->execute();
             $chat_id = $this->conn->lastInsertId();
-            return ["success" => true, "message" => "Chat criado com sucesso.", "chat_id" => $chat_id];
+            return ["success" => true, "message" => "Chat criado com sucesso.", "data" => $chat_id];
         } catch (\PDOException $e) {
             return ["success" => false, "message" => "Erro ao criar chat: " . $e->getMessage()];
         }

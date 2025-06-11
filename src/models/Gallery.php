@@ -40,7 +40,7 @@ class Gallery
                 return ["success" => false, "message" => "Nenhuma imagem encontrada para o produto"];
             }
 
-            return ["success" => true, "images" => $images];
+            return ["success" => true, "data" => $images];
         } catch (\PDOException $e) {
             return ["success" => false, "message" => "Erro na consulta: " . $e->getMessage()];
         }

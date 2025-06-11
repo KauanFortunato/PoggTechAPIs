@@ -145,10 +145,10 @@ class Product
         }
     }
 
-    public function getPopularProducts($all = false)
+    public function getPopularProducts($all = false, $quantity = 6)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM v_popular_products WHERE quantity > 0 ORDER BY view_count DESC LIMIT 6");
+            $stmt = $this->conn->prepare("SELECT * FROM v_popular_products WHERE quantity > 0 ORDER BY view_count DESC LIMIT $quantity");
             if ($all) {
                 $stmt = $this->conn->prepare("SELECT * FROM v_popular_products WHERE quantity > 0 ORDER BY view_count DESC");
             }
@@ -236,12 +236,12 @@ class Product
             $placeholders = implode(',', array_fill(0, count($categories), '?'));
 
             if ($all === true) {
-                $sql = "SELECT * FROM products WHERE category IN ($placeholders) ORDER BY RAND()";
+                $sql = "SELECT * FROM v_product_details WHERE category IN ($placeholders) ORDER BY RAND()";
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute($categories);
             } else {
                 $quantity = (int)$quantity;
-                $sql = "SELECT * FROM products WHERE category IN ($placeholders) ORDER BY RAND() LIMIT $quantity";
+                $sql = "SELECT * FROM v_product_details WHERE category IN ($placeholders) ORDER BY RAND() LIMIT $quantity";
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute($categories);
             }
@@ -277,7 +277,7 @@ class Product
             $quantityPerCategory = ceil($totalQuantity / count($categories));
 
             foreach ($categories as $category) {
-                $stmt = $this->conn->prepare("SELECT * FROM products WHERE category = ? ORDER BY RAND() LIMIT ?");
+                $stmt = $this->conn->prepare("SELECT * FROM v_product_details WHERE category = ? ORDER BY RAND() LIMIT ?");
                 $stmt->bindValue(1, $category);
                 $stmt->bindValue(2, $quantityPerCategory, PDO::PARAM_INT);
                 $stmt->execute();
@@ -311,7 +311,7 @@ class Product
         }
     }
 
-    public function addProductOnCart($user_id, $product_id, $tipo = 0, $quantity)
+    public function addProductOnCart($user_id, $product_id, $quantity)
     {
         try {
             // Buscar estoque
@@ -324,11 +324,10 @@ class Product
             }
 
             // Verificar se já existe no carrinho
-            $stmt = $this->conn->prepare("SELECT quantity FROM saved WHERE user_id = :user_id AND product_id = :product_id AND tipo = :tipo");
+            $stmt = $this->conn->prepare("SELECT quantity FROM saved WHERE user_id = :user_id AND product_id = :product_id AND tipo = 0");
             $stmt->execute([
                 ':user_id' => $user_id,
-                ':product_id' => $product_id,
-                ':tipo' => $tipo
+                ':product_id' => $product_id
             ]);
 
             $currentQuantity = $stmt->fetchColumn();
@@ -338,14 +337,13 @@ class Product
                 return ["success" => false, "message" => "Não há mais stock disponível."];
             }
 
-            if ($stock >= $quantity) {
+            if ($stock >= $quantity + $currentQuantity) {
                 $stmt = $this->conn->prepare("INSERT INTO saved (user_id, product_id, tipo, quantity) 
-                                          VALUES (:user_id, :product_id, :tipo, :quantity) 
+                                          VALUES (:user_id, :product_id, 0, :quantity) 
                                           ON DUPLICATE KEY UPDATE quantity = quantity + :quantity_upd");
                 $stmt->execute([
                     ':user_id' => $user_id,
                     ':product_id' => $product_id,
-                    ':tipo' => $tipo,
                     ':quantity' => $quantity,
                     ':quantity_upd' => $quantity
                 ]);
@@ -358,16 +356,15 @@ class Product
         }
     }
 
-    public function saveProduct($user_id, $product_id, $tipo)
+    public function saveProduct($user_id, $product_id)
     {
         try {
             $stmt = $this->conn->prepare("INSERT INTO saved (user_id, product_id, tipo, quantity) 
-                                      VALUES (:user_id, :product_id, :tipo, 1) 
+                                      VALUES (:user_id, :product_id, 1, 1) 
                                       ON DUPLICATE KEY UPDATE quantity = quantity + 1");
             $stmt->execute([
                 ':user_id' => $user_id,
                 ':product_id' => $product_id,
-                ':tipo' => $tipo
             ]);
 
             return ["success" => true, "message" => "Adicionado aos salvos com sucesso."];
@@ -443,7 +440,7 @@ class Product
             $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if (!empty($product)) {
-                return ["success" => true, "isSaved" => $product['tipo']];
+                return ["success" => true, "data" => $product['tipo']];
             } else {
                 return ["success" => false, "message" => "Nenhum produto foi encontrado"];
             }
@@ -512,7 +509,7 @@ class Product
                 return $this->fallbackSearch($terms);
             }
 
-            return ["success" => true, "products" => $products];
+            return ["success" => true, "data" => $products];
         } catch (\Exception $e) {
             return ["success" => false, "message" => "Erro na busca: " . $e->getMessage()];
         }

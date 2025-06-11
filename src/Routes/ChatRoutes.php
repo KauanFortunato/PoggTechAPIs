@@ -22,6 +22,10 @@ $router->get('/chat/(\d+)/(\d+)', function ($user_id, $product_id) use ($control
 $router->post('/chat/create', function () use ($controller) {
     $data = json_decode(file_get_contents('php://input'), true) ?: $_POST;
 
+    if (!$data) {
+        $data = $_POST;
+    }
+
     if (empty($data['product_id'])) {
         Response::error("Parâmetro 'product_id' é obrigatório");
         return;
@@ -30,18 +34,7 @@ $router->post('/chat/create', function () use ($controller) {
     $result = $controller->createChat($data['product_id']);
 
     if ($result['success']) {
-        Response::success(['chat_id' => $result['chat_id']]);
-    } else {
-        Response::error($result['message']);
-    }
-});
-
-// GET /chat/unread/{chat_id}/{receiver_id} → contar mensagens não lidas
-$router->get('/chat/unread/(\d+)/(\d+)', function ($chat_id, $receiver_id) use ($controller) {
-    $result = $controller->getUnreadCount($chat_id, $receiver_id);
-
-    if ($result['success']) {
-        Response::success(['unread_count' => $result['unread_count']]);
+        Response::success($result['data'], $result['message']);
     } else {
         Response::error($result['message']);
     }
@@ -69,9 +62,24 @@ $router->get('/chat/selling/(\d+)', function ($user_id) use ($controller) {
     }
 });
 
+// GET /chat/unread/{chat_id}/{receiver_id} → contar mensagens não lidas
+$router->get('/chat/unread/(\d+)/(\d+)', function ($chat_id, $receiver_id) use ($controller) {
+    $result = $controller->getUnreadCount($chat_id, $receiver_id);
+
+    if ($result['success']) {
+        Response::success(['unread_count' => $result['unread_count']]);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
 // POST /chat/read → marcar mensagens como lidas (recebe JSON com chat_id e receiver_id)
 $router->post('/chat/read', function () use ($controller) {
     $data = json_decode(file_get_contents('php://input'), true) ?: $_POST;
+
+    if (!$data) {
+        $data = $_POST;
+    }
 
     if (empty($data['chat_id']) || empty($data['receiver_id'])) {
         Response::error("Parâmetros 'chat_id' e 'receiver_id' são obrigatórios");
