@@ -26,12 +26,12 @@ $router->post('/chat/create', function () use ($controller) {
         $data = $_POST;
     }
 
-    if (empty($data['product_id'])) {
+    if (empty($data['product_id']) || empty($data['seller_id']) || empty($data['buyer_id'])) {
         Response::error("Parâmetro 'product_id' é obrigatório");
         return;
     }
 
-    $result = $controller->createChat($data['product_id']);
+    $result = $controller->createChat($data['product_id'], $data['seller_id'], $data['buyer_id']);
 
     if ($result['success']) {
         Response::success($result['data'], $result['message']);
@@ -45,7 +45,7 @@ $router->get('/chat/buying/(\d+)', function ($user_id) use ($controller) {
     $result = $controller->getBuyingChats($user_id);
 
     if ($result['success']) {
-        Response::success($result['chats']);
+        Response::success($result['data']);
     } else {
         Response::error($result['message']);
     }

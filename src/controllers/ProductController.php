@@ -18,6 +18,11 @@ class ProductController
         return $this->product->createProduct($data, $images);
     }
 
+    public function updateProduct($product_id, $data, $images)
+    {
+        return $this->product->updateProduct($product_id, $data, $images);
+    }
+
     public function deleteProduct($product_id)
     {
         return $this->product->deleteProduct($product_id);
@@ -56,6 +61,11 @@ class ProductController
     public function removeOneFromCart($user_id, $product_id, $tipo)
     {
         return $this->product->removeOneFromCart($user_id, $product_id, $tipo);
+    }
+
+    public function reduceQuantity($product_id, $quantity)
+    {
+        return $this->product->reduceQuantity($product_id, $quantity);
     }
 
     public function getAllProductsFromCart($user_id, $tipo)

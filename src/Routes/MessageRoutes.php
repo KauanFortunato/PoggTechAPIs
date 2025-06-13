@@ -5,7 +5,7 @@ use App\Utils\Response;
 
 global $router, $conn;
 
-// POST /Messages → enviar mensagem
+// POST /messages/send → enviar mensagem
 $router->post('/messages/send', function () use ($conn) {
     $data = json_decode(file_get_contents('php://input'), true);
 
@@ -35,7 +35,7 @@ $router->post('/messages/send', function () use ($conn) {
     }
 });
 
-// GET /Messages → get messages
+// GET /messages/{product_id}/{chat_id} → get messages
 $router->get('/messages/(\d+)/(\d+)', function ($product_id, $chat_id) use ($conn) {
     $controller = new MessageController($conn);
     $result = $controller->getMessages($product_id, $chat_id);
@@ -47,7 +47,7 @@ $router->get('/messages/(\d+)/(\d+)', function ($product_id, $chat_id) use ($con
     }
 });
 
-// GET /Messages → get last message
+// GET /messages/last/{product_id}/{receiver_id} → get last message
 $router->get('/messages/last/(\d+)/(\d+)', function ($product_id, $receiver_id) use ($conn) {
     $controller = new MessageController($conn);
     $result = $controller->getLastMessage($product_id, $receiver_id);

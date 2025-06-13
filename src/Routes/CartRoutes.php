@@ -102,7 +102,7 @@ $router->post('/cart/removeProduct', function () use ($controller) {
         $data = $_POST;
     }
 
-    $required = ['user_id', 'product_id', 'tipo'];
+    $required = ['user_id', 'product_id'];
     foreach ($required as $field) {
         if (empty($data[$field])) {
             Response::error("Parâmetro '$field' é obrigatório");

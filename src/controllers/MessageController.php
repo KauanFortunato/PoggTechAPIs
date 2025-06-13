@@ -34,9 +34,9 @@ class MessageController
         return $this->message->getChat($user_id, $product_id);
     }
 
-    public function createChat($product_id)
+    public function createChat($product_id, $seller_id, $buyer_id)
     {
-        return $this->message->createChat($product_id);
+        return $this->message->createChat($product_id, $seller_id, $buyer_id);
     }
 
     public function readMessages($chat_id, $receiver_id)
@@ -62,7 +62,7 @@ class MessageController
 
     public function sendMessage($sender_id, $receiver_id, $chat_id, $message)
     {
-        $response = $this->message->sendMessage($sender_id, $receiver_id, $chat_id, $message);
+        $response = $this->message->sendMessage($sender_id, $chat_id, $message);
 
         if ($response["success"] === true) {
             $fcmController = new FCMControler($this->conn);

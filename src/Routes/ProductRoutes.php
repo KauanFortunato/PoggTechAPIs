@@ -12,10 +12,6 @@ $router->post('/products', function () use ($controller) {
     // Recebe dados do produto no JSON
     $data = json_decode(file_get_contents('php://input'), true) ?: $_POST;
 
-    if (!$data) {
-        $data = $_POST;
-    }
-
     // Recebe arquivos (imagens) via $_FILES
     $images = $_FILES['images'] ?? [];
 
@@ -28,12 +24,54 @@ $router->post('/products', function () use ($controller) {
     }
 });
 
+// POST /products/{id} → atualizar produto
+$router->post('/products/(\d+)', function ($productId) use ($controller) {
+    // Recebe dados do produto no JSON
+    $data = json_decode(file_get_contents('php://input'), true) ?: $_POST;
+
+    // Recebe arquivos (imagens) via $_FILES
+    $images = $_FILES['images'] ?? [];
+
+    $result = $controller->updateProduct($productId, $data, $images);
+
+    if ($result['success']) {
+        Response::success(null, "Produto atualizado com sucesso");
+    } else {
+        Response::error($result['message']);
+    }
+});
+
 // DELETE /products/{id} → deletar produto
 $router->delete('/products/(\d+)', function ($id) use ($controller) {
     $result = $controller->deleteProduct($id);
 
     if ($result['success']) {
         Response::success(null, "Produto deletado");
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// POST /product/quantity/ → reduzir quantity
+$router->post('/product/quantity', function () use ($controller) {
+    $data = json_decode(file_get_contents('php://input'), true) ?: $_POST;
+
+    if (!$data) {
+        $data = $_POST;
+    }
+
+    $required = ['product_id', 'quantity'];
+    foreach ($required as $field) {
+        if (empty($data[$field])) {
+            Response::error("Parâmetro '$field' é obrigatório");
+            return;
+        }
+    }
+
+    $result = $controller->reduceQuantity(intval($data['product_id']), intval($data['quantity']));
+
+    if ($result['success']) {
+        Response::success(null, $result['message']);
     } else {
         Response::error($result['message']);
     }

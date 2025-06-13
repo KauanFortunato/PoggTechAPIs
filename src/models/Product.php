@@ -17,6 +17,7 @@ class Product
 
     public function createProduct($data, $imagens)
     {
+
         try {
             error_log("Dados recebidos: " . print_r($data, true));
             $this->conn->beginTransaction();
@@ -49,7 +50,8 @@ class Product
             }
 
             // 3. Guardar imagens
-            $uploadDir = '../../uploads/';
+            $uploadDir = __DIR__ . '/../../uploads/';
+
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
             }
@@ -62,7 +64,7 @@ class Product
                 $ext = pathinfo($imagens['name'][$index], PATHINFO_EXTENSION);
                 $uniqueName = uniqid('img_', true) . '.' . $ext;
                 $relativePath = 'uploads/' . $uniqueName;
-                $uploadPath = '../../' . $relativePath;
+                $uploadPath = $uploadDir . $uniqueName;
 
                 if (move_uploaded_file($tmpName, $uploadPath)) {
                     $publicUrl = BASE_URL . $relativePath;
@@ -97,6 +99,120 @@ class Product
         }
     }
 
+    public function updateProduct($productId, $data, $imagens)
+    {
+        try {
+            error_log("Atualizando produto ID: $productId com dados: " . print_r($data, true));
+            $this->conn->beginTransaction();
+
+            // 1. Atualizar os dados principais
+            $sql = "UPDATE products SET title = :title, description = :description, location = :location, 
+            price = :price, category = :category 
+            WHERE product_id = :product_id";
+
+            $data['price'] = floatval(str_replace(',', '.', $data['price']));
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':title' => $data['title'],
+                ':description' => $data['description'],
+                ':location' => $data['location'],
+                ':price' => $data['price'],
+                ':category' => $data['category'],
+                ':product_id' => $productId
+            ]);
+
+            // 2. Obter galeria
+            $stmt = $this->conn->prepare("SELECT gallery_id FROM gallery WHERE product_id = :product_id");
+            $stmt->execute([':product_id' => $productId]);
+            $galleryId = $stmt->fetchColumn();
+
+            if (!$galleryId) {
+                throw new \Exception("Galeria não encontrada para o produto.");
+            }
+
+            // 3. Buscar todas imagens antigas do banco
+            $stmt = $this->conn->prepare("SELECT path FROM images WHERE gallery_id = :gallery_id");
+            $stmt->execute([':gallery_id' => $galleryId]);
+            $oldImages = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+            // 4. Pegar as imagens que o usuário quer manter
+            $existingImages = isset($data['existing_images']) ? $data['existing_images'] : [];
+
+            // 5. Determinar quais imagens remover
+            $imagesToDelete = array_diff($oldImages, $existingImages);
+
+            foreach ($imagesToDelete as $path) {
+                $relativePath = str_replace(BASE_URL, '', $path);
+                $filePath = realpath(__DIR__ . '/../../' . $relativePath);
+                if ($filePath && file_exists($filePath)) {
+                    unlink($filePath);
+                }
+
+                // Remover do banco
+                $stmt = $this->conn->prepare("DELETE FROM images WHERE gallery_id = :gallery_id AND path = :path");
+                $stmt->execute([
+                    ':gallery_id' => $galleryId,
+                    ':path' => $path
+                ]);
+            }
+
+            // 6. Inserir novas imagens, se houver
+            $newImagePaths = [];
+            $firstImagePath = null;
+            $uploadDir = __DIR__ . '/../../uploads/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            if (!empty($imagens['tmp_name'])) {
+                if (!is_array($imagens['tmp_name'])) {
+                    foreach ($imagens as $key => $value) {
+                        $imagens[$key] = [$value];
+                    }
+                }
+
+                foreach ($imagens['tmp_name'] as $index => $tmpName) {
+                    if ($imagens['error'][$index] !== UPLOAD_ERR_OK) continue;
+
+                    $ext = pathinfo($imagens['name'][$index], PATHINFO_EXTENSION);
+                    $uniqueName = uniqid('img_', true) . '.' . $ext;
+                    $relativePath = 'uploads/' . $uniqueName;
+                    $uploadPath = $uploadDir . $uniqueName;
+
+                    if (move_uploaded_file($tmpName, $uploadPath)) {
+                        $publicUrl = BASE_URL . $relativePath;
+                        $newImagePaths[] = $publicUrl;
+
+                        $stmt = $this->conn->prepare("INSERT INTO images (gallery_id, path) VALUES (:gallery_id, :path)");
+                        $stmt->execute([
+                            ':gallery_id' => $galleryId,
+                            ':path' => $publicUrl
+                        ]);
+                    }
+                }
+            }
+
+            // 7. Atualizar imagem de capa
+            // prioridade: primeira imagem da nova lista total (existentes + novas)
+            $finalImages = array_merge($existingImages, $newImagePaths);
+            $firstImagePath = $finalImages[0] ?? null;
+
+            $stmt = $this->conn->prepare("UPDATE products SET cover = :cover WHERE product_id = :product_id");
+            $stmt->execute([
+                ':cover' => $firstImagePath,
+                ':product_id' => $productId
+            ]);
+
+            $this->conn->commit();
+            return ["success" => true, "message" => "Produto atualizado com sucesso."];
+        } catch (\Exception $e) {
+            $this->conn->rollBack();
+            error_log("Erro ao atualizar produto: " . $e->getMessage());
+            return ["success" => false, "message" => "Erro: " . $e->getMessage()];
+        }
+    }
+
     public function deleteProduct($product_id)
     {
         try {
@@ -115,13 +231,17 @@ class Product
 
             // 3. Deletar imagens do servidor
             foreach ($imagesPaths as $imagePath) {
-                $localPath = '../../' . str_replace(BASE_URL, '', $imagePath);
-                if (file_exists($localPath)) {
+                $relativePath = str_replace(BASE_URL, '', $imagePath);
+                $localPath = realpath(__DIR__ . '/../../' . $relativePath);
+
+                if ($localPath && file_exists($localPath)) {
                     unlink($localPath);
+                    error_log("🗑️ Imagem deletada com sucesso: $localPath");
                 } else {
-                    error_log("Arquivo não encontrado: " . $localPath);
+                    error_log("❌ Imagem não encontrada ou caminho inválido: $localPath");
                 }
             }
+
 
             $this->conn->commit();
             return ["success" => true, "message" => "Produto deletado com sucesso."];
@@ -135,7 +255,7 @@ class Product
     public function getProduct($product_id)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM v_product_details WHERE product_id = :product_id AND quantity > 0");
+            $stmt = $this->conn->prepare("SELECT * FROM v_product_details WHERE product_id = :product_id");
             $stmt->execute([':product_id' => $product_id]);
             $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -148,7 +268,7 @@ class Product
     public function getPopularProducts($all = false, $quantity = 6)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM v_popular_products WHERE quantity > 0 ORDER BY view_count DESC LIMIT $quantity");
+            $stmt = $this->conn->prepare("SELECT * FROM v_popular_products WHERE quantity > 0 AND status = 'available' ORDER BY view_count DESC LIMIT $quantity");
             if ($all) {
                 $stmt = $this->conn->prepare("SELECT * FROM v_popular_products WHERE quantity > 0 ORDER BY view_count DESC");
             }
@@ -167,7 +287,7 @@ class Product
             $sql = "SELECT p.* 
                 FROM products p 
                 JOIN user_history uh ON p.product_id = uh.product_id 
-                WHERE uh.user_id = :user_id 
+                WHERE uh.user_id = :user_id
                 GROUP BY p.product_id 
                 ORDER BY MAX(uh.accessed_at) DESC 
                 LIMIT 5";
@@ -241,7 +361,7 @@ class Product
                 $stmt->execute($categories);
             } else {
                 $quantity = (int)$quantity;
-                $sql = "SELECT * FROM v_product_details WHERE category IN ($placeholders) ORDER BY RAND() LIMIT $quantity";
+                $sql = "SELECT * FROM v_product_details WHERE category IN ($placeholders) AND status = 'available' ORDER BY RAND() LIMIT $quantity";
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute($categories);
             }
@@ -277,7 +397,7 @@ class Product
             $quantityPerCategory = ceil($totalQuantity / count($categories));
 
             foreach ($categories as $category) {
-                $stmt = $this->conn->prepare("SELECT * FROM v_product_details WHERE category = ? ORDER BY RAND() LIMIT ?");
+                $stmt = $this->conn->prepare("SELECT * FROM v_product_details WHERE category = ? AND status = 'available' ORDER BY RAND() LIMIT ?");
                 $stmt->bindValue(1, $category);
                 $stmt->bindValue(2, $quantityPerCategory, PDO::PARAM_INT);
                 $stmt->execute();
@@ -353,6 +473,24 @@ class Product
             }
         } catch (\Exception $e) {
             return ["success" => false, "message" => "Erro: " . $e->getMessage()];
+        }
+    }
+
+    public function reduceQuantity($product_id, $quantity)
+    {
+        try {
+            $sql = "UPDATE products SET quantity = quantity - :quantity WHERE product_id = :product_id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
+            $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                return ["success" => true, "message" => "Quantidade atualizada com sucesso."];
+            } else {
+                return ["success" => false, "message" => "Erro ao atualizar quantidade."];
+            }
+        } catch (\Exception $e) {
+            return ["success" => false, "message" => "Erro ao atualizar quantidade."];
         }
     }
 
