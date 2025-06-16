@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2025 at 09:21 PM
+-- Generation Time: Jun 16, 2025 at 02:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,6 +55,8 @@ INSERT INTO `categories` (`category_id`, `name`, `icon`, `description`, `created
 CREATE TABLE `chats` (
   `chat_id` int(11) NOT NULL,
   `product_id` int(11) DEFAULT NULL,
+  `seller_id` int(11) NOT NULL,
+  `buyer_id` int(11) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -62,11 +64,10 @@ CREATE TABLE `chats` (
 -- Dumping data for table `chats`
 --
 
-INSERT INTO `chats` (`chat_id`, `product_id`, `timestamp`) VALUES
-(23, 3, '2025-03-12 12:12:54'),
-(24, 3, '2025-03-12 12:15:41'),
-(25, 4, '2025-04-14 15:54:58'),
-(26, 24, '2025-05-07 23:57:34');
+INSERT INTO `chats` (`chat_id`, `product_id`, `seller_id`, `buyer_id`, `timestamp`) VALUES
+(53, 5, 19, 28, '2025-06-12 22:31:27'),
+(54, 9, 15, 28, '2025-06-13 00:12:20'),
+(55, 24, 15, 28, '2025-06-15 14:37:35');
 
 -- --------------------------------------------------------
 
@@ -107,7 +108,7 @@ INSERT INTO `gallery` (`gallery_id`, `product_id`, `created_at`) VALUES
 (24, 4, '2025-04-23 15:05:38'),
 (25, 23, '2025-04-23 15:05:38'),
 (26, 5, '2025-04-23 15:05:38'),
-(42, 46, '2025-05-11 13:56:22');
+(63, 67, '2025-06-14 21:56:02');
 
 -- --------------------------------------------------------
 
@@ -184,9 +185,10 @@ INSERT INTO `images` (`image_id`, `gallery_id`, `path`) VALUES
 (105, 23, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_D_NQ_NP_2X_665115-MLB25195695981_112016-F-1009604948.jpg'),
 (106, 25, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_5030917027598_l.webp'),
 (107, 25, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_s-l1600-426613892.jpg'),
-(108, 42, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6820ac864dcad6.85035500.jpg'),
-(109, 42, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6820ac864df164.74578465.jpg'),
-(110, 42, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6820ac864e1774.66367431.jpg');
+(170, 63, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684deff2251b08.35597252.jpg'),
+(171, 63, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684deff2256a45.02643957.jpg'),
+(172, 63, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684deff225b0a7.47364033.jpg'),
+(173, 63, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684f612baac333.02104368.jpg');
 
 -- --------------------------------------------------------
 
@@ -198,7 +200,6 @@ CREATE TABLE `messages` (
   `id_message` int(11) NOT NULL,
   `chat_id` int(11) NOT NULL,
   `sender_id` int(11) NOT NULL,
-  `receiver_id` int(11) NOT NULL,
   `message` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
   `is_read` tinyint(1) DEFAULT 0
@@ -208,94 +209,35 @@ CREATE TABLE `messages` (
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`id_message`, `chat_id`, `sender_id`, `receiver_id`, `message`, `timestamp`, `is_read`) VALUES
-(123, 23, 28, 15, 'Mordekai enviou', '2025-03-12 12:12:54', 1),
-(124, 24, 26, 15, 'Kauan Sites aleatorios', '2025-03-12 12:15:41', 1),
-(125, 23, 15, 28, 'Dono do produto', '2025-03-12 12:16:39', 1),
-(127, 23, 28, 15, 'Broo', '2025-04-11 20:29:47', 1),
-(128, 23, 28, 15, 'Broo', '2025-04-11 20:31:22', 1),
-(129, 23, 28, 15, 'Broo', '2025-04-11 20:32:14', 1),
-(130, 23, 28, 15, 'Broo', '2025-04-11 20:43:51', 1),
-(131, 23, 28, 15, 'Broo', '2025-04-11 20:44:25', 1),
-(132, 23, 28, 15, 'Broo', '2025-04-11 20:46:35', 1),
-(133, 23, 28, 15, 'Sua mae ainda ta disponivel?', '2025-04-11 20:46:55', 1),
-(134, 23, 28, 15, 'Sua mae ainda ta disponivel?', '2025-04-11 20:47:29', 1),
-(135, 23, 28, 15, 'E ai?', '2025-04-11 20:49:09', 1),
-(136, 23, 28, 15, 'E aiasdasdsa?', '2025-04-11 20:49:18', 1),
-(137, 23, 28, 15, 'E ai mano?', '2025-04-12 13:42:33', 1),
-(138, 23, 28, 15, 'E ai mano?', '2025-04-12 13:44:30', 1),
-(139, 23, 28, 15, 'E ai mano?', '2025-04-12 13:44:47', 1),
-(140, 23, 28, 15, 'E ai mano?', '2025-04-12 13:45:00', 1),
-(141, 23, 28, 15, 'E ai mano?', '2025-04-12 13:48:14', 1),
-(142, 23, 28, 15, 'E ai mano?', '2025-04-14 13:36:52', 1),
-(143, 23, 28, 15, 'E ai mano?', '2025-04-14 14:05:40', 1),
-(144, 24, 26, 15, 'E ai mano?', '2025-04-14 14:06:37', 1),
-(145, 25, 15, 18, 'Oi, esse item está disponível?', '2025-04-14 15:54:58', 1),
-(146, 25, 18, 15, 'Esta sim', '2025-04-14 15:56:45', 1),
-(147, 25, 15, 18, 'Mas vc tem quantos anos bb?', '2025-04-14 15:57:34', 1),
-(148, 24, 26, 15, 'E ai mano?', '2025-04-15 14:47:27', 1),
-(149, 24, 26, 15, 'E ai mano?', '2025-04-15 14:47:40', 1),
-(150, 24, 26, 15, 'E ai mano?', '2025-04-15 14:48:16', 1),
-(151, 24, 26, 15, 'E ai mano?', '2025-04-15 14:49:23', 1),
-(152, 24, 26, 15, 'E ai mano?', '2025-04-15 14:50:20', 1),
-(153, 24, 26, 15, 'E ai mano?', '2025-04-15 14:51:58', 1),
-(154, 24, 26, 15, 'E ai mano?', '2025-04-15 14:52:12', 1),
-(155, 24, 26, 15, 'E ai mano?', '2025-04-15 14:53:26', 1),
-(156, 24, 26, 15, 'E ai mano?', '2025-04-15 14:54:56', 1),
-(157, 24, 26, 15, 'E ai mano?', '2025-04-15 14:55:26', 1),
-(158, 24, 26, 15, 'E ai mano?', '2025-04-15 14:55:48', 1),
-(159, 24, 26, 15, 'E ai mano?', '2025-04-15 14:56:33', 1),
-(160, 24, 26, 15, 'E ai mano?', '2025-04-15 15:00:56', 1),
-(161, 24, 26, 15, 'E ai mano?', '2025-04-15 15:02:37', 1),
-(162, 24, 26, 15, 'E ai mano?', '2025-04-15 15:03:31', 1),
-(163, 24, 26, 15, 'E ai mano?', '2025-04-15 15:04:58', 1),
-(164, 24, 26, 15, 'E ai mano?', '2025-04-15 15:06:18', 1),
-(165, 24, 26, 15, 'E ai mano?', '2025-04-15 15:07:47', 1),
-(166, 24, 26, 15, 'E ai mano?', '2025-04-15 15:08:31', 1),
-(167, 24, 26, 15, 'E ai mano?', '2025-04-15 15:09:18', 1),
-(168, 24, 26, 15, 'E ai mano?', '2025-04-15 15:09:51', 1),
-(169, 24, 26, 15, 'E ai mano?', '2025-04-15 15:15:55', 1),
-(170, 24, 26, 15, 'E ai mano?', '2025-04-15 15:16:36', 1),
-(171, 24, 26, 15, 'E ai mano?', '2025-04-15 15:24:20', 1),
-(172, 24, 26, 15, 'E ai mano?', '2025-04-15 15:24:38', 1),
-(173, 24, 26, 15, 'E ai mano?', '2025-04-15 15:25:25', 1),
-(174, 24, 26, 15, 'E ai mano?', '2025-04-15 15:26:59', 1),
-(175, 24, 26, 15, 'E ai mano?', '2025-04-15 15:29:45', 1),
-(176, 24, 26, 15, 'E ai mano?', '2025-04-15 15:32:07', 1),
-(177, 24, 26, 15, 'E ai mano?', '2025-04-15 16:16:53', 1),
-(178, 24, 26, 15, 'E ai mano?', '2025-04-15 16:17:02', 1),
-(179, 24, 26, 15, 'E ai mano?', '2025-04-15 16:19:44', 1),
-(180, 24, 26, 15, 'E ai mano?', '2025-04-15 16:19:50', 1),
-(181, 24, 26, 15, 'E ai mano?', '2025-04-15 16:19:56', 1),
-(182, 24, 26, 15, 'E ai mano?', '2025-04-15 16:20:38', 1),
-(183, 24, 26, 15, 'E ai mano?', '2025-04-15 16:20:45', 1),
-(184, 24, 26, 15, 'E ai mano?', '2025-04-15 16:20:50', 1),
-(185, 24, 26, 15, 'E ai mano?', '2025-04-15 16:22:17', 1),
-(186, 24, 26, 15, 'E ai mano?', '2025-04-15 16:31:12', 1),
-(187, 24, 26, 15, 'E ai mano?', '2025-04-15 16:55:56', 1),
-(188, 24, 26, 15, 'E ai mano?', '2025-04-15 17:00:30', 1),
-(189, 24, 26, 15, 'E ai mano?', '2025-04-15 17:01:12', 1),
-(190, 24, 26, 15, 'E ai mano?', '2025-04-15 17:03:53', 1),
-(191, 24, 26, 15, 'E ai mano?', '2025-04-15 17:03:57', 1),
-(192, 26, 28, 15, 'Oi, esse item está disponível?', '2025-05-07 23:57:34', 0),
-(193, 24, 26, 15, 'E ai mano?', '2025-05-09 14:37:31', 1),
-(194, 26, 15, 28, 'E ai mano?', '2025-05-09 14:38:42', 1),
-(195, 26, 15, 28, 'E ai mano?', '2025-05-09 14:38:45', 1),
-(196, 26, 15, 28, 'E ai mano?', '2025-05-09 14:38:55', 1),
-(197, 23, 15, 28, 'E ai mano?', '2025-05-09 14:39:24', 1),
-(198, 24, 26, 15, 'E ai mano?', '2025-05-10 14:07:14', 0),
-(199, 23, 15, 28, 'E ai mano?', '2025-05-10 14:08:46', 1),
-(200, 23, 15, 28, 'E ai mano?', '2025-05-10 14:08:51', 1),
-(201, 23, 15, 28, 'E ai mano?', '2025-05-10 14:08:54', 1),
-(202, 23, 15, 28, 'E ai mano?', '2025-05-10 14:09:16', 1),
-(203, 24, 26, 15, 'E ai mano?', '2025-05-11 13:35:57', 0),
-(204, 23, 15, 28, 'E ai mano?', '2025-05-11 13:36:30', 1),
-(205, 23, 15, 28, 'Vai querer o produto?', '2025-05-11 14:30:14', 1),
-(206, 23, 15, 28, 'Vai querer o produto?', '2025-05-11 14:30:24', 1),
-(207, 23, 15, 28, 'Vai querer o produto?', '2025-05-11 14:30:57', 1),
-(208, 26, 28, 15, 'Oi, esse item está disponível?', '2025-05-11 14:36:17', 0),
-(209, 23, 15, 28, 'Vai querer o produto?', '2025-05-11 18:01:10', 1),
-(210, 23, 28, 15, 'Nigga', '2025-05-11 18:01:50', 0);
+INSERT INTO `messages` (`id_message`, `chat_id`, `sender_id`, `message`, `timestamp`, `is_read`) VALUES
+(382, 53, 19, 'Banannini', '2025-06-12 22:32:34', 1),
+(383, 53, 28, 'niggga', '2025-06-12 23:44:38', 0),
+(384, 53, 28, 'Boing', '2025-06-13 00:06:28', 0),
+(385, 53, 28, 'Bping', '2025-06-13 00:06:32', 0),
+(386, 54, 28, 'Hi, is this item available?', '2025-06-13 00:12:20', 0),
+(387, 54, 28, 'Ola', '2025-06-13 00:12:34', 0),
+(388, 54, 28, 'Sayo', '2025-06-13 00:12:38', 0),
+(389, 54, 28, 'Tas bem???', '2025-06-13 00:12:45', 0),
+(390, 54, 28, 'Bom dia', '2025-06-13 20:47:16', 0),
+(391, 54, 28, 'Ola', '2025-06-13 20:47:20', 0),
+(392, 54, 28, 'Boioioionnggg', '2025-06-13 20:47:30', 0),
+(393, 54, 28, 'Ola', '2025-06-13 21:00:34', 0),
+(394, 54, 28, 'Baza??', '2025-06-13 23:19:45', 0),
+(395, 54, 28, 'Sexo?', '2025-06-13 23:19:50', 0),
+(396, 55, 28, 'Oi, esse item está disponível?', '2025-06-15 14:37:35', 0),
+(397, 55, 28, 'Oi, esse item está disponível?', '2025-06-15 14:40:33', 0),
+(398, 55, 28, 'Oi, esse item está disponível?', '2025-06-15 14:41:11', 0),
+(399, 55, 28, 'Oi, esse item está disponível?', '2025-06-15 14:50:43', 0),
+(400, 55, 28, 'Oi, esse item está disponível?', '2025-06-15 14:50:47', 0),
+(401, 55, 28, 'Oi, esse item está disponível?', '2025-06-15 14:50:48', 0),
+(402, 55, 28, 'Oi, esse item está disponível?', '2025-06-15 14:50:49', 0),
+(403, 55, 28, 'Oi, esse item está disponível?', '2025-06-15 14:50:50', 0),
+(404, 55, 28, 'Oi, esse item está disponível?', '2025-06-15 14:50:52', 0),
+(405, 53, 28, 'Hi, is this item available?', '2025-06-16 00:10:31', 0),
+(406, 53, 28, 'Hi, is this item available?', '2025-06-16 00:10:33', 0),
+(407, 53, 28, 'Hi, is this item available?', '2025-06-16 00:10:35', 0),
+(408, 53, 28, 'Hi, is this item available?', '2025-06-16 00:10:35', 0),
+(409, 55, 28, 'Ola', '2025-06-16 00:11:49', 0);
 
 -- --------------------------------------------------------
 
@@ -316,33 +258,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `total_amount`, `status`, `created_at`) VALUES
-(1, 28, 42.00, 'pago', '2025-05-26 19:21:38'),
-(2, 15, 15.00, 'pendente', '2025-05-26 19:26:41'),
-(3, 15, 15.00, 'pendente', '2025-05-26 19:26:59'),
-(4, 28, 42.00, 'pago', '2025-05-26 19:27:23'),
-(5, 28, 42.00, 'pago', '2025-05-26 19:27:41'),
-(6, 28, 42.00, 'pago', '2025-05-26 19:27:45'),
-(7, 28, 42.00, 'pago', '2025-05-26 19:28:11'),
-(8, 28, 42.00, 'pago', '2025-05-26 19:28:36'),
-(9, 15, 15.00, 'pendente', '2025-05-26 19:28:54'),
-(10, 28, 42.00, 'pago', '2025-05-26 19:29:37'),
-(11, 28, 42.00, 'pago', '2025-05-26 19:30:32'),
-(12, 28, 42.00, 'pago', '2025-05-26 19:30:36'),
-(13, 28, 42.00, 'pago', '2025-05-26 19:34:49'),
-(14, 28, 42.00, 'pago', '2025-05-26 19:34:58'),
-(15, 28, 42.00, 'pago', '2025-05-26 19:35:41'),
-(16, 28, 42.00, 'pago', '2025-05-26 19:39:38'),
-(17, 28, 42.00, 'pago', '2025-05-26 19:40:35'),
-(18, 28, 42.00, 'pago', '2025-05-26 19:42:42'),
-(19, 28, 42.00, 'pago', '2025-05-26 19:43:17'),
-(20, 15, 15.00, 'pendente', '2025-05-26 19:44:09'),
-(21, 28, 15.00, 'pago', '2025-05-26 19:44:36'),
-(22, 28, 42.00, 'pago', '2025-05-26 19:45:25'),
-(23, 28, 42.00, 'pago', '2025-05-26 19:47:01'),
-(24, 28, 42.00, 'pago', '2025-05-26 19:47:43'),
-(25, 28, 15.00, 'pago', '2025-05-26 19:47:48'),
-(26, 28, 42.00, 'pago', '2025-05-26 19:48:28'),
-(27, 28, 42.00, 'pendente', '2025-05-26 20:06:25');
+(57, 28, 110.98, 'pago', '2025-06-15 19:00:17'),
+(58, 28, 69.00, 'pago', '2025-06-15 19:01:16');
 
 -- --------------------------------------------------------
 
@@ -363,8 +280,11 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `unit_price`) VALUES
-(1, 22, 19, 1, 42.00),
-(2, 26, 19, 1, 42.00);
+(36, 57, 4, 1, 110.98),
+(37, 58, 21, 2, 1.50),
+(38, 58, 22, 1, 2.00),
+(39, 58, 7, 2, 23.00),
+(40, 58, 8, 1, 18.00);
 
 -- --------------------------------------------------------
 
@@ -386,8 +306,8 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `user_id`, `order_id`, `amount`, `status`, `created_at`) VALUES
-(6, 28, 26, 42.00, 'concluido', '2025-05-26 19:48:28'),
-(7, 28, 27, 42.00, 'falhou', '2025-05-26 20:06:25');
+(28, 28, 57, 110.98, 'concluido', '2025-06-15 19:00:17'),
+(29, 28, 58, 69.00, 'concluido', '2025-06-15 19:01:16');
 
 -- --------------------------------------------------------
 
@@ -404,41 +324,43 @@ CREATE TABLE `products` (
   `price_before` decimal(10,2) DEFAULT NULL,
   `category` varchar(50) DEFAULT NULL,
   `quantity` int(11) NOT NULL DEFAULT 1,
+  `rating` decimal(10,1) NOT NULL DEFAULT 0.0,
   `cover` varchar(255) DEFAULT NULL,
   `location` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `seller_type` varchar(20) NOT NULL DEFAULT 'user'
+  `seller_type` varchar(20) NOT NULL DEFAULT 'user',
+  `status` enum('sold','nostock','available') NOT NULL DEFAULT 'available'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`product_id`, `user_id`, `title`, `description`, `price`, `price_before`, `category`, `quantity`, `cover`, `location`, `created_at`, `updated_at`, `seller_type`) VALUES
-(3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\r\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\r\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\r\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\r\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 523.02, 590.23, 'Consolas', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Xbox-Series-X-Test-1987881512.jpg', NULL, '2024-12-05 20:28:39', '2025-05-06 11:18:11', 'admin'),
-(4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 1, 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2016%2F07%2FXbox-Free-Download-PNG.png&f=1&nofb=1&ipt=f1e2015ce576a3b63e40ab904d61db31b73a96df9fd250d40612ce6475e4f112&ipo=images', NULL, '2025-01-09 18:40:07', '2025-02-21 19:12:21', 'admin'),
-(5, 19, '2DS Azul/Preto', 'O Nintendo 2DS mantém muitas das mesmas características de hardware como o Nintendo DS 3 incluindo o mesmo Nintendo 3DS gameplay controla, ao contrário de compatibilidade com a vasta biblioteca existente de jogos de Nintendo DS, bem como recursos de conectividade sem fio, como acesso a Nintendo eShop, além de funcionalidade StreetPass e o SpotPass.', 85.00, 122.00, 'Retro Gaming', 1, 'https://pt.static.webuy.com/product_images/Jogos/3DS%20Consolas/S2DSAZUC_l.jpg', NULL, '2025-01-09 18:59:43', '2025-05-08 13:51:53', 'user'),
-(6, 15, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_310047-grand-theft-auto-v-xbox-360-front-cover-3516295299.png', NULL, '2025-01-09 18:59:43', '2025-04-29 16:52:41', 'admin'),
-(7, 15, 'New Super Mario Bros 2ds', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 23.00, 28.00, 'Jogos', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496463106_l.webp', NULL, '2025-01-11 23:26:18', '2025-04-29 16:56:31', 'admin'),
-(8, 15, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496470685_l.webp', NULL, '2025-01-11 23:26:18', '2025-04-29 16:58:55', 'admin'),
-(9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', NULL, 54.92, 55.92, 'Acessórios', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0711719894650_l.webp', NULL, '2025-01-11 23:29:49', '2025-04-29 17:04:03', 'user'),
-(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPS3ACCMOVE_l.webp', NULL, '2025-01-11 23:29:49', '2025-04-29 17:07:23', 'admin'),
-(11, 15, 'Xbox 360 Kinect (Sem FA)', NULL, 10.00, NULL, 'Acessórios', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_S360KINSNXB_l.webp', NULL, '2025-01-11 23:29:49', '2025-04-29 21:39:35', 'admin'),
-(12, 15, 'Oficial Gamecube Indigo Controller', NULL, 48.99, 71.99, 'Colecionáveis', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4902370505559_l.webp', NULL, '2025-01-11 23:31:19', '2025-05-08 13:53:12', 'admin'),
-(13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Colecionáveis', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496370008_l.webp', NULL, '2025-01-11 23:31:19', '2025-05-08 13:53:18', 'admin'),
-(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\n', NULL, 225.00, 250.00, 'Retro Gaming', 1, 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/SGCUGAMETS003_l.jpg', NULL, '2025-01-11 23:44:12', '2025-05-08 13:52:24', 'admin'),
-(15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', NULL, 165.00, 180.00, 'Consolas', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NSL32BL01_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:12:52', 'admin'),
-(16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', NULL, 265.00, NULL, 'Consolas', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NS64V3WH02_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:15:26', 'admin'),
-(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', '', 15.00, NULL, 'Acessórios', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNSWVAL08_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:17:07', 'admin'),
-(18, 15, 'Official Nintendo Switch Preto Carry Case', NULL, 8.00, NULL, 'Acessórios', 10, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_45496430597_l.webp', NULL, '2025-01-11 23:44:12', '2025-05-23 11:32:27', 'admin'),
-(19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', NULL, 42.00, NULL, 'Acessórios', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_04549643PGRR_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:20:45', 'admin'),
-(20, 15, 'PS Vita Preto 3G, Descontada', NULL, 140.00, 155.00, 'Retro Gaming', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPSVNEG3GC_l.webp', NULL, '2025-01-11 23:44:12', '2025-05-08 13:52:49', 'admin'),
-(21, 15, 'King Kong pc game', NULL, 1.50, NULL, 'Jogos', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-04-29 21:25:26', 'admin'),
-(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4012927120088_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:26:50', 'admin'),
-(23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_5030917027598_l.webp', NULL, '2025-01-11 23:44:12', '2025-04-29 21:32:44', 'user'),
-(24, 15, 'Gameboy Advance, Branco', NULL, 90.00, 100.00, 'Retro Gaming', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNINGBACAW002_l.webp', NULL, '2025-02-19 00:10:21', '2025-05-08 13:52:56', 'user'),
-(46, 28, 'tralalero tralala', 'xghxhxhxhxhxhxhxxxbxbhxhxhxdtdygdgdgdgdgg', 25.00, NULL, 'Colecionáveis', 1, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6820ac864dcad6.85035500.jpg', 'Rua de Santa Catarina, Porto, Portugal', '2025-05-11 13:56:22', '2025-05-11 13:56:22', 'user');
+INSERT INTO `products` (`product_id`, `user_id`, `title`, `description`, `price`, `price_before`, `category`, `quantity`, `rating`, `cover`, `location`, `created_at`, `updated_at`, `seller_type`, `status`) VALUES
+(3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\r\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\r\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\r\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\r\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 523.02, 590.23, 'Consolas', 10, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Xbox-Series-X-Test-1987881512.jpg', NULL, '2024-12-05 20:28:39', '2025-06-12 21:34:30', 'admin', 'available'),
+(4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 10, 3.2, 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2016%2F07%2FXbox-Free-Download-PNG.png&f=1&nofb=1&ipt=f1e2015ce576a3b63e40ab904d61db31b73a96df9fd250d40612ce6475e4f112&ipo=images', NULL, '2025-01-09 18:40:07', '2025-06-12 21:34:30', 'admin', 'available'),
+(5, 19, '2DS Azul/Preto', 'O Nintendo 2DS mantém muitas das mesmas características de hardware como o Nintendo DS 3 incluindo o mesmo Nintendo 3DS gameplay controla, ao contrário de compatibilidade com a vasta biblioteca existente de jogos de Nintendo DS, bem como recursos de conectividade sem fio, como acesso a Nintendo eShop, além de funcionalidade StreetPass e o SpotPass.', 85.00, 122.00, 'Retro Gaming', 1, 3.7, 'https://pt.static.webuy.com/product_images/Jogos/3DS%20Consolas/S2DSAZUC_l.jpg', NULL, '2025-01-09 18:59:43', '2025-06-13 22:28:29', 'user', 'available'),
+(6, 15, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_310047-grand-theft-auto-v-xbox-360-front-cover-3516295299.png', NULL, '2025-01-09 18:59:43', '2025-06-12 21:34:30', 'admin', 'available'),
+(7, 15, 'New Super Mario Bros 2ds', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 23.00, 28.00, 'Jogos', 10, 2.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496463106_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-15 22:45:10', 'admin', 'available'),
+(8, 15, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 10, 2.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496470685_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-12 21:34:30', 'admin', 'available'),
+(9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 54.92, 55.92, 'Acessórios', 1, 4.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0711719894650_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-15 00:46:30', 'user', 'available'),
+(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPS3ACCMOVE_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-12 21:34:30', 'admin', 'available'),
+(11, 15, 'Xbox 360 Kinect (Sem FA)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 10.00, NULL, 'Acessórios', 10, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_S360KINSNXB_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-15 00:46:32', 'admin', 'available'),
+(12, 15, 'Oficial Gamecube Indigo Controller', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 48.99, 71.99, 'Colecionáveis', 10, 3.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4902370505559_l.webp', NULL, '2025-01-11 23:31:19', '2025-06-15 00:46:34', 'admin', 'available'),
+(13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Colecionáveis', 10, 2.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496370008_l.webp', NULL, '2025-01-11 23:31:19', '2025-06-12 21:34:30', 'admin', 'available'),
+(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\n', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 225.00, 250.00, 'Retro Gaming', 10, 3.3, 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/SGCUGAMETS003_l.jpg', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:36', 'admin', 'available'),
+(15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 165.00, 180.00, 'Consolas', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NSL32BL01_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:38', 'admin', 'available'),
+(16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 265.00, NULL, 'Consolas', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NS64V3WH02_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:40', 'admin', 'available'),
+(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 15.00, NULL, 'Acessórios', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNSWVAL08_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:49', 'admin', 'available'),
+(18, 15, 'Official Nintendo Switch Preto Carry Case', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 8.00, NULL, 'Acessórios', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_45496430597_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:43', 'admin', 'available'),
+(19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 42.00, NULL, 'Acessórios', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_04549643PGRR_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:41', 'admin', 'available'),
+(20, 15, 'PS Vita Preto 3G, Descontada', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 140.00, 155.00, 'Retro Gaming', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPSVNEG3GC_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:45', 'admin', 'available'),
+(21, 15, 'King Kong pc game', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 1.50, NULL, 'Jogos', 10, 3.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:48', 'admin', 'available'),
+(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 10, 3.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4012927120088_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-13 22:28:51', 'admin', 'available'),
+(23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 1, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_5030917027598_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-12 21:34:30', 'user', 'available'),
+(24, 15, 'Gameboy Advance, Branco', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 90.00, 100.00, 'Retro Gaming', 1, 3.5, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNINGBACAW002_l.webp', NULL, '2025-02-19 00:10:21', '2025-06-15 00:46:51', 'user', 'available'),
+(67, 28, 'sla meu fi n ta dando', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sociosqu platea lorem sollicitudin phasellus eu a augue taciti nibh lectus hac sem taciti vivamus primis. Erat nec taciti sed augue vivamus volutpat finibus.\r\nEu nibh quis conubia maecenas turpis hendrerit. Ligula nostra ornare sollicitudin in pulvinar vitae posuere. Sed quis netus elit varius senectus sollicitudin mauris pulvinar vitae eros leo vitae. Maecenas suscipit arcu orci suspendisse est.\r\nNam consectetur fermentum tempor fusce ac donec. Consectetur ac porttitor rutrum suscipit donec nec tincidunt condimentum fames phasellus at nisi sed sit. Faucibus mollis taciti ornare ante iaculis sit condimentum himenaeos dictum quisque rutrum lorem viverra. Lectus feugiat justo lectus litora aliquet netus varius tempor.\r\nUrna eros sodales lacinia euismod ut ac quis. Tincidunt ac turpis sed vehicula dui fringilla sociosqu leo varius. Aliquam nulla ullamcorper odio urna pharetra tempus maecenas eros porta sapien.', 25.40, NULL, 'Colecionáveis', 1, 0.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684deff2251b08.35597252.jpg', 'Braga, Portugal', '2025-06-14 21:56:02', '2025-06-14 21:56:02', 'user', 'available');
 
 --
 -- Triggers `products`
@@ -446,6 +368,26 @@ INSERT INTO `products` (`product_id`, `user_id`, `title`, `description`, `price`
 DELIMITER $$
 CREATE TRIGGER `create_gallery_afeter_product` AFTER INSERT ON `products` FOR EACH ROW BEGIN
     INSERT INTO gallery (product_id) VALUES (NEW.product_id);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `trg_quantity_above_zero` BEFORE UPDATE ON `products` FOR EACH ROW BEGIN
+    IF NEW.quantity > 0 THEN
+        SET NEW.status = 'available';
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `trg_quantity_zero` BEFORE UPDATE ON `products` FOR EACH ROW BEGIN
+    IF NEW.quantity = 0 THEN
+        IF NEW.seller_type = 'admin' THEN
+            SET NEW.status = 'nostock';
+        ELSEIF NEW.seller_type = 'user' THEN
+            SET NEW.status = 'sold';
+        END IF;
+    END IF;
 END
 $$
 DELIMITER ;
@@ -474,29 +416,28 @@ CREATE TABLE `products_views` (
 --
 
 INSERT INTO `products_views` (`product_id`, `view_count`) VALUES
-(3, 68),
-(4, 111),
-(5, 29),
-(6, 41),
-(7, 19),
+(3, 80),
+(4, 142),
+(5, 102),
+(6, 85),
+(7, 21),
 (8, 14),
-(9, 12),
-(10, 23),
-(11, 15),
-(12, 73),
-(13, 26),
+(9, 26),
+(10, 28),
+(11, 21),
+(12, 89),
+(13, 47),
 (14, 22),
-(15, 76),
-(16, 26),
-(17, 23),
-(18, 68),
-(19, 23),
+(15, 86),
+(16, 35),
+(17, 27),
+(18, 85),
+(19, 29),
 (20, 9),
-(21, 15),
-(22, 16),
+(21, 16),
+(22, 29),
 (23, 10),
-(24, 56),
-(46, 16);
+(24, 80);
 
 -- --------------------------------------------------------
 
@@ -506,8 +447,8 @@ INSERT INTO `products_views` (`product_id`, `view_count`) VALUES
 
 CREATE TABLE `reviews` (
   `review_id` int(11) NOT NULL,
-  `reviewer_id` int(11) NOT NULL,
-  `reviewed_user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `rating` tinyint(5) NOT NULL,
   `comment` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -517,8 +458,193 @@ CREATE TABLE `reviews` (
 -- Dumping data for table `reviews`
 --
 
-INSERT INTO `reviews` (`review_id`, `reviewer_id`, `reviewed_user_id`, `rating`, `comment`, `created_at`) VALUES
-(3, 15, 18, 2, 'Muito ruim esse vendedor.', '2024-12-08 01:32:38');
+INSERT INTO `reviews` (`review_id`, `user_id`, `product_id`, `rating`, `comment`, `created_at`) VALUES
+(52, 27, 3, 4, 'Produto dentro do esperado.', '2025-01-31 05:20:20'),
+(53, 22, 3, 1, 'Não recomendo esse produto.', '2025-04-10 05:05:14'),
+(54, 18, 3, 3, 'Não gostei, veio com defeito.', '2024-12-18 14:20:58'),
+(55, 28, 3, 5, 'Já comprei outras vezes, sempre bom.', '2025-05-20 02:28:56'),
+(56, 26, 3, 4, 'Qualidade ótima!', '2025-02-24 01:22:31'),
+(57, 19, 3, 3, 'Excelente produto, superou minhas expectativas!', '2025-05-02 09:49:26'),
+(58, 28, 4, 5, 'Qualidade ótima!', '2025-01-25 20:25:25'),
+(59, 23, 4, 5, 'Não gostei, veio com defeito.', '2025-02-20 04:03:59'),
+(60, 27, 4, 2, 'Não gostei, veio com defeito.', '2025-02-17 14:31:13'),
+(61, 22, 4, 2, 'Não funcionou como esperado.', '2025-05-12 10:11:07'),
+(62, 19, 4, 2, 'Excelente produto, superou minhas expectativas!', '2025-02-27 20:47:13'),
+(63, 20, 4, 3, 'Excelente produto, superou minhas expectativas!', '2025-05-18 02:42:38'),
+(64, 26, 5, 3, 'Não gostei, veio com defeito.', '2024-12-19 01:59:26'),
+(65, 20, 5, 5, 'Qualidade ótima!', '2025-05-18 00:50:24'),
+(66, 15, 5, 5, 'Entrega rápida e tudo certo.', '2025-03-28 15:45:44'),
+(67, 19, 5, 3, 'Muito bom pelo custo-benefício.', '2025-02-26 16:19:29'),
+(68, 23, 5, 3, 'Não gostei, veio com defeito.', '2025-04-05 12:48:33'),
+(69, 27, 5, 3, 'Não recomendo esse produto.', '2025-03-25 15:27:08'),
+(70, 15, 6, 2, 'Bom, mas poderia ser melhor.', '2025-04-18 18:45:56'),
+(71, 18, 6, 5, 'Entrega rápida e tudo certo.', '2025-03-11 18:30:55'),
+(72, 28, 6, 2, 'Já comprei outras vezes, sempre bom.', '2025-03-05 21:29:03'),
+(73, 22, 6, 1, 'Já comprei outras vezes, sempre bom.', '2025-03-10 01:29:05'),
+(74, 20, 6, 5, 'Não gostei, veio com defeito.', '2025-03-16 04:04:53'),
+(75, 26, 6, 4, 'Já comprei outras vezes, sempre bom.', '2025-03-31 23:54:08'),
+(76, 19, 7, 3, 'Já comprei outras vezes, sempre bom.', '2025-03-21 07:42:40'),
+(77, 28, 7, 2, 'Não funcionou como esperado.', '2025-02-03 14:13:03'),
+(78, 26, 7, 1, 'Bom, mas poderia ser melhor.', '2025-01-23 01:01:17'),
+(79, 25, 7, 2, 'Produto dentro do esperado.', '2025-03-29 09:16:42'),
+(80, 22, 7, 2, 'Não gostei, veio com defeito.', '2025-04-10 14:04:44'),
+(81, 18, 7, 4, 'Qualidade ótima!', '2024-12-03 08:15:54'),
+(82, 19, 8, 4, 'Produto dentro do esperado.', '2025-05-07 04:12:19'),
+(83, 28, 8, 3, 'Muito bom pelo custo-benefício.', '2025-03-23 15:50:32'),
+(84, 20, 8, 2, 'Bom, mas poderia ser melhor.', '2025-05-24 08:54:22'),
+(85, 15, 8, 3, 'Não recomendo esse produto.', '2025-01-27 22:11:16'),
+(86, 18, 8, 1, 'Não gostei, veio com defeito.', '2024-12-09 15:13:45'),
+(87, 25, 8, 3, 'Já comprei outras vezes, sempre bom.', '2025-03-05 23:10:08'),
+(88, 25, 9, 4, 'Produto dentro do esperado.', '2025-03-18 01:59:03'),
+(89, 23, 9, 2, 'Não gostei, veio com defeito.', '2025-03-15 17:45:08'),
+(90, 19, 9, 4, 'Já comprei outras vezes, sempre bom.', '2025-02-23 20:44:29'),
+(91, 15, 9, 4, 'Entrega rápida e tudo certo.', '2025-05-18 10:56:34'),
+(92, 18, 9, 5, 'Muito bom pelo custo-benefício.', '2024-12-31 19:03:42'),
+(93, 26, 9, 5, 'Produto dentro do esperado.', '2024-12-15 00:07:12'),
+(94, 15, 10, 3, 'Produto dentro do esperado.', '2025-02-25 05:28:35'),
+(95, 28, 10, 3, 'Entrega rápida e tudo certo.', '2025-02-20 11:53:55'),
+(96, 26, 10, 5, 'Não funcionou como esperado.', '2025-04-05 08:28:52'),
+(97, 21, 10, 3, 'Excelente produto, superou minhas expectativas!', '2025-03-29 15:27:01'),
+(98, 19, 10, 4, 'Não funcionou como esperado.', '2025-05-19 08:41:25'),
+(99, 25, 10, 1, 'Não funcionou como esperado.', '2025-01-26 05:21:23'),
+(100, 18, 11, 2, 'Já comprei outras vezes, sempre bom.', '2025-02-04 15:17:29'),
+(101, 19, 11, 5, 'Produto dentro do esperado.', '2025-02-19 14:59:41'),
+(102, 15, 11, 2, 'Entrega rápida e tudo certo.', '2025-01-10 02:39:34'),
+(103, 22, 11, 5, 'Já comprei outras vezes, sempre bom.', '2025-02-04 20:17:00'),
+(104, 21, 11, 2, 'Excelente produto, superou minhas expectativas!', '2025-01-05 00:28:06'),
+(105, 20, 11, 4, 'Entrega rápida e tudo certo.', '2025-01-30 04:01:41'),
+(106, 15, 12, 2, 'Produto dentro do esperado.', '2025-03-09 10:33:55'),
+(107, 23, 12, 4, 'Bom, mas poderia ser melhor.', '2024-12-20 17:55:32'),
+(108, 22, 12, 2, 'Não recomendo esse produto.', '2025-03-17 16:11:22'),
+(109, 19, 12, 5, 'Produto dentro do esperado.', '2025-04-18 10:04:14'),
+(110, 18, 12, 5, 'Qualidade ótima!', '2025-02-24 19:59:25'),
+(111, 20, 12, 5, 'Qualidade ótima!', '2025-04-18 05:51:40'),
+(112, 21, 13, 2, 'Qualidade ótima!', '2025-05-09 21:19:43'),
+(113, 23, 13, 4, 'Não recomendo esse produto.', '2024-12-03 21:24:52'),
+(114, 22, 13, 1, 'Qualidade ótima!', '2025-03-01 06:55:24'),
+(115, 19, 13, 3, 'Não funcionou como esperado.', '2025-01-20 08:23:26'),
+(116, 25, 13, 3, 'Qualidade ótima!', '2024-12-23 15:56:33'),
+(117, 18, 13, 3, 'Não recomendo esse produto.', '2025-01-11 01:58:25'),
+(118, 18, 14, 1, 'Não gostei, veio com defeito.', '2025-04-01 08:37:08'),
+(119, 25, 14, 4, 'Muito bom pelo custo-benefício.', '2025-04-01 15:59:15'),
+(120, 28, 14, 5, 'Não funcionou como esperado.', '2025-03-21 11:08:25'),
+(121, 15, 14, 3, 'Não recomendo esse produto.', '2025-05-19 13:18:55'),
+(122, 22, 14, 5, 'Já comprei outras vezes, sempre bom.', '2025-02-06 14:11:22'),
+(123, 20, 14, 2, 'Já comprei outras vezes, sempre bom.', '2025-04-16 06:31:52'),
+(124, 26, 15, 2, 'Não gostei, veio com defeito.', '2025-05-14 19:31:36'),
+(125, 15, 15, 2, 'Já comprei outras vezes, sempre bom.', '2024-12-07 11:00:17'),
+(126, 25, 15, 4, 'Bom, mas poderia ser melhor.', '2025-01-21 04:40:27'),
+(127, 27, 15, 5, 'Produto dentro do esperado.', '2025-03-11 07:29:24'),
+(128, 23, 15, 3, 'Produto dentro do esperado.', '2024-12-17 01:27:57'),
+(129, 18, 15, 1, 'Já comprei outras vezes, sempre bom.', '2025-04-30 01:18:37'),
+(130, 21, 16, 4, 'Bom, mas poderia ser melhor.', '2025-03-23 07:53:35'),
+(131, 23, 16, 1, 'Excelente produto, superou minhas expectativas!', '2025-02-18 05:13:48'),
+(132, 19, 16, 4, 'Já comprei outras vezes, sempre bom.', '2024-12-04 16:54:38'),
+(133, 27, 16, 1, 'Não funcionou como esperado.', '2025-05-25 16:59:16'),
+(134, 25, 16, 5, 'Excelente produto, superou minhas expectativas!', '2025-01-21 03:17:50'),
+(135, 20, 16, 2, 'Não recomendo esse produto.', '2025-04-15 05:51:02'),
+(136, 20, 17, 1, 'Não funcionou como esperado.', '2025-01-09 11:27:15'),
+(137, 18, 17, 4, 'Produto dentro do esperado.', '2025-05-07 13:47:06'),
+(138, 15, 17, 3, 'Bom, mas poderia ser melhor.', '2025-04-09 14:14:28'),
+(139, 27, 17, 5, 'Já comprei outras vezes, sempre bom.', '2025-02-26 09:48:43'),
+(140, 23, 17, 4, 'Qualidade ótima!', '2025-04-30 09:57:31'),
+(141, 28, 17, 2, 'Qualidade ótima!', '2025-03-26 14:11:08'),
+(142, 25, 18, 4, 'Não gostei, veio com defeito.', '2025-03-14 13:55:20'),
+(143, 19, 18, 2, 'Não recomendo esse produto.', '2024-12-23 11:18:16'),
+(144, 20, 18, 4, 'Produto dentro do esperado.', '2025-03-02 23:23:07'),
+(145, 22, 18, 1, 'Entrega rápida e tudo certo.', '2025-05-16 05:14:30'),
+(146, 15, 18, 5, 'Produto dentro do esperado.', '2025-01-18 14:56:06'),
+(147, 18, 18, 1, 'Produto dentro do esperado.', '2025-03-15 17:23:25'),
+(148, 27, 19, 4, 'Qualidade ótima!', '2025-02-11 00:19:14'),
+(149, 20, 19, 3, 'Entrega rápida e tudo certo.', '2025-05-23 11:06:36'),
+(150, 19, 19, 1, 'Não gostei, veio com defeito.', '2025-03-09 15:53:11'),
+(151, 21, 19, 3, 'Excelente produto, superou minhas expectativas!', '2025-05-04 02:40:02'),
+(152, 18, 19, 5, 'Já comprei outras vezes, sempre bom.', '2025-01-08 00:32:59'),
+(153, 22, 19, 3, 'Qualidade ótima!', '2025-01-25 01:56:27'),
+(154, 18, 20, 5, 'Produto dentro do esperado.', '2025-02-18 13:31:06'),
+(155, 26, 20, 5, 'Qualidade ótima!', '2025-01-16 02:16:01'),
+(156, 19, 20, 4, 'Qualidade ótima!', '2024-12-02 16:31:53'),
+(157, 23, 20, 2, 'Entrega rápida e tudo certo.', '2025-01-12 07:45:51'),
+(158, 15, 20, 2, 'Não gostei, veio com defeito.', '2025-04-28 21:12:35'),
+(159, 21, 20, 1, 'Produto dentro do esperado.', '2025-04-14 10:47:06'),
+(160, 18, 21, 1, 'Não funcionou como esperado.', '2025-01-19 19:18:11'),
+(161, 19, 21, 4, 'Muito bom pelo custo-benefício.', '2025-02-17 18:49:27'),
+(162, 15, 21, 5, 'Qualidade ótima!', '2024-12-10 22:41:22'),
+(163, 27, 21, 5, 'Bom, mas poderia ser melhor.', '2025-03-02 16:44:11'),
+(164, 25, 21, 4, 'Não recomendo esse produto.', '2024-12-11 19:20:32'),
+(165, 26, 21, 3, 'Entrega rápida e tudo certo.', '2025-05-04 01:43:18'),
+(166, 22, 22, 3, 'Qualidade ótima!', '2025-03-31 01:53:32'),
+(167, 15, 22, 5, 'Já comprei outras vezes, sempre bom.', '2025-04-29 04:59:01'),
+(168, 25, 22, 1, 'Já comprei outras vezes, sempre bom.', '2025-05-07 12:49:12'),
+(169, 19, 22, 3, 'Não recomendo esse produto.', '2025-03-16 08:13:35'),
+(170, 21, 22, 2, 'Não funcionou como esperado.', '2025-01-22 18:11:26'),
+(171, 18, 22, 4, 'Não recomendo esse produto.', '2025-02-16 12:15:36'),
+(172, 18, 23, 2, 'Entrega rápida e tudo certo.', '2025-01-06 19:49:17'),
+(173, 26, 23, 5, 'Excelente produto, superou minhas expectativas!', '2025-05-06 08:54:41'),
+(174, 22, 23, 5, 'Qualidade ótima!', '2025-04-02 18:52:47'),
+(175, 28, 23, 2, 'Muito bom pelo custo-benefício.', '2025-04-26 16:59:17'),
+(176, 23, 23, 3, 'Já comprei outras vezes, sempre bom.', '2025-04-13 21:53:10'),
+(177, 15, 23, 3, 'Excelente produto, superou minhas expectativas!', '2025-01-16 22:12:25'),
+(178, 23, 24, 5, 'Excelente produto, superou minhas expectativas!', '2025-03-13 10:37:47'),
+(179, 26, 24, 5, 'Qualidade ótima!', '2025-04-19 00:38:14'),
+(180, 22, 24, 1, 'Bom, mas poderia ser melhor.', '2025-02-10 11:48:40'),
+(181, 20, 24, 5, 'Não gostei, veio com defeito.', '2025-01-16 10:43:36'),
+(182, 15, 24, 4, 'Não funcionou como esperado.', '2025-02-08 20:37:05'),
+(183, 21, 24, 1, 'Produto dentro do esperado.', '2025-02-03 16:45:56'),
+(184, 28, 11, 3, 'Não gostei muito...', '2025-06-14 20:43:07'),
+(185, 28, 21, 4, 'Gostei muito desse product.....', '2025-06-15 22:42:27'),
+(186, 28, 7, 5, 'Ganda mario', '2025-06-15 22:45:10');
+
+--
+-- Triggers `reviews`
+--
+DELIMITER $$
+CREATE TRIGGER `update_product_rating` AFTER INSERT ON `reviews` FOR EACH ROW BEGIN
+    DECLARE avg_rating DECIMAL(3,2);
+
+    SELECT AVG(r.rating)
+    INTO avg_rating
+    FROM reviews r
+    WHERE r.product_id = NEW.product_id;
+
+    UPDATE products
+    SET rating = avg_rating
+    WHERE product_id = NEW.product_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_product_rating_after_delete` AFTER DELETE ON `reviews` FOR EACH ROW BEGIN
+    DECLARE avg_rating DECIMAL(3,2);
+
+    -- Recalcula a média considerando os reviews restantes
+    SELECT AVG(r.rating)
+    INTO avg_rating
+    FROM reviews r
+    WHERE r.product_id = OLD.product_id;
+
+    UPDATE products
+    SET rating = IFNULL(avg_rating, 0)  -- Se não houver mais reviews, define como 0
+    WHERE product_id = OLD.product_id;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_product_rating_after_update` AFTER UPDATE ON `reviews` FOR EACH ROW BEGIN
+    DECLARE avg_rating DECIMAL(3,2);
+
+    -- Recalcula a média para o produto do review atualizado
+    SELECT AVG(r.rating)
+    INTO avg_rating
+    FROM reviews r
+    WHERE r.product_id = NEW.product_id;
+
+    UPDATE products
+    SET rating = avg_rating
+    WHERE product_id = NEW.product_id;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -540,8 +666,9 @@ CREATE TABLE `saved` (
 --
 
 INSERT INTO `saved` (`saved_id`, `user_id`, `product_id`, `tipo`, `quantity`, `created_at`) VALUES
-(260, 28, 19, 0, 1, '2025-05-23 17:39:03'),
-(261, 28, 18, 1, 1, '2025-05-23 17:50:58');
+(299, 15, 4, 0, 10, '2025-06-12 16:02:02'),
+(444, 28, 20, 1, 1, '2025-06-15 00:48:29'),
+(445, 28, 5, 1, 1, '2025-06-15 00:48:31');
 
 -- --------------------------------------------------------
 
@@ -553,8 +680,8 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `firebase_uid` varchar(128) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `last_name` varchar(100) NOT NULL,
   `email` varchar(150) NOT NULL,
+  `avatar` varchar(255) NOT NULL DEFAULT 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png',
   `phone` varchar(20) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -563,18 +690,20 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `firebase_uid`, `name`, `last_name`, `email`, `phone`, `created_at`) VALUES
-(15, 'bCXhKqZvrYTAZm867tMzpyNWWz33', 'Kauan', 'Fortunato', 'kauanmatiasfortunato@gmail.com', '910937520', '2024-11-27 20:52:50'),
-(18, 'A2YOrJ9js0ZUcec9r9EW9o4kXEZ2', 'Diogo', 'Dioguinho', 'sayodiggo@gmail.com', '', '2024-12-02 00:17:17'),
-(19, 'gO3K6796eQTMiVgss8MTarijpCg1', 'Rodrigo', 'Alexandre', 'rodrigoalexandre@gmail.com', '', '2024-12-06 22:35:17'),
-(20, 'sC0UoxF2GwNtSiF2dWTo9UTFxN22', 'Bitman', 'Biman', 'bitman@gmail.com', '', '2024-12-06 23:42:22'),
-(21, 'dbfjtKdnmdPpYoA5WfIOqbr3KOD3', 'Joao', 'Santos', 'joaosantos@gmail.com', '', '2024-12-09 18:02:46'),
-(22, '0pFZo8kGEGgrBs780ERuVTQ94CA2', 'santos', 'fortunato', 'santosfortunato@gmail.com', '', '2024-12-09 18:08:58'),
-(23, '55CpNAK9azXHrAS5rUYzxAakmvz1', 'Maria', 'Santos', 'maria@gmail.com', '', '2024-12-10 19:09:25'),
-(25, 'QFTTiIROtzLbSR0GpAslYStGYwD2', 'Diogo', 'Esteves', 'diogadaesteves@gmail.com', '', '2025-02-07 03:25:13'),
-(26, 'bw116RwG62h3Ugfh9cMBaMHfl2o1', 'Kauan', 'Sites Aleatorios', 'kauansitesaleatorios@gmail.com', '123 999 233', '2025-02-26 20:31:28'),
-(27, 'B0etnmMLDJh4pUuF4vc9QCXMyiv2', 'bor', 'Bro', 'cuzinhoroxo@gmail.com', '', '2025-02-26 20:39:15'),
-(28, '6P6mwx4gURUuk4CDPda8zQbcB1q1', 'Mordekai', 'AS', 'mordekaias360@gmail.com', '123 XXX XXX', '2025-03-10 17:49:41');
+INSERT INTO `users` (`user_id`, `firebase_uid`, `name`, `email`, `avatar`, `phone`, `created_at`) VALUES
+(15, 'bCXhKqZvrYTAZm867tMzpyNWWz33', 'Kauan Fortunato', 'kauanmatiasfortunato@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '910937520', '2024-11-27 20:52:50'),
+(18, 'A2YOrJ9js0ZUcec9r9EW9o4kXEZ2', 'Diogo Dioguinho', 'sayodiggo@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', '2024-12-02 00:17:17'),
+(19, 'gO3K6796eQTMiVgss8MTarijpCg1', 'Rodrigo Alexandre', 'rodrigoalexandre@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', '2024-12-06 22:35:17'),
+(20, 'sC0UoxF2GwNtSiF2dWTo9UTFxN22', 'Bitman Biman', 'bitman@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', '2024-12-06 23:42:22'),
+(21, 'dbfjtKdnmdPpYoA5WfIOqbr3KOD3', 'Joao Santos', 'joaosantos@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', '2024-12-09 18:02:46'),
+(22, '0pFZo8kGEGgrBs780ERuVTQ94CA2', 'santos fortunato', 'santosfortunato@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', '2024-12-09 18:08:58'),
+(23, '55CpNAK9azXHrAS5rUYzxAakmvz1', 'Maria', 'maria@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', '2024-12-10 19:09:25'),
+(25, 'QFTTiIROtzLbSR0GpAslYStGYwD2', 'Diogo', 'diogadaesteves@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', '2025-02-07 03:25:13'),
+(26, 'bw116RwG62h3Ugfh9cMBaMHfl2o1', 'Kauan', 'kauansitesaleatorios@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '123 999 233', '2025-02-26 20:31:28'),
+(27, 'B0etnmMLDJh4pUuF4vc9QCXMyiv2', 'bor', 'cuzinhoroxo@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', '2025-02-26 20:39:15'),
+(28, '6P6mwx4gURUuk4CDPda8zQbcB1q1', 'Mordekai', 'mordekaias360@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/avatar_684f4f81afb030.75584661.jpg', '123 XXX XXX', '2025-03-10 17:49:41'),
+(30, 'JsUVfehNeWRc2PeuD91lKcveQk53', 'Not GPT', 'notgpt666@gmail.com', 'https://lh3.googleusercontent.com/a/ACg8ocJOEC-3ohoKIvcoJtIL5WjGhhyovfZAqAkq6DVRN39anYKQ02M=s96-c', '', '2025-06-05 21:58:58'),
+(31, 'EbTW213QylVJFC4nxuBNtpie6VD3', 'Kauan', 'kauansfsgd@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', '2025-06-05 22:01:41');
 
 --
 -- Triggers `users`
@@ -606,7 +735,10 @@ CREATE TABLE `users_tokens` (
 
 INSERT INTO `users_tokens` (`id_token`, `user_id`, `token`, `create_at`) VALUES
 (16, 15, 'cfqdAvsOTqurJQWIaM3Efe:APA91bGozKvoQ-OnoMCawcnIxnUJlhJJ-99KxuaQSgyAS-WZOLo10-kcR8tR3yeJHfyWoEtfTYdiVsn8IeI_67_5jn6zWOhl2bFxSUrwbRNXO7G7LPsZrqI', '2025-04-14 15:58:39'),
-(32, 28, 'eg9zGf7ESXesfzacTf2xMh:APA91bGguHAI1OUyeyMvpbbTPxlcHjKTGy98gA8p5ICsVxLIGhQCIRDy9PuY8u11RiF8kr-Oxuc9ZrkL9pb91nswS2v7rD1QjzKq03pFNQ0S0ahcrlRDy4Y', '2025-05-10 14:16:06');
+(38, 28, 'cNQrYoKhSM6dH3bJuAwcR8:APA91bFfhjZ0pEB_D54I_lNHUEkVzi2xl16-Xpiy7agTAy3uG4HrKWpYP1f93bV5oMzugcut77XFDkCX8Phw4xN0ygEQt_u0cPkCTBV5OjbaJ8m4tVfjMhU', '2025-06-04 08:49:10'),
+(40, 28, 'f_6YJWjtQ3in1Yz7MgMSxC:APA91bGOYT-tDAmo3H29OATztCwX6JAQXpiTDJ7v2sBWr3Pa6lE262rubmRGqNdiyb0cccCYBMFkCQMQptJnuGvvdVAJjhB3iYRygT8p9cW8pIdJP2pPTOU', '2025-06-05 12:35:34'),
+(44, 15, 'fUaLP0t4RLCvn_53jPJhDT:APA91bF36pR7LGJNpyHw-3xa9gadXW_xO5nk_0KnBpezjKKCONqf3lsZaGm5Ocwkan3hjCPIvwaF7wI92B06KsgIl4uqF-D938HNGexNiUq4pfVEHL0_uxE', '2025-06-05 16:42:08'),
+(59, 28, 'eg9zGf7ESXesfzacTf2xMh:APA91bHWlRm8X_aYGk6Vjx0o2LtCAZw8EjXcGBaT0K_AgRZbSoDQjUjCSJ0ltcPOHUaLVnQFGfpqD3DyuQPbkUchxU_WobXqsyuxa2uPWkFw7ot5acoAZW0', '2025-06-13 12:21:49');
 
 -- --------------------------------------------------------
 
@@ -1127,278 +1259,494 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (533, 28, 15, 'view', '2025-05-06 19:11:09'),
 (534, 28, 4, 'view', '2025-05-06 19:18:07'),
 (535, 28, 19, 'view', '2025-05-06 19:18:11'),
-(536, 28, 6, 'view', '2025-05-06 19:18:15'),
-(537, 28, 24, 'view', '2025-05-07 18:03:56'),
-(538, 28, 5, 'view', '2025-05-07 18:44:32'),
-(539, 28, 24, 'view', '2025-05-07 20:06:42'),
-(540, 28, 20, 'view', '2025-05-07 20:08:21'),
-(541, 28, 18, 'view', '2025-05-07 20:10:05'),
-(542, 28, 10, 'view', '2025-05-07 20:27:27'),
-(543, 28, 10, 'view', '2025-05-07 20:38:52'),
-(544, 28, 10, 'view', '2025-05-07 21:57:15'),
-(545, 28, 10, 'view', '2025-05-07 21:57:18'),
-(546, 28, 10, 'view', '2025-05-07 21:57:20'),
-(547, 28, 10, 'view', '2025-05-07 22:38:30'),
-(548, 28, 10, 'view', '2025-05-07 22:38:35'),
-(549, 28, 12, 'view', '2025-05-07 22:38:41'),
-(550, 28, 12, 'view', '2025-05-07 23:02:34'),
-(551, 28, 24, 'view', '2025-05-07 23:57:33'),
-(552, 28, 4, 'view', '2025-05-08 00:07:51'),
-(553, 28, 20, 'view', '2025-05-08 00:08:23'),
-(554, 28, 17, 'view', '2025-05-08 00:08:25'),
-(555, 28, 17, 'view', '2025-05-08 00:09:32'),
-(556, 28, 17, 'view', '2025-05-08 00:09:34'),
-(557, 28, 20, 'view', '2025-05-08 00:09:36'),
-(558, 28, 3, 'view', '2025-05-08 00:19:50'),
-(559, 28, 3, 'view', '2025-05-08 01:11:00'),
-(560, 28, 19, 'view', '2025-05-08 01:19:49'),
-(561, 28, 19, 'view', '2025-05-08 12:37:16'),
-(562, 28, 19, 'view', '2025-05-08 12:37:22'),
-(563, 28, 19, 'view', '2025-05-08 12:43:49'),
-(564, 28, 15, 'view', '2025-05-09 12:27:24'),
-(565, 28, 19, 'view', '2025-05-09 12:33:20'),
-(566, 28, 12, 'view', '2025-05-09 14:27:45'),
-(567, 28, 12, 'view', '2025-05-09 15:44:27'),
-(568, 28, 13, 'view', '2025-05-09 15:44:30'),
-(569, 28, 15, 'view', '2025-05-09 15:44:41'),
-(570, 28, 12, 'view', '2025-05-09 15:44:47'),
-(571, 28, 13, 'view', '2025-05-09 15:48:50'),
-(572, 28, 9, 'view', '2025-05-09 15:48:52'),
-(573, 28, 4, 'view', '2025-05-09 15:51:54'),
-(574, 28, 3, 'view', '2025-05-09 15:52:00'),
-(575, 28, 3, 'view', '2025-05-09 15:57:04'),
-(576, 28, 3, 'view', '2025-05-10 14:35:01'),
-(577, 28, 3, 'view', '2025-05-10 14:35:06'),
-(578, 28, 24, 'view', '2025-05-10 15:08:22'),
-(579, 28, 13, 'view', '2025-05-10 15:08:25'),
-(580, 28, 13, 'view', '2025-05-10 15:53:01'),
-(581, 28, 13, 'view', '2025-05-10 15:55:47'),
-(582, 28, 13, 'view', '2025-05-10 15:56:03'),
-(583, 28, 4, 'view', '2025-05-10 15:57:53'),
-(584, 28, 4, 'view', '2025-05-10 16:02:27'),
-(585, 28, 15, 'view', '2025-05-10 16:02:37'),
-(586, 28, 15, 'view', '2025-05-10 16:06:22'),
-(587, 28, 15, 'view', '2025-05-10 16:07:56'),
-(588, 28, 15, 'view', '2025-05-10 16:08:55'),
-(589, 28, 15, 'view', '2025-05-10 16:08:58'),
-(590, 28, 15, 'view', '2025-05-10 16:09:01'),
-(591, 28, 15, 'view', '2025-05-10 16:09:03'),
-(592, 28, 15, 'view', '2025-05-10 16:09:05'),
-(593, 28, 15, 'view', '2025-05-10 16:09:18'),
-(594, 28, 15, 'view', '2025-05-10 16:09:21'),
-(595, 28, 15, 'view', '2025-05-10 16:09:23'),
-(596, 28, 15, 'view', '2025-05-10 16:16:43'),
-(597, 28, 15, 'view', '2025-05-10 16:16:46'),
-(598, 28, 15, 'view', '2025-05-10 16:16:51'),
-(599, 28, 15, 'view', '2025-05-11 13:33:53'),
-(600, 28, 15, 'view', '2025-05-11 13:33:56'),
-(601, 28, 15, 'view', '2025-05-11 13:33:58'),
-(602, 28, 15, 'view', '2025-05-11 13:34:03'),
-(603, 28, 15, 'view', '2025-05-11 13:34:35'),
-(604, 28, 15, 'view', '2025-05-11 13:34:48'),
-(605, 28, 15, 'view', '2025-05-11 13:34:50'),
-(606, 28, 15, 'view', '2025-05-11 13:34:52'),
-(607, 28, 15, 'view', '2025-05-11 13:34:54'),
-(608, 28, 15, 'view', '2025-05-11 13:35:01'),
-(609, 28, 15, 'view', '2025-05-11 13:35:04'),
-(610, 28, 6, 'view', '2025-05-11 13:35:10'),
-(611, 28, 6, 'view', '2025-05-11 13:38:17'),
-(612, 28, 6, 'view', '2025-05-11 13:38:20'),
-(613, 28, 46, 'view', '2025-05-11 13:56:55'),
-(614, 28, 46, 'view', '2025-05-11 13:57:42'),
-(615, 28, 46, 'view', '2025-05-11 14:17:53'),
-(616, 28, 3, 'view', '2025-05-11 14:34:36'),
-(617, 28, 24, 'view', '2025-05-11 14:36:04'),
-(618, 28, 46, 'view', '2025-05-11 17:55:09'),
-(619, 28, 46, 'view', '2025-05-11 17:58:04'),
-(620, 28, 46, 'view', '2025-05-11 17:58:10'),
-(621, 28, 46, 'view', '2025-05-11 17:58:26'),
-(622, 28, 46, 'view', '2025-05-11 17:58:34'),
-(623, 28, 11, 'view', '2025-05-11 18:00:51'),
-(624, 28, 24, 'view', '2025-05-11 18:00:56'),
-(625, 28, 18, 'view', '2025-05-11 19:03:27'),
-(626, 28, 12, 'view', '2025-05-11 19:03:32'),
-(627, 28, 12, 'view', '2025-05-11 19:04:54'),
-(628, 28, 12, 'view', '2025-05-11 19:04:56'),
-(629, 28, 12, 'view', '2025-05-11 19:08:32'),
-(630, 28, 12, 'view', '2025-05-11 19:09:30'),
-(631, 28, 12, 'view', '2025-05-11 19:09:33'),
-(632, 28, 12, 'view', '2025-05-11 19:11:32'),
-(633, 28, 12, 'view', '2025-05-11 19:11:34'),
-(634, 28, 12, 'view', '2025-05-11 19:11:37'),
-(635, 28, 12, 'view', '2025-05-11 19:11:45'),
-(636, 28, 12, 'view', '2025-05-11 19:12:02'),
-(637, 28, 12, 'view', '2025-05-11 19:12:18'),
-(638, 28, 12, 'view', '2025-05-11 19:12:22'),
-(639, 28, 12, 'view', '2025-05-11 19:12:52'),
-(640, 28, 12, 'view', '2025-05-11 19:12:55'),
-(641, 28, 12, 'view', '2025-05-11 19:13:48'),
-(642, 28, 12, 'view', '2025-05-11 19:14:32'),
-(643, 28, 18, 'view', '2025-05-11 19:14:34'),
-(644, 28, 24, 'view', '2025-05-11 19:14:36'),
-(645, 28, 24, 'view', '2025-05-11 19:16:23'),
-(646, 28, 24, 'view', '2025-05-11 19:16:29'),
-(647, 28, 24, 'view', '2025-05-11 19:16:42'),
-(648, 28, 24, 'view', '2025-05-11 19:19:18'),
-(649, 28, 24, 'view', '2025-05-11 19:19:25'),
-(650, 28, 3, 'view', '2025-05-11 19:19:54'),
-(651, 28, 3, 'view', '2025-05-11 19:19:58'),
-(652, 28, 3, 'view', '2025-05-11 19:23:44'),
-(653, 28, 3, 'view', '2025-05-11 19:28:27'),
-(654, 28, 3, 'view', '2025-05-11 19:28:29'),
-(655, 28, 3, 'view', '2025-05-11 19:28:31'),
-(656, 28, 3, 'view', '2025-05-11 19:28:36'),
-(657, 28, 3, 'view', '2025-05-11 19:36:50'),
-(658, 28, 3, 'view', '2025-05-11 19:36:53'),
-(659, 28, 3, 'view', '2025-05-11 19:36:57'),
-(660, 28, 3, 'view', '2025-05-11 19:37:04'),
-(661, 28, 3, 'view', '2025-05-11 20:25:22'),
-(662, 28, 3, 'view', '2025-05-11 20:46:58'),
-(663, 28, 11, 'view', '2025-05-13 19:35:26'),
-(664, 28, 16, 'view', '2025-05-17 10:49:07'),
-(665, 28, 16, 'view', '2025-05-17 13:11:42'),
-(666, 28, 11, 'view', '2025-05-17 14:27:56'),
-(667, 28, 22, 'view', '2025-05-17 14:30:34'),
-(668, 28, 22, 'view', '2025-05-17 14:30:37'),
-(669, 28, 7, 'view', '2025-05-17 14:40:09'),
-(670, 28, 7, 'view', '2025-05-17 15:39:03'),
-(671, 28, 46, 'view', '2025-05-19 16:25:44'),
-(672, 28, 46, 'view', '2025-05-19 16:26:13'),
-(673, 28, 46, 'view', '2025-05-19 16:26:28'),
-(674, 28, 46, 'view', '2025-05-19 16:26:43'),
-(675, 28, 7, 'view', '2025-05-19 16:26:46'),
-(676, 28, 46, 'view', '2025-05-19 16:27:09'),
-(677, 28, 4, 'view', '2025-05-19 16:27:12'),
-(678, 28, 4, 'view', '2025-05-19 16:27:33'),
-(679, 28, 15, 'view', '2025-05-19 16:27:47'),
-(680, 28, 15, 'view', '2025-05-19 16:27:58'),
-(681, 28, 3, 'view', '2025-05-19 16:28:03'),
-(682, 28, 16, 'view', '2025-05-19 16:28:52'),
-(683, 28, 16, 'view', '2025-05-19 16:30:11'),
-(684, 28, 16, 'view', '2025-05-19 16:30:57'),
-(685, 28, 16, 'view', '2025-05-19 17:11:36'),
-(686, 28, 4, 'view', '2025-05-19 17:39:16'),
-(687, 28, 3, 'view', '2025-05-19 17:43:45'),
-(688, 28, 4, 'view', '2025-05-19 17:44:57'),
-(689, 28, 15, 'view', '2025-05-19 17:45:03'),
-(690, 28, 4, 'view', '2025-05-19 17:45:07'),
-(691, 28, 4, 'view', '2025-05-19 17:45:10'),
-(692, 28, 4, 'view', '2025-05-19 17:45:19'),
-(693, 28, 16, 'view', '2025-05-19 17:46:02'),
-(694, 28, 16, 'view', '2025-05-19 17:47:11'),
-(695, 28, 16, 'view', '2025-05-19 17:47:18'),
-(696, 28, 4, 'view', '2025-05-19 17:48:12'),
-(697, 28, 4, 'view', '2025-05-19 17:48:33'),
-(698, 28, 15, 'view', '2025-05-19 17:48:52'),
-(699, 28, 16, 'view', '2025-05-19 17:49:27'),
-(700, 28, 3, 'view', '2025-05-19 17:49:31'),
-(701, 28, 3, 'view', '2025-05-19 17:50:37'),
-(702, 28, 3, 'view', '2025-05-19 17:50:43'),
-(703, 28, 3, 'view', '2025-05-19 17:50:46'),
-(704, 28, 46, 'view', '2025-05-19 17:51:32'),
-(705, 28, 46, 'view', '2025-05-19 17:51:57'),
-(706, 28, 3, 'view', '2025-05-19 17:52:01'),
-(707, 28, 16, 'view', '2025-05-19 17:52:04'),
-(708, 28, 4, 'view', '2025-05-19 17:52:08'),
-(709, 28, 16, 'view', '2025-05-19 17:52:32'),
-(710, 28, 3, 'view', '2025-05-23 09:43:19'),
-(711, 28, 46, 'view', '2025-05-23 10:22:48'),
-(712, 28, 15, 'view', '2025-05-23 10:22:52'),
-(713, 28, 17, 'view', '2025-05-23 10:22:58'),
-(714, 28, 15, 'view', '2025-05-23 10:23:17'),
-(715, 28, 15, 'view', '2025-05-23 10:25:19'),
-(716, 28, 18, 'view', '2025-05-23 10:25:27'),
-(717, 28, 18, 'view', '2025-05-23 10:26:29'),
-(718, 28, 18, 'view', '2025-05-23 10:26:35'),
-(719, 28, 18, 'view', '2025-05-23 10:27:44'),
-(720, 28, 18, 'view', '2025-05-23 10:27:48'),
-(721, 28, 18, 'view', '2025-05-23 10:27:50'),
-(722, 28, 18, 'view', '2025-05-23 10:29:38'),
-(723, 28, 18, 'view', '2025-05-23 10:30:13'),
-(724, 28, 18, 'view', '2025-05-23 10:30:24'),
-(725, 28, 18, 'view', '2025-05-23 10:31:38'),
-(726, 28, 18, 'view', '2025-05-23 11:00:24'),
-(727, 28, 18, 'view', '2025-05-23 11:02:20'),
-(728, 28, 18, 'view', '2025-05-23 11:03:09'),
-(729, 28, 4, 'view', '2025-05-23 11:07:59'),
-(730, 28, 12, 'view', '2025-05-23 11:59:07'),
-(731, 28, 12, 'view', '2025-05-23 12:12:36'),
-(732, 28, 4, 'view', '2025-05-23 13:48:26'),
-(733, 28, 4, 'view', '2025-05-23 13:48:47'),
-(734, 28, 4, 'view', '2025-05-23 13:51:50'),
-(735, 28, 4, 'view', '2025-05-23 13:52:03'),
-(736, 28, 4, 'view', '2025-05-23 13:52:42'),
-(737, 28, 4, 'view', '2025-05-23 13:52:52'),
-(738, 28, 4, 'view', '2025-05-23 13:53:26'),
-(739, 28, 12, 'view', '2025-05-23 13:53:34'),
-(740, 28, 4, 'view', '2025-05-23 13:53:38'),
-(741, 28, 4, 'view', '2025-05-23 13:56:40'),
-(742, 28, 4, 'view', '2025-05-23 13:56:51'),
-(743, 28, 4, 'view', '2025-05-23 13:57:09'),
-(744, 28, 4, 'view', '2025-05-23 13:58:36'),
-(745, 28, 4, 'view', '2025-05-23 13:58:38'),
-(746, 28, 4, 'view', '2025-05-23 13:58:42'),
-(747, 28, 4, 'view', '2025-05-23 13:59:36'),
-(748, 28, 4, 'view', '2025-05-23 13:59:45'),
-(749, 28, 4, 'view', '2025-05-23 14:03:09'),
-(750, 28, 12, 'view', '2025-05-23 14:03:13'),
-(751, 28, 12, 'view', '2025-05-23 14:03:40'),
-(752, 28, 12, 'view', '2025-05-23 14:05:25'),
-(753, 28, 12, 'view', '2025-05-23 14:05:34'),
-(754, 28, 12, 'view', '2025-05-23 14:06:02'),
-(755, 28, 4, 'view', '2025-05-23 14:06:05'),
-(756, 28, 4, 'view', '2025-05-23 14:06:26'),
-(757, 28, 4, 'view', '2025-05-23 14:06:36'),
-(758, 28, 4, 'view', '2025-05-23 14:08:18'),
-(759, 28, 12, 'view', '2025-05-23 14:08:25'),
-(760, 28, 12, 'view', '2025-05-23 14:09:18'),
-(761, 28, 12, 'view', '2025-05-23 14:09:31'),
-(762, 28, 12, 'view', '2025-05-23 14:09:58'),
-(763, 28, 12, 'view', '2025-05-23 14:11:49'),
-(764, 28, 12, 'view', '2025-05-23 14:11:51'),
-(765, 28, 12, 'view', '2025-05-23 14:12:47'),
-(766, 28, 12, 'view', '2025-05-23 14:13:07'),
-(767, 28, 12, 'view', '2025-05-23 14:13:54'),
-(768, 28, 4, 'view', '2025-05-23 14:14:14'),
-(769, 28, 4, 'view', '2025-05-23 14:16:14'),
-(770, 28, 4, 'view', '2025-05-23 14:17:36'),
-(771, 28, 4, 'view', '2025-05-23 14:17:41'),
-(772, 28, 12, 'view', '2025-05-23 14:17:45'),
-(773, 28, 12, 'view', '2025-05-23 14:21:34'),
-(774, 28, 4, 'view', '2025-05-23 14:55:24'),
-(775, 28, 18, 'view', '2025-05-23 15:11:24'),
-(776, 28, 18, 'view', '2025-05-23 15:11:29'),
-(777, 28, 18, 'view', '2025-05-23 15:12:25'),
-(778, 28, 18, 'view', '2025-05-23 16:03:17'),
-(779, 28, 18, 'view', '2025-05-23 17:15:28'),
-(780, 28, 20, 'view', '2025-05-23 17:17:12'),
-(781, 28, 9, 'view', '2025-05-23 17:22:38'),
-(782, 28, 12, 'view', '2025-05-23 17:22:44'),
-(783, 28, 12, 'view', '2025-05-23 17:22:51'),
-(784, 28, 12, 'view', '2025-05-23 17:25:54'),
-(785, 28, 12, 'view', '2025-05-23 17:26:18'),
-(786, 28, 13, 'view', '2025-05-23 17:32:03'),
-(787, 28, 12, 'view', '2025-05-23 17:32:06'),
-(788, 28, 11, 'view', '2025-05-23 17:33:29'),
-(789, 28, 4, 'view', '2025-05-23 17:33:32'),
-(790, 28, 16, 'view', '2025-05-23 17:33:36'),
-(791, 28, 19, 'view', '2025-05-23 17:33:39'),
-(792, 28, 19, 'view', '2025-05-23 17:37:24'),
-(793, 28, 19, 'view', '2025-05-23 17:37:27'),
-(794, 28, 19, 'view', '2025-05-23 17:38:47'),
-(795, 28, 19, 'view', '2025-05-23 17:39:00'),
-(796, 28, 9, 'view', '2025-05-23 17:44:04'),
-(797, 28, 13, 'view', '2025-05-23 17:44:06'),
-(798, 28, 10, 'view', '2025-05-23 17:44:08'),
-(799, 28, 18, 'view', '2025-05-23 17:44:35'),
-(800, 28, 18, 'view', '2025-05-23 17:50:47'),
-(801, 28, 10, 'view', '2025-05-23 17:50:49'),
-(802, 28, 18, 'view', '2025-05-23 17:51:03'),
-(803, 28, 4, 'view', '2025-05-26 13:12:18'),
-(804, 28, 18, 'view', '2025-05-26 13:12:49'),
-(805, 28, 19, 'view', '2025-05-26 13:14:02'),
-(806, 28, 4, 'view', '2025-05-26 13:41:22'),
-(807, 28, 18, 'view', '2025-05-26 18:40:32');
+(949, 15, 6, 'view', '2025-06-04 12:42:28'),
+(950, 15, 6, 'view', '2025-06-04 12:49:43'),
+(951, 15, 6, 'view', '2025-06-04 12:51:19'),
+(952, 15, 6, 'view', '2025-06-04 13:01:32'),
+(953, 15, 6, 'view', '2025-06-04 13:02:25'),
+(954, 15, 5, 'view', '2025-06-04 13:03:17'),
+(955, 15, 5, 'view', '2025-06-04 13:06:24'),
+(956, 15, 6, 'view', '2025-06-04 13:06:34'),
+(957, 15, 6, 'view', '2025-06-04 13:07:36'),
+(958, 15, 6, 'view', '2025-06-04 13:08:48'),
+(959, 15, 6, 'view', '2025-06-04 13:10:29'),
+(960, 15, 6, 'view', '2025-06-04 14:00:52'),
+(961, 15, 6, 'view', '2025-06-04 14:06:30'),
+(962, 15, 6, 'view', '2025-06-04 14:10:32'),
+(963, 15, 6, 'view', '2025-06-04 14:13:00'),
+(964, 15, 6, 'view', '2025-06-04 14:13:52'),
+(965, 15, 6, 'view', '2025-06-04 14:17:20'),
+(966, 15, 5, 'view', '2025-06-04 14:17:29'),
+(967, 15, 5, 'view', '2025-06-04 14:18:52'),
+(968, 15, 5, 'view', '2025-06-04 15:24:18'),
+(969, 15, 5, 'view', '2025-06-04 15:24:44'),
+(970, 15, 5, 'view', '2025-06-04 15:31:57'),
+(971, 15, 5, 'view', '2025-06-04 15:32:17'),
+(972, 15, 5, 'view', '2025-06-04 15:35:57'),
+(973, 15, 5, 'view', '2025-06-04 15:41:17'),
+(974, 15, 6, 'view', '2025-06-04 15:42:39'),
+(975, 15, 6, 'view', '2025-06-04 15:42:50'),
+(976, 15, 5, 'view', '2025-06-04 15:43:06'),
+(977, 15, 6, 'view', '2025-06-04 15:43:12'),
+(978, 15, 6, 'view', '2025-06-04 15:48:33'),
+(979, 15, 6, 'view', '2025-06-04 15:49:27'),
+(980, 15, 5, 'view', '2025-06-04 15:50:09'),
+(981, 15, 6, 'view', '2025-06-04 15:51:06'),
+(982, 15, 6, 'view', '2025-06-04 15:51:45'),
+(983, 15, 6, 'view', '2025-06-04 15:53:39'),
+(984, 15, 6, 'view', '2025-06-04 15:53:55'),
+(985, 15, 5, 'view', '2025-06-04 15:54:43'),
+(986, 15, 6, 'view', '2025-06-04 15:55:02'),
+(987, 15, 6, 'view', '2025-06-04 15:56:25'),
+(988, 15, 6, 'view', '2025-06-04 15:56:50'),
+(989, 15, 5, 'view', '2025-06-04 15:57:05'),
+(990, 15, 5, 'view', '2025-06-04 16:01:56'),
+(991, 15, 5, 'view', '2025-06-04 16:02:22'),
+(992, 15, 6, 'view', '2025-06-04 16:03:57'),
+(993, 15, 6, 'view', '2025-06-04 16:04:03'),
+(994, 15, 5, 'view', '2025-06-04 16:04:09'),
+(995, 15, 5, 'view', '2025-06-04 16:05:07'),
+(996, 15, 5, 'view', '2025-06-04 16:17:12'),
+(997, 15, 5, 'view', '2025-06-04 16:17:55'),
+(998, 15, 5, 'view', '2025-06-04 16:18:30'),
+(999, 15, 5, 'view', '2025-06-04 16:19:06'),
+(1000, 15, 5, 'view', '2025-06-04 16:19:42'),
+(1001, 15, 5, 'view', '2025-06-04 16:21:10'),
+(1002, 15, 5, 'view', '2025-06-04 16:23:04'),
+(1003, 15, 5, 'view', '2025-06-04 16:24:36'),
+(1004, 15, 5, 'view', '2025-06-04 16:25:36'),
+(1005, 15, 5, 'view', '2025-06-04 16:27:50'),
+(1006, 15, 5, 'view', '2025-06-04 16:28:11'),
+(1007, 28, 19, 'view', '2025-06-04 16:31:57'),
+(1008, 28, 4, 'view', '2025-06-04 16:31:59'),
+(1009, 28, 5, 'view', '2025-06-04 16:32:16'),
+(1010, 28, 5, 'view', '2025-06-04 16:37:39'),
+(1011, 28, 5, 'view', '2025-06-04 19:53:09'),
+(1012, 28, 5, 'view', '2025-06-04 19:53:50'),
+(1013, 28, 5, 'view', '2025-06-04 19:54:07'),
+(1014, 28, 5, 'view', '2025-06-04 19:57:09'),
+(1015, 28, 5, 'view', '2025-06-04 20:00:29'),
+(1016, 28, 5, 'view', '2025-06-04 20:50:54'),
+(1017, 28, 5, 'view', '2025-06-05 08:27:58'),
+(1018, 28, 5, 'view', '2025-06-05 08:50:58'),
+(1019, 15, 5, 'view', '2025-06-05 09:04:15'),
+(1020, 15, 5, 'view', '2025-06-05 09:17:42'),
+(1021, 15, 5, 'view', '2025-06-05 09:19:37'),
+(1022, 15, 5, 'view', '2025-06-05 09:19:54'),
+(1023, 15, 4, 'view', '2025-06-05 09:22:02'),
+(1024, 15, 4, 'view', '2025-06-05 09:22:11'),
+(1025, 15, 4, 'view', '2025-06-05 09:25:32'),
+(1026, 15, 4, 'view', '2025-06-05 09:26:47'),
+(1027, 15, 5, 'view', '2025-06-05 09:28:04'),
+(1028, 15, 5, 'view', '2025-06-05 09:28:45'),
+(1029, 15, 5, 'view', '2025-06-05 09:29:54'),
+(1030, 15, 4, 'view', '2025-06-05 09:31:25'),
+(1031, 28, 13, 'view', '2025-06-05 09:41:16'),
+(1032, 28, 9, 'view', '2025-06-05 09:45:17'),
+(1033, 28, 9, 'view', '2025-06-05 09:45:21'),
+(1034, 28, 13, 'view', '2025-06-05 09:45:25'),
+(1035, 28, 13, 'view', '2025-06-05 09:45:38'),
+(1036, 15, 4, 'view', '2025-06-05 10:31:06'),
+(1037, 15, 4, 'view', '2025-06-05 10:44:58'),
+(1038, 15, 5, 'view', '2025-06-05 10:45:16'),
+(1039, 15, 5, 'view', '2025-06-05 10:47:17'),
+(1040, 15, 5, 'view', '2025-06-05 10:50:25'),
+(1041, 15, 5, 'view', '2025-06-05 10:50:28'),
+(1042, 15, 4, 'view', '2025-06-05 10:50:51'),
+(1043, 15, 5, 'view', '2025-06-05 10:51:06'),
+(1044, 15, 4, 'view', '2025-06-05 10:51:30'),
+(1045, 28, 19, 'view', '2025-06-05 11:05:53'),
+(1046, 28, 13, 'view', '2025-06-05 11:06:18'),
+(1047, 28, 5, 'view', '2025-06-05 11:06:22'),
+(1048, 15, 4, 'view', '2025-06-05 11:08:35'),
+(1049, 15, 4, 'view', '2025-06-05 11:33:06'),
+(1050, 15, 5, 'view', '2025-06-05 11:33:11'),
+(1051, 15, 5, 'view', '2025-06-05 11:33:34'),
+(1052, 15, 5, 'view', '2025-06-05 11:33:49'),
+(1053, 15, 5, 'view', '2025-06-05 11:35:12'),
+(1054, 15, 5, 'view', '2025-06-05 11:39:08'),
+(1055, 15, 5, 'view', '2025-06-05 11:39:41'),
+(1056, 28, 5, 'view', '2025-06-05 12:44:43'),
+(1057, 28, 5, 'view', '2025-06-05 12:54:00'),
+(1058, 28, 5, 'view', '2025-06-05 12:54:53'),
+(1059, 28, 5, 'view', '2025-06-05 12:57:06'),
+(1060, 28, 5, 'view', '2025-06-05 12:57:25'),
+(1061, 28, 5, 'view', '2025-06-05 12:58:29'),
+(1062, 28, 5, 'view', '2025-06-05 14:49:44'),
+(1063, 28, 15, 'view', '2025-06-05 15:03:14'),
+(1064, 28, 13, 'view', '2025-06-05 15:03:21'),
+(1065, 28, 13, 'view', '2025-06-05 15:03:46'),
+(1066, 28, 5, 'view', '2025-06-05 15:04:13'),
+(1067, 15, 4, 'view', '2025-06-05 15:51:38'),
+(1068, 15, 3, 'view', '2025-06-05 15:52:35'),
+(1069, 15, 3, 'view', '2025-06-05 15:52:41'),
+(1070, 15, 3, 'view', '2025-06-05 15:52:44'),
+(1071, 15, 16, 'view', '2025-06-05 15:53:01'),
+(1072, 28, 5, 'view', '2025-06-05 15:59:31'),
+(1073, 28, 5, 'view', '2025-06-05 16:03:03'),
+(1074, 28, 5, 'view', '2025-06-05 16:03:15'),
+(1075, 28, 5, 'view', '2025-06-05 16:05:46'),
+(1076, 28, 5, 'view', '2025-06-05 16:07:03'),
+(1077, 28, 5, 'view', '2025-06-05 16:08:24'),
+(1078, 15, 16, 'view', '2025-06-05 16:09:09'),
+(1079, 15, 16, 'view', '2025-06-05 16:11:14'),
+(1080, 15, 4, 'view', '2025-06-05 16:12:33'),
+(1081, 15, 4, 'view', '2025-06-05 16:12:48'),
+(1082, 15, 4, 'view', '2025-06-05 16:12:54'),
+(1083, 15, 4, 'view', '2025-06-05 16:13:00'),
+(1084, 15, 4, 'view', '2025-06-05 16:13:08'),
+(1085, 15, 4, 'view', '2025-06-05 16:17:22'),
+(1094, 28, 13, 'view', '2025-06-05 22:16:45'),
+(1095, 28, 24, 'view', '2025-06-05 22:18:18'),
+(1096, 28, 24, 'view', '2025-06-05 22:27:24'),
+(1097, 28, 24, 'view', '2025-06-05 22:27:51'),
+(1098, 28, 24, 'view', '2025-06-05 22:31:27'),
+(1099, 28, 24, 'view', '2025-06-05 22:32:09'),
+(1100, 28, 24, 'view', '2025-06-05 22:34:52'),
+(1101, 28, 24, 'view', '2025-06-05 22:36:18'),
+(1102, 28, 24, 'view', '2025-06-05 22:36:22'),
+(1103, 28, 24, 'view', '2025-06-05 22:36:24'),
+(1104, 28, 24, 'view', '2025-06-05 22:36:27'),
+(1105, 28, 24, 'view', '2025-06-05 22:37:17'),
+(1106, 28, 24, 'view', '2025-06-05 22:37:19'),
+(1107, 28, 24, 'view', '2025-06-05 22:37:34'),
+(1108, 28, 24, 'view', '2025-06-05 22:37:36'),
+(1109, 28, 24, 'view', '2025-06-05 22:37:38'),
+(1110, 28, 24, 'view', '2025-06-05 22:38:33'),
+(1111, 28, 24, 'view', '2025-06-05 22:38:37'),
+(1112, 28, 24, 'view', '2025-06-05 22:38:41'),
+(1113, 28, 24, 'view', '2025-06-05 22:39:02'),
+(1114, 28, 3, 'view', '2025-06-05 22:57:24'),
+(1115, 28, 3, 'view', '2025-06-05 23:00:06'),
+(1116, 28, 3, 'view', '2025-06-07 13:50:42'),
+(1117, 28, 3, 'view', '2025-06-07 15:03:03'),
+(1118, 28, 3, 'view', '2025-06-07 15:13:03'),
+(1119, 28, 3, 'view', '2025-06-07 15:16:04'),
+(1120, 28, 3, 'view', '2025-06-07 15:16:23'),
+(1121, 28, 3, 'view', '2025-06-07 15:16:57'),
+(1122, 28, 3, 'view', '2025-06-07 15:19:15'),
+(1123, 28, 3, 'view', '2025-06-07 15:20:16'),
+(1124, 28, 3, 'view', '2025-06-07 15:21:40'),
+(1125, 28, 3, 'view', '2025-06-07 16:26:12'),
+(1126, 28, 3, 'view', '2025-06-07 16:26:17'),
+(1127, 28, 3, 'view', '2025-06-07 16:26:29'),
+(1128, 28, 3, 'view', '2025-06-07 16:26:39'),
+(1129, 28, 3, 'view', '2025-06-07 16:33:47'),
+(1130, 28, 3, 'view', '2025-06-07 16:36:32'),
+(1131, 28, 13, 'view', '2025-06-07 16:36:36'),
+(1132, 28, 5, 'view', '2025-06-07 16:36:50'),
+(1133, 28, 5, 'view', '2025-06-07 16:37:42'),
+(1134, 28, 5, 'view', '2025-06-07 16:47:50'),
+(1135, 28, 5, 'view', '2025-06-07 16:56:11'),
+(1136, 28, 5, 'view', '2025-06-08 22:37:54'),
+(1137, 28, 5, 'view', '2025-06-08 22:38:49'),
+(1138, 28, 5, 'view', '2025-06-08 22:51:57'),
+(1139, 28, 5, 'view', '2025-06-08 22:55:02'),
+(1140, 28, 5, 'view', '2025-06-08 22:55:25'),
+(1141, 28, 5, 'view', '2025-06-08 22:57:55'),
+(1142, 28, 5, 'view', '2025-06-08 22:59:43'),
+(1143, 28, 5, 'view', '2025-06-08 23:01:20'),
+(1144, 28, 5, 'view', '2025-06-08 23:04:18'),
+(1145, 28, 5, 'view', '2025-06-08 23:05:21'),
+(1146, 28, 5, 'view', '2025-06-08 23:07:58'),
+(1147, 28, 5, 'view', '2025-06-08 23:08:18'),
+(1148, 28, 5, 'view', '2025-06-08 23:08:34'),
+(1149, 28, 5, 'view', '2025-06-08 23:11:33'),
+(1150, 28, 5, 'view', '2025-06-08 23:11:43'),
+(1151, 28, 5, 'view', '2025-06-09 11:12:42'),
+(1152, 28, 5, 'view', '2025-06-09 11:12:46'),
+(1153, 28, 13, 'view', '2025-06-09 11:13:02'),
+(1154, 28, 18, 'view', '2025-06-09 11:20:17'),
+(1155, 28, 12, 'view', '2025-06-09 11:20:34'),
+(1156, 28, 13, 'view', '2025-06-09 11:24:10'),
+(1157, 28, 13, 'view', '2025-06-09 11:24:47'),
+(1158, 28, 13, 'view', '2025-06-09 11:25:00'),
+(1159, 28, 13, 'view', '2025-06-09 11:26:14'),
+(1161, 28, 13, 'view', '2025-06-09 13:20:48'),
+(1162, 28, 13, 'view', '2025-06-09 13:21:09'),
+(1163, 28, 13, 'view', '2025-06-09 13:21:12'),
+(1164, 28, 13, 'view', '2025-06-09 13:24:41'),
+(1165, 28, 13, 'view', '2025-06-09 13:24:44'),
+(1166, 28, 12, 'view', '2025-06-09 13:24:46'),
+(1167, 28, 13, 'view', '2025-06-09 13:24:49'),
+(1168, 28, 13, 'view', '2025-06-09 13:25:05'),
+(1169, 28, 13, 'view', '2025-06-09 13:31:12'),
+(1170, 28, 13, 'view', '2025-06-09 13:31:26'),
+(1171, 28, 13, 'view', '2025-06-09 13:44:06'),
+(1172, 28, 13, 'view', '2025-06-09 13:52:36'),
+(1173, 28, 13, 'view', '2025-06-09 13:53:14'),
+(1174, 28, 13, 'view', '2025-06-09 13:53:16'),
+(1175, 28, 12, 'view', '2025-06-09 13:53:21'),
+(1176, 28, 12, 'view', '2025-06-09 13:58:30'),
+(1177, 28, 12, 'view', '2025-06-09 13:59:44'),
+(1178, 28, 12, 'view', '2025-06-09 14:05:13'),
+(1179, 28, 12, 'view', '2025-06-09 14:05:31'),
+(1180, 28, 12, 'view', '2025-06-09 14:08:44'),
+(1181, 28, 12, 'view', '2025-06-09 14:11:28'),
+(1182, 28, 12, 'view', '2025-06-09 14:12:40'),
+(1183, 28, 12, 'view', '2025-06-09 14:34:14'),
+(1184, 28, 12, 'view', '2025-06-09 14:39:00'),
+(1185, 28, 12, 'view', '2025-06-09 14:39:26'),
+(1186, 28, 12, 'view', '2025-06-09 14:43:27'),
+(1187, 28, 12, 'view', '2025-06-09 14:43:34'),
+(1188, 28, 12, 'view', '2025-06-09 14:46:54'),
+(1189, 28, 12, 'view', '2025-06-09 14:48:23'),
+(1190, 28, 12, 'view', '2025-06-09 14:48:47'),
+(1191, 28, 12, 'view', '2025-06-09 14:49:26'),
+(1192, 28, 12, 'view', '2025-06-09 14:49:42'),
+(1193, 28, 12, 'view', '2025-06-09 14:50:47'),
+(1194, 28, 12, 'view', '2025-06-09 14:54:41'),
+(1195, 28, 12, 'view', '2025-06-09 14:58:36'),
+(1196, 28, 12, 'view', '2025-06-09 15:01:41'),
+(1197, 28, 12, 'view', '2025-06-09 16:02:58'),
+(1198, 28, 12, 'view', '2025-06-09 16:03:53'),
+(1199, 28, 12, 'view', '2025-06-09 16:04:41'),
+(1200, 28, 12, 'view', '2025-06-09 16:04:57'),
+(1201, 28, 12, 'view', '2025-06-09 16:10:48'),
+(1202, 28, 12, 'view', '2025-06-09 17:52:19'),
+(1203, 28, 12, 'view', '2025-06-09 17:58:06'),
+(1204, 28, 12, 'view', '2025-06-09 18:03:33'),
+(1205, 28, 12, 'view', '2025-06-09 18:03:44'),
+(1206, 28, 12, 'view', '2025-06-09 18:03:48'),
+(1207, 28, 12, 'view', '2025-06-09 18:14:18'),
+(1208, 28, 12, 'view', '2025-06-09 18:17:35'),
+(1209, 28, 12, 'view', '2025-06-09 18:20:57'),
+(1210, 28, 12, 'view', '2025-06-09 18:30:43'),
+(1211, 28, 12, 'view', '2025-06-09 18:34:00'),
+(1212, 28, 12, 'view', '2025-06-09 18:34:22'),
+(1213, 28, 12, 'view', '2025-06-09 18:34:57'),
+(1214, 28, 12, 'view', '2025-06-09 18:36:23'),
+(1215, 28, 12, 'view', '2025-06-09 18:36:55'),
+(1216, 28, 12, 'view', '2025-06-09 18:37:00'),
+(1217, 28, 12, 'view', '2025-06-09 18:38:07'),
+(1218, 28, 12, 'view', '2025-06-09 18:38:50'),
+(1219, 28, 12, 'view', '2025-06-09 18:39:30'),
+(1220, 28, 12, 'view', '2025-06-09 18:44:37'),
+(1221, 28, 12, 'view', '2025-06-09 18:44:54'),
+(1222, 28, 12, 'view', '2025-06-09 18:47:24'),
+(1223, 28, 12, 'view', '2025-06-09 18:49:06'),
+(1224, 28, 12, 'view', '2025-06-09 18:49:56'),
+(1225, 28, 12, 'view', '2025-06-09 18:51:33'),
+(1226, 28, 12, 'view', '2025-06-09 18:53:28'),
+(1227, 28, 12, 'view', '2025-06-09 18:53:41'),
+(1228, 28, 12, 'view', '2025-06-09 18:54:43'),
+(1229, 28, 12, 'view', '2025-06-09 18:54:54'),
+(1230, 28, 5, 'view', '2025-06-09 18:55:02'),
+(1231, 28, 5, 'view', '2025-06-09 18:55:05'),
+(1232, 28, 13, 'view', '2025-06-09 18:55:07'),
+(1233, 28, 13, 'view', '2025-06-09 18:55:10'),
+(1234, 28, 13, 'view', '2025-06-09 18:57:54'),
+(1235, 28, 5, 'view', '2025-06-09 19:01:29'),
+(1236, 28, 13, 'view', '2025-06-09 19:01:31'),
+(1237, 28, 13, 'view', '2025-06-09 19:11:28'),
+(1238, 28, 13, 'view', '2025-06-09 19:21:13'),
+(1239, 28, 13, 'view', '2025-06-09 19:22:24'),
+(1240, 28, 13, 'view', '2025-06-09 19:22:59'),
+(1241, 28, 5, 'view', '2025-06-09 19:23:07'),
+(1242, 28, 5, 'view', '2025-06-09 19:23:35'),
+(1243, 28, 5, 'view', '2025-06-09 19:26:14'),
+(1244, 28, 5, 'view', '2025-06-09 20:06:00'),
+(1245, 28, 15, 'view', '2025-06-09 20:06:02'),
+(1246, 28, 15, 'view', '2025-06-09 20:06:05'),
+(1247, 28, 12, 'view', '2025-06-09 20:06:41'),
+(1248, 28, 12, 'view', '2025-06-09 20:06:56'),
+(1249, 28, 12, 'view', '2025-06-09 20:07:03'),
+(1250, 28, 12, 'view', '2025-06-09 20:12:40'),
+(1251, 28, 12, 'view', '2025-06-09 20:12:43'),
+(1252, 28, 12, 'view', '2025-06-09 20:12:50'),
+(1253, 28, 12, 'view', '2025-06-09 20:12:58'),
+(1254, 28, 12, 'view', '2025-06-09 20:13:05'),
+(1255, 28, 13, 'view', '2025-06-09 20:13:13'),
+(1256, 28, 13, 'view', '2025-06-09 20:23:17'),
+(1257, 28, 13, 'view', '2025-06-09 20:23:22'),
+(1258, 28, 13, 'view', '2025-06-09 20:53:30'),
+(1259, 28, 13, 'view', '2025-06-10 12:52:54'),
+(1260, 28, 13, 'view', '2025-06-10 12:53:00'),
+(1261, 28, 13, 'view', '2025-06-10 12:53:04'),
+(1262, 28, 13, 'view', '2025-06-10 12:53:10'),
+(1263, 28, 13, 'view', '2025-06-10 12:53:13'),
+(1264, 28, 12, 'view', '2025-06-10 13:23:55'),
+(1265, 28, 12, 'view', '2025-06-11 09:11:12'),
+(1266, 28, 20, 'view', '2025-06-11 09:11:17'),
+(1267, 28, 13, 'view', '2025-06-11 09:11:26'),
+(1268, 28, 12, 'view', '2025-06-11 09:11:53'),
+(1269, 28, 12, 'view', '2025-06-11 09:12:03'),
+(1270, 28, 12, 'view', '2025-06-11 09:12:16'),
+(1271, 28, 12, 'view', '2025-06-11 09:12:18'),
+(1272, 28, 12, 'view', '2025-06-11 09:12:27'),
+(1273, 28, 13, 'view', '2025-06-11 09:12:31'),
+(1274, 28, 12, 'view', '2025-06-11 09:12:34'),
+(1275, 28, 13, 'view', '2025-06-11 09:12:43'),
+(1276, 28, 12, 'view', '2025-06-11 09:12:47'),
+(1277, 28, 13, 'view', '2025-06-11 09:12:52'),
+(1278, 15, 21, 'view', '2025-06-11 11:56:11'),
+(1279, 15, 5, 'view', '2025-06-11 11:57:20'),
+(1280, 15, 4, 'view', '2025-06-11 14:23:06'),
+(1281, 15, 4, 'view', '2025-06-11 14:23:13'),
+(1282, 15, 4, 'view', '2025-06-11 14:25:01'),
+(1283, 15, 4, 'view', '2025-06-11 14:25:10'),
+(1284, 15, 4, 'view', '2025-06-11 14:25:16'),
+(1285, 15, 4, 'view', '2025-06-11 14:25:21'),
+(1286, 15, 4, 'view', '2025-06-11 14:25:53'),
+(1287, 15, 4, 'view', '2025-06-11 14:26:13'),
+(1288, 15, 5, 'view', '2025-06-11 15:17:07'),
+(1289, 28, 5, 'view', '2025-06-11 17:58:34'),
+(1290, 28, 13, 'view', '2025-06-11 18:29:28'),
+(1291, 28, 15, 'view', '2025-06-11 18:29:31'),
+(1292, 28, 20, 'view', '2025-06-11 18:29:34'),
+(1293, 28, 20, 'view', '2025-06-11 18:29:37'),
+(1294, 28, 5, 'view', '2025-06-11 18:29:40'),
+(1295, 28, 5, 'view', '2025-06-11 18:31:14'),
+(1296, 28, 5, 'view', '2025-06-11 18:32:10'),
+(1297, 28, 5, 'view', '2025-06-11 18:33:59'),
+(1298, 28, 5, 'view', '2025-06-11 18:34:32'),
+(1299, 28, 5, 'view', '2025-06-11 18:36:38'),
+(1300, 28, 5, 'view', '2025-06-11 18:36:55'),
+(1301, 28, 5, 'view', '2025-06-11 18:37:18'),
+(1302, 28, 5, 'view', '2025-06-11 18:37:32'),
+(1303, 28, 13, 'view', '2025-06-11 21:33:43'),
+(1304, 28, 13, 'view', '2025-06-11 21:38:40'),
+(1305, 28, 4, 'view', '2025-06-11 21:50:20'),
+(1306, 28, 5, 'view', '2025-06-11 21:50:46'),
+(1307, 28, 5, 'view', '2025-06-11 21:52:48'),
+(1308, 28, 5, 'view', '2025-06-11 21:54:00'),
+(1309, 28, 9, 'view', '2025-06-11 22:10:22'),
+(1310, 28, 9, 'view', '2025-06-11 22:28:22'),
+(1311, 28, 9, 'view', '2025-06-11 22:29:14'),
+(1312, 28, 9, 'view', '2025-06-12 08:13:42'),
+(1313, 28, 9, 'view', '2025-06-12 08:15:09'),
+(1314, 28, 9, 'view', '2025-06-12 08:15:25'),
+(1315, 28, 9, 'view', '2025-06-12 08:20:20'),
+(1316, 28, 9, 'view', '2025-06-12 08:20:22'),
+(1317, 28, 5, 'view', '2025-06-12 08:20:25'),
+(1318, 28, 9, 'view', '2025-06-12 08:20:27'),
+(1319, 28, 5, 'view', '2025-06-12 08:20:28'),
+(1320, 28, 9, 'view', '2025-06-12 13:48:51'),
+(1321, 28, 9, 'view', '2025-06-12 13:48:53'),
+(1322, 28, 5, 'view', '2025-06-12 16:00:14'),
+(1323, 28, 9, 'view', '2025-06-12 16:00:22'),
+(1324, 15, 5, 'view', '2025-06-12 16:00:39'),
+(1325, 15, 4, 'view', '2025-06-12 16:00:42'),
+(1326, 15, 21, 'view', '2025-06-12 16:00:45'),
+(1327, 28, 5, 'view', '2025-06-12 16:00:53'),
+(1328, 28, 24, 'view', '2025-06-12 16:01:08'),
+(1329, 28, 5, 'view', '2025-06-12 16:01:22'),
+(1330, 15, 21, 'view', '2025-06-12 16:01:39'),
+(1331, 15, 4, 'view', '2025-06-12 16:02:00'),
+(1332, 28, 5, 'view', '2025-06-12 19:28:50'),
+(1333, 28, 5, 'view', '2025-06-12 19:29:30'),
+(1334, 28, 5, 'view', '2025-06-12 19:30:12'),
+(1335, 28, 5, 'view', '2025-06-12 19:31:26'),
+(1336, 28, 5, 'view', '2025-06-12 19:31:35'),
+(1337, 28, 5, 'view', '2025-06-12 19:32:35'),
+(1338, 28, 5, 'view', '2025-06-12 19:32:56'),
+(1339, 28, 13, 'view', '2025-06-12 19:51:50'),
+(1340, 28, 4, 'view', '2025-06-12 19:52:28'),
+(1341, 28, 4, 'view', '2025-06-12 20:02:00'),
+(1342, 28, 4, 'view', '2025-06-12 20:04:41'),
+(1343, 28, 4, 'view', '2025-06-12 20:06:06'),
+(1344, 28, 4, 'view', '2025-06-12 20:06:13'),
+(1345, 28, 4, 'view', '2025-06-12 20:07:44'),
+(1346, 28, 5, 'view', '2025-06-12 20:07:50'),
+(1347, 28, 5, 'view', '2025-06-12 20:08:37'),
+(1348, 28, 5, 'view', '2025-06-12 20:10:24'),
+(1349, 28, 5, 'view', '2025-06-12 20:21:51'),
+(1350, 28, 4, 'view', '2025-06-12 20:22:02'),
+(1351, 28, 24, 'view', '2025-06-12 20:22:06'),
+(1352, 28, 5, 'view', '2025-06-12 20:22:38'),
+(1353, 28, 9, 'view', '2025-06-12 20:22:41'),
+(1354, 28, 9, 'view', '2025-06-12 20:26:47'),
+(1355, 28, 9, 'view', '2025-06-12 20:33:22'),
+(1356, 28, 9, 'view', '2025-06-12 20:34:38'),
+(1357, 28, 9, 'view', '2025-06-12 20:51:22'),
+(1358, 28, 9, 'view', '2025-06-12 20:53:03'),
+(1359, 28, 9, 'view', '2025-06-12 20:53:20'),
+(1360, 28, 9, 'view', '2025-06-12 21:11:18'),
+(1361, 28, 9, 'view', '2025-06-12 21:11:47'),
+(1362, 28, 9, 'view', '2025-06-12 21:13:06'),
+(1363, 28, 9, 'view', '2025-06-13 00:12:18'),
+(1370, 28, 13, 'view', '2025-06-13 12:29:27'),
+(1372, 28, 13, 'view', '2025-06-13 12:29:37'),
+(1393, 28, 12, 'view', '2025-06-13 21:06:04'),
+(1394, 28, 13, 'view', '2025-06-13 21:06:13'),
+(1395, 28, 13, 'view', '2025-06-13 21:06:17'),
+(1396, 28, 13, 'view', '2025-06-13 21:06:19'),
+(1397, 28, 13, 'view', '2025-06-13 21:08:46'),
+(1398, 28, 5, 'view', '2025-06-13 21:08:57'),
+(1399, 28, 5, 'view', '2025-06-13 21:21:19'),
+(1400, 28, 5, 'view', '2025-06-13 21:21:22'),
+(1406, 28, 18, 'view', '2025-06-14 14:13:33'),
+(1407, 28, 13, 'view', '2025-06-14 15:01:57'),
+(1408, 28, 12, 'view', '2025-06-14 15:16:18'),
+(1409, 28, 15, 'view', '2025-06-14 15:16:22'),
+(1410, 28, 12, 'view', '2025-06-14 15:23:01'),
+(1414, 28, 16, 'view', '2025-06-14 16:52:46'),
+(1415, 28, 20, 'view', '2025-06-14 16:54:09'),
+(1417, 28, 12, 'view', '2025-06-14 16:55:30'),
+(1420, 28, 12, 'view', '2025-06-14 17:47:09'),
+(1421, 28, 12, 'view', '2025-06-14 21:46:25'),
+(1423, 28, 12, 'view', '2025-06-14 21:46:35'),
+(1425, 28, 12, 'view', '2025-06-14 21:48:07'),
+(1427, 28, 12, 'view', '2025-06-14 21:53:02'),
+(1429, 28, 67, 'view', '2025-06-14 21:56:11'),
+(1430, 28, 13, 'view', '2025-06-14 22:18:13'),
+(1431, 28, 13, 'view', '2025-06-14 22:18:21'),
+(1432, 28, 67, 'view', '2025-06-14 22:29:37'),
+(1433, 28, 13, 'view', '2025-06-14 22:32:41'),
+(1434, 28, 13, 'view', '2025-06-14 22:34:43'),
+(1435, 28, 13, 'view', '2025-06-14 22:35:58'),
+(1436, 28, 67, 'view', '2025-06-14 22:36:06'),
+(1437, 28, 12, 'view', '2025-06-15 00:27:38'),
+(1438, 28, 15, 'view', '2025-06-15 00:27:41'),
+(1439, 28, 13, 'view', '2025-06-15 00:37:41'),
+(1440, 28, 14, 'view', '2025-06-15 00:39:08'),
+(1441, 28, 14, 'view', '2025-06-15 00:45:45'),
+(1442, 28, 13, 'view', '2025-06-15 00:45:50'),
+(1443, 28, 13, 'view', '2025-06-15 00:47:01'),
+(1444, 28, 14, 'view', '2025-06-15 00:47:04'),
+(1445, 28, 15, 'view', '2025-06-15 13:12:22'),
+(1446, 28, 67, 'view', '2025-06-15 14:00:48'),
+(1447, 28, 67, 'view', '2025-06-15 14:01:49'),
+(1448, 28, 67, 'view', '2025-06-15 14:01:52'),
+(1449, 28, 67, 'view', '2025-06-15 14:16:23'),
+(1450, 28, 67, 'view', '2025-06-15 14:16:26'),
+(1451, 28, 14, 'view', '2025-06-15 14:16:30'),
+(1452, 28, 14, 'view', '2025-06-15 14:17:13'),
+(1453, 28, 14, 'view', '2025-06-15 14:17:25'),
+(1454, 28, 14, 'view', '2025-06-15 14:18:06'),
+(1455, 28, 14, 'view', '2025-06-15 14:19:25'),
+(1456, 28, 14, 'view', '2025-06-15 14:32:14'),
+(1457, 28, 14, 'view', '2025-06-15 14:32:22'),
+(1458, 28, 20, 'view', '2025-06-15 14:32:52'),
+(1459, 28, 12, 'view', '2025-06-15 14:32:56'),
+(1460, 28, 15, 'view', '2025-06-15 14:34:19'),
+(1461, 28, 4, 'view', '2025-06-15 14:37:24'),
+(1462, 28, 24, 'view', '2025-06-15 14:37:33'),
+(1463, 28, 24, 'view', '2025-06-15 14:40:30'),
+(1464, 28, 24, 'view', '2025-06-15 14:41:10'),
+(1465, 28, 24, 'view', '2025-06-15 14:50:41'),
+(1466, 28, 24, 'view', '2025-06-15 15:10:59'),
+(1467, 28, 13, 'view', '2025-06-15 15:11:18'),
+(1468, 28, 14, 'view', '2025-06-15 16:27:16'),
+(1469, 28, 14, 'view', '2025-06-15 16:27:20'),
+(1470, 28, 14, 'view', '2025-06-15 16:28:19'),
+(1471, 28, 14, 'view', '2025-06-15 16:30:16'),
+(1472, 28, 14, 'view', '2025-06-15 17:00:49'),
+(1473, 28, 14, 'view', '2025-06-15 17:25:50'),
+(1474, 28, 13, 'view', '2025-06-15 17:25:51'),
+(1475, 28, 24, 'view', '2025-06-15 17:26:00'),
+(1476, 28, 13, 'view', '2025-06-15 18:00:36'),
+(1477, 28, 21, 'view', '2025-06-15 18:00:47'),
+(1478, 28, 22, 'view', '2025-06-15 18:00:54'),
+(1479, 28, 7, 'view', '2025-06-15 18:01:01'),
+(1480, 28, 21, 'view', '2025-06-15 18:01:03'),
+(1481, 28, 8, 'view', '2025-06-15 18:01:06'),
+(1482, 28, 7, 'view', '2025-06-15 18:01:10'),
+(1483, 28, 67, 'view', '2025-06-15 22:44:44'),
+(1484, 28, 67, 'view', '2025-06-16 00:09:51'),
+(1485, 28, 67, 'view', '2025-06-16 00:09:57'),
+(1486, 28, 5, 'view', '2025-06-16 00:10:22'),
+(1487, 28, 67, 'view', '2025-06-16 00:11:28');
 
 -- --------------------------------------------------------
 
@@ -1423,6 +1771,23 @@ CREATE TABLE `v_cart_fav` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `v_chats_details`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_chats_details` (
+`chat_id` int(11)
+,`product_id` int(11)
+,`product_title` varchar(150)
+,`product_price` decimal(10,2)
+,`cover_product` varchar(255)
+,`seller_id` int(11)
+,`buyer_id` int(11)
+,`timestamp` timestamp
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `v_message_details`
 -- (See below for the actual view)
 --
@@ -1432,15 +1797,36 @@ CREATE TABLE `v_message_details` (
 ,`owner_id` int(11)
 ,`sender_id` int(11)
 ,`sender_name` varchar(100)
-,`sender_last_name` varchar(100)
 ,`receiver_id` int(11)
 ,`receiver_name` varchar(100)
-,`receiver_last_name` varchar(100)
 ,`product_id` int(11)
 ,`product_title` varchar(150)
+,`product_cover` varchar(255)
 ,`message` text
-,`timestamp` timestamp
+,`date_raw` date
+,`date_label` varchar(70)
+,`TIMESTAMP` timestamp
 ,`timestamp_format` varchar(10)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_order_details`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_order_details` (
+`order_id` int(11)
+,`user_id` int(11)
+,`status` enum('pendente','pago','cancelado')
+,`created_at` datetime
+,`product_id` int(11)
+,`quantity` int(11)
+,`unit_price` decimal(10,2)
+,`total_item_value` decimal(20,2)
+,`product_title` varchar(150)
+,`product_cover` varchar(255)
+,`product_category` varchar(50)
 );
 
 -- --------------------------------------------------------
@@ -1452,16 +1838,20 @@ CREATE TABLE `v_message_details` (
 CREATE TABLE `v_popular_products` (
 `product_id` int(11)
 ,`user_id` int(11)
+,`user_name` varchar(100)
 ,`title` varchar(150)
 ,`description` text
 ,`price` decimal(10,2)
 ,`price_before` decimal(10,2)
+,`discount_percentage` decimal(17,2)
 ,`category` varchar(50)
 ,`quantity` int(11)
+,`rating` decimal(10,1)
 ,`cover` varchar(255)
 ,`created_at` timestamp
 ,`updated_at` timestamp
 ,`seller_type` varchar(20)
+,`status` enum('sold','nostock','available')
 ,`view_count` int(11)
 );
 
@@ -1474,6 +1864,7 @@ CREATE TABLE `v_popular_products` (
 CREATE TABLE `v_product_details` (
 `product_id` int(11)
 ,`user_id` int(11)
+,`user_name` varchar(100)
 ,`title` varchar(150)
 ,`description` text
 ,`price` decimal(10,2)
@@ -1482,10 +1873,13 @@ CREATE TABLE `v_product_details` (
 ,`category` varchar(50)
 ,`quantity` int(11)
 ,`cover` varchar(255)
+,`rating` decimal(10,1)
 ,`location` varchar(255)
 ,`created_at` timestamp
 ,`updated_at` timestamp
 ,`seller_type` varchar(20)
+,`status` enum('sold','nostock','available')
+,`review_count` bigint(21)
 );
 
 -- --------------------------------------------------------
@@ -1504,11 +1898,13 @@ CREATE TABLE `v_product_full_details` (
 ,`discount_percentage` decimal(17,2)
 ,`category` varchar(50)
 ,`quantity` int(11)
+,`rating` decimal(10,1)
 ,`cover` varchar(255)
 ,`location` varchar(255)
 ,`created_at` varchar(19)
 ,`updated_at` varchar(19)
 ,`seller_type` varchar(20)
+,`status` enum('sold','nostock','available')
 ,`views` int(11)
 ,`favorites_count` bigint(21)
 );
@@ -1516,24 +1912,18 @@ CREATE TABLE `v_product_full_details` (
 -- --------------------------------------------------------
 
 --
--- Stand-in structure for view `v_user_chats`
+-- Stand-in structure for view `v_review_details`
 -- (See below for the actual view)
 --
-CREATE TABLE `v_user_chats` (
-`owner_id` int(11)
-,`chat_id` int(11)
+CREATE TABLE `v_review_details` (
+`review_id` int(11)
 ,`product_id` int(11)
-,`product_title` varchar(150)
-,`product_price` decimal(10,2)
-,`id_message` int(11)
 ,`user_id` int(11)
-,`chat_with` int(11)
-,`chat_with_name` varchar(100)
-,`chat_with_last_name` varchar(100)
-,`last_message` mediumtext
-,`cover_product` varchar(255)
-,`last_message_time` timestamp
-,`last_message_time_format` varchar(10)
+,`user_name` varchar(100)
+,`user_avatar` varchar(255)
+,`rating` tinyint(5)
+,`comment` text
+,`created_at` timestamp
 );
 
 -- --------------------------------------------------------
@@ -1555,7 +1945,7 @@ CREATE TABLE `wallet` (
 INSERT INTO `wallet` (`id`, `user_id`, `balance`) VALUES
 (1, 22, 0.00),
 (2, 23, 0.00),
-(3, 28, 39.56),
+(3, 28, 534.92),
 (4, 18, 0.00),
 (5, 27, 0.00),
 (6, 15, 0.00),
@@ -1563,7 +1953,9 @@ INSERT INTO `wallet` (`id`, `user_id`, `balance`) VALUES
 (8, 21, 0.00),
 (9, 19, 0.00),
 (10, 25, 0.00),
-(11, 20, 0.00);
+(11, 20, 0.00),
+(13, 30, 0.00),
+(14, 31, 0.00);
 
 -- --------------------------------------------------------
 
@@ -1577,11 +1969,29 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Structure for view `v_chats_details`
+--
+DROP TABLE IF EXISTS `v_chats_details`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_chats_details`  AS SELECT `chats`.`chat_id` AS `chat_id`, `chats`.`product_id` AS `product_id`, `products`.`title` AS `product_title`, `products`.`price` AS `product_price`, `products`.`cover` AS `cover_product`, `chats`.`seller_id` AS `seller_id`, `chats`.`buyer_id` AS `buyer_id`, `chats`.`timestamp` AS `timestamp` FROM (`chats` join `products` on(`chats`.`product_id` = `products`.`product_id`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `v_message_details`
 --
 DROP TABLE IF EXISTS `v_message_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_message_details`  AS SELECT `m`.`id_message` AS `id_message`, `c`.`chat_id` AS `chat_id`, `p`.`user_id` AS `owner_id`, `m`.`sender_id` AS `sender_id`, `sender`.`name` AS `sender_name`, `sender`.`last_name` AS `sender_last_name`, `m`.`receiver_id` AS `receiver_id`, `receiver`.`name` AS `receiver_name`, `receiver`.`last_name` AS `receiver_last_name`, `c`.`product_id` AS `product_id`, `p`.`title` AS `product_title`, `m`.`message` AS `message`, `m`.`timestamp` AS `timestamp`, date_format(`m`.`timestamp`,'%H:%i') AS `timestamp_format` FROM ((((`messages` `m` join `chats` `c` on(`m`.`chat_id` = `c`.`chat_id`)) join `users` `sender` on(`m`.`sender_id` = `sender`.`user_id`)) join `users` `receiver` on(`m`.`receiver_id` = `receiver`.`user_id`)) join `products` `p` on(`c`.`product_id` = `p`.`product_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_message_details`  AS SELECT `m`.`id_message` AS `id_message`, `c`.`chat_id` AS `chat_id`, `p`.`user_id` AS `owner_id`, `m`.`sender_id` AS `sender_id`, `sender`.`name` AS `sender_name`, CASE WHEN `m`.`sender_id` = `c`.`seller_id` THEN `c`.`buyer_id` ELSE `c`.`seller_id` END AS `receiver_id`, CASE WHEN `m`.`sender_id` = `c`.`seller_id` THEN `buyer`.`name` ELSE `seller`.`name` END AS `receiver_name`, `c`.`product_id` AS `product_id`, `p`.`title` AS `product_title`, `p`.`cover` AS `product_cover`, `m`.`message` AS `message`, cast(`m`.`timestamp` as date) AS `date_raw`, CASE WHEN cast(`m`.`timestamp` as date) = curdate() THEN 'Hoje' WHEN cast(`m`.`timestamp` as date) = curdate() - interval 1 day THEN 'Ontem' ELSE date_format(`m`.`timestamp`,'%d de %M') END AS `date_label`, `m`.`timestamp` AS `TIMESTAMP`, date_format(`m`.`timestamp`,'%H:%i') AS `timestamp_format` FROM (((((`messages` `m` join `chats` `c` on(`m`.`chat_id` = `c`.`chat_id`)) join `products` `p` on(`c`.`product_id` = `p`.`product_id`)) join `users` `sender` on(`m`.`sender_id` = `sender`.`user_id`)) join `users` `seller` on(`c`.`seller_id` = `seller`.`user_id`)) join `users` `buyer` on(`c`.`buyer_id` = `buyer`.`user_id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_order_details`
+--
+DROP TABLE IF EXISTS `v_order_details`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_order_details`  AS SELECT `o`.`id` AS `order_id`, `o`.`user_id` AS `user_id`, `o`.`status` AS `status`, `o`.`created_at` AS `created_at`, `oi`.`product_id` AS `product_id`, `oi`.`quantity` AS `quantity`, `oi`.`unit_price` AS `unit_price`, `oi`.`quantity`* `oi`.`unit_price` AS `total_item_value`, `p`.`title` AS `product_title`, `p`.`cover` AS `product_cover`, `p`.`category` AS `product_category` FROM ((`orders` `o` join `order_items` `oi` on(`o`.`id` = `oi`.`order_id`)) join `products` `p` on(`oi`.`product_id` = `p`.`product_id`)) ;
 
 -- --------------------------------------------------------
 
@@ -1590,7 +2000,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_popular_products`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_popular_products`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, `p`.`category` AS `category`, `p`.`quantity` AS `quantity`, `p`.`cover` AS `cover`, `p`.`created_at` AS `created_at`, `p`.`updated_at` AS `updated_at`, `p`.`seller_type` AS `seller_type`, `pv`.`view_count` AS `view_count` FROM (`products` `p` join `products_views` `pv` on(`p`.`product_id` = `pv`.`product_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_popular_products`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `u`.`name` AS `user_name`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, round((`p`.`price_before` - `p`.`price`) / `p`.`price_before` * 100,2) AS `discount_percentage`, `p`.`category` AS `category`, `p`.`quantity` AS `quantity`, `p`.`rating` AS `rating`, `p`.`cover` AS `cover`, `p`.`created_at` AS `created_at`, `p`.`updated_at` AS `updated_at`, `p`.`seller_type` AS `seller_type`, `p`.`status` AS `status`, `pv`.`view_count` AS `view_count` FROM ((`products` `p` join `products_views` `pv` on(`p`.`product_id` = `pv`.`product_id`)) left join `users` `u` on(`p`.`user_id` = `u`.`user_id`)) ;
 
 -- --------------------------------------------------------
 
@@ -1599,7 +2009,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_product_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_details`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, round((`p`.`price_before` - `p`.`price`) / `p`.`price_before` * 100,2) AS `discount_percentage`, `p`.`category` AS `category`, `p`.`quantity` AS `quantity`, `p`.`cover` AS `cover`, `p`.`location` AS `location`, `p`.`created_at` AS `created_at`, `p`.`updated_at` AS `updated_at`, `p`.`seller_type` AS `seller_type` FROM `products` AS `p` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_details`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `u`.`name` AS `user_name`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, round((`p`.`price_before` - `p`.`price`) / `p`.`price_before` * 100,2) AS `discount_percentage`, `p`.`category` AS `category`, `p`.`quantity` AS `quantity`, `p`.`cover` AS `cover`, `p`.`rating` AS `rating`, `p`.`location` AS `location`, `p`.`created_at` AS `created_at`, `p`.`updated_at` AS `updated_at`, `p`.`seller_type` AS `seller_type`, `p`.`status` AS `status`, count(`r`.`review_id`) AS `review_count` FROM ((`products` `p` left join `reviews` `r` on(`r`.`product_id` = `p`.`product_id`)) left join `users` `u` on(`u`.`user_id` = `p`.`user_id`)) GROUP BY `p`.`product_id` ;
 
 -- --------------------------------------------------------
 
@@ -1608,16 +2018,16 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_product_full_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_full_details`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, round((`p`.`price_before` - `p`.`price`) / `p`.`price_before` * 100,2) AS `discount_percentage`, `p`.`category` AS `category`, `p`.`quantity` AS `quantity`, `p`.`cover` AS `cover`, `p`.`location` AS `location`, date_format(`p`.`created_at`,'%d/%m/%y %H:%i') AS `created_at`, date_format(`p`.`updated_at`,'%d/%m/%y %H:%i') AS `updated_at`, `p`.`seller_type` AS `seller_type`, ifnull(`pv`.`view_count`,0) AS `views`, count(distinct `f`.`saved_id`) AS `favorites_count` FROM ((`products` `p` left join `products_views` `pv` on(`p`.`product_id` = `pv`.`product_id`)) left join `saved` `f` on(`p`.`product_id` = `f`.`product_id`)) GROUP BY `p`.`product_id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_product_full_details`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, round((`p`.`price_before` - `p`.`price`) / `p`.`price_before` * 100,2) AS `discount_percentage`, `p`.`category` AS `category`, `p`.`quantity` AS `quantity`, `p`.`rating` AS `rating`, `p`.`cover` AS `cover`, `p`.`location` AS `location`, date_format(`p`.`created_at`,'%d/%m/%y %H:%i') AS `created_at`, date_format(`p`.`updated_at`,'%d/%m/%y %H:%i') AS `updated_at`, `p`.`seller_type` AS `seller_type`, `p`.`status` AS `status`, ifnull(`pv`.`view_count`,0) AS `views`, count(distinct `f`.`saved_id`) AS `favorites_count` FROM ((`products` `p` left join `products_views` `pv` on(`p`.`product_id` = `pv`.`product_id`)) left join `saved` `f` on(`p`.`product_id` = `f`.`product_id`)) GROUP BY `p`.`product_id` ;
 
 -- --------------------------------------------------------
 
 --
--- Structure for view `v_user_chats`
+-- Structure for view `v_review_details`
 --
-DROP TABLE IF EXISTS `v_user_chats`;
+DROP TABLE IF EXISTS `v_review_details`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_user_chats`  AS SELECT `p`.`user_id` AS `owner_id`, `c`.`chat_id` AS `chat_id`, `c`.`product_id` AS `product_id`, `p`.`title` AS `product_title`, `p`.`price` AS `product_price`, `m`.`id_message` AS `id_message`, `m`.`sender_id` AS `user_id`, `m`.`receiver_id` AS `chat_with`, `u2`.`name` AS `chat_with_name`, `u2`.`last_name` AS `chat_with_last_name`, `m`.`message` AS `last_message`, `p`.`cover` AS `cover_product`, `m`.`timestamp` AS `last_message_time`, date_format(`m`.`timestamp`,'%H:%i') AS `last_message_time_format` FROM (((`chats` `c` join `messages` `m` on(`c`.`chat_id` = `m`.`chat_id`)) join `products` `p` on(`c`.`product_id` = `p`.`product_id`)) join `users` `u2` on(`m`.`receiver_id` = `u2`.`user_id`)) WHERE `m`.`timestamp` = (select max(`m2`.`timestamp`) from `messages` `m2` where `m2`.`chat_id` = `m`.`chat_id`)union select `p`.`user_id` AS `owner_id`,`c`.`chat_id` AS `chat_id`,`c`.`product_id` AS `product_id`,`p`.`title` AS `product_title`,`p`.`price` AS `product_price`,`m`.`id_message` AS `id_message`,`m`.`receiver_id` AS `user_id`,`m`.`sender_id` AS `chat_with`,`u1`.`name` AS `chat_with_name`,`u1`.`last_name` AS `chat_with_last_name`,`m`.`message` AS `last_message`,`p`.`cover` AS `cover_product`,`m`.`timestamp` AS `last_message_time`,date_format(`m`.`timestamp`,'%H:%i') AS `last_message_time_format` from (((`chats` `c` join `messages` `m` on(`c`.`chat_id` = `m`.`chat_id`)) join `products` `p` on(`c`.`product_id` = `p`.`product_id`)) join `users` `u1` on(`m`.`sender_id` = `u1`.`user_id`)) where `m`.`timestamp` = (select max(`m2`.`timestamp`) from `messages` `m2` where `m2`.`chat_id` = `m`.`chat_id`)  ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_review_details`  AS SELECT `r`.`review_id` AS `review_id`, `r`.`product_id` AS `product_id`, `r`.`user_id` AS `user_id`, `u`.`name` AS `user_name`, `u`.`avatar` AS `user_avatar`, `r`.`rating` AS `rating`, `r`.`comment` AS `comment`, `r`.`created_at` AS `created_at` FROM (`reviews` `r` join `users` `u` on(`r`.`user_id` = `u`.`user_id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -1635,7 +2045,9 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `chats`
   ADD PRIMARY KEY (`chat_id`),
-  ADD KEY `product_id` (`product_id`);
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `chats_ibfk_2` (`buyer_id`),
+  ADD KEY `chats_ibfk_3` (`seller_id`);
 
 --
 -- Indexes for table `gallery`
@@ -1657,7 +2069,6 @@ ALTER TABLE `images`
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`id_message`),
   ADD KEY `sender_id` (`sender_id`),
-  ADD KEY `receiver_id` (`receiver_id`),
   ADD KEY `messages_ibfk_4` (`chat_id`);
 
 --
@@ -1691,6 +2102,7 @@ ALTER TABLE `products`
   ADD KEY `user_id` (`user_id`),
   ADD KEY `fk_category` (`category`);
 ALTER TABLE `products` ADD FULLTEXT KEY `title` (`title`,`description`,`category`);
+ALTER TABLE `products` ADD FULLTEXT KEY `title_2` (`title`,`description`,`category`);
 
 --
 -- Indexes for table `products_views`
@@ -1703,8 +2115,8 @@ ALTER TABLE `products_views`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`review_id`),
-  ADD KEY `reviewer_id` (`reviewer_id`),
-  ADD KEY `reviewed_user_id` (`reviewed_user_id`);
+  ADD KEY `reviewer_id` (`user_id`),
+  ADD KEY `reviews_ibfk_2` (`product_id`);
 
 --
 -- Indexes for table `saved`
@@ -1760,85 +2172,85 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
+  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=410;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- AUTO_INCREMENT for table `saved`
 --
 ALTER TABLE `saved`
-  MODIFY `saved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=262;
+  MODIFY `saved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=460;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `users_tokens`
 --
 ALTER TABLE `users_tokens`
-  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `user_history`
 --
 ALTER TABLE `user_history`
-  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=808;
+  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1488;
 
 --
 -- AUTO_INCREMENT for table `wallet`
 --
 ALTER TABLE `wallet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
@@ -1848,7 +2260,9 @@ ALTER TABLE `wallet`
 -- Constraints for table `chats`
 --
 ALTER TABLE `chats`
-  ADD CONSTRAINT `chats_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `chats_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `chats_ibfk_2` FOREIGN KEY (`buyer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `chats_ibfk_3` FOREIGN KEY (`seller_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `gallery`
@@ -1867,8 +2281,7 @@ ALTER TABLE `images`
 --
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`sender_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `messages_ibfk_4` FOREIGN KEY (`chat_id`) REFERENCES `chats` (`chat_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`sender_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `orders`
@@ -1907,8 +2320,8 @@ ALTER TABLE `products_views`
 -- Constraints for table `reviews`
 --
 ALTER TABLE `reviews`
-  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`reviewer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`reviewed_user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `saved`

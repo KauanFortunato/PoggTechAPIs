@@ -86,4 +86,36 @@ class Review
             ];
         }
     }
+
+    public function createReview($data)
+    {
+        try {
+            $sql = "INSERT INTO reviews (product_id, user_id, rating, comment) VALUES (:product_id, :user_id, :rating, :comment)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':product_id', $data['product_id'], PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $data['user_id'], PDO::PARAM_INT);
+            $stmt->bindParam(':rating', $data['rating'], PDO::PARAM_INT);
+            $stmt->bindParam(':comment', $data['comment'], PDO::PARAM_STR);
+
+            if ($stmt->execute()) {
+                return [
+                    "success" => true,
+                    "message" => "Avaliação criada com sucesso",
+                    "data" => null
+                ];
+            } else {
+                return [
+                    "success" => false,
+                    "message" => "Erro ao criar a avaliação",
+                    "data" => null
+                ];
+            }
+        } catch (PDOException $e) {
+            return [
+                "success" => false,
+                "message" => "Erro ao criar a avaliação: " . $e->getMessage(),
+                "data" => null
+            ];
+        }
+    }
 }

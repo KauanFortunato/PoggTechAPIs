@@ -145,4 +145,31 @@ class Order
             return ["success" => false, "message" => "Erro ao buscar pedidos: " . $e->getMessage(), "data" => null];
         }
     }
+
+    public function getOrderItems($order_id)
+    {
+        try {
+
+            // Itens do pedido
+            $stmt = $this->conn->prepare("
+                SELECT * FROM v_order_details
+                WHERE order_id = :order_id
+            ");
+            $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!$items) {
+                return ["success" => false, "message" => "Pedido não encontrado", "data" => null];
+            }
+
+            return [
+                "success" => true,
+                "message" => "Detalhes do pedido encontrados",
+                "data" => $items
+            ];
+        } catch (\PDOException $e) {
+            return ["success" => false, "message" => "Erro ao buscar detalhes do pedido: " . $e->getMessage(), "data" => null];
+        }
+    }
 }

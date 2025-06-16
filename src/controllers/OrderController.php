@@ -22,4 +22,9 @@ class OrderController
     {
         return $this->order->getOrders($user_id);
     }
+
+    public function getOrderItems($order_id)
+    {
+        return $this->order->getOrderItems($order_id);
+    }
 }

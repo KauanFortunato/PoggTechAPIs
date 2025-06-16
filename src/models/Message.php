@@ -191,13 +191,11 @@ class Message
         }
     }
 
-
-
     public function getChat($user_id, $product_id)
     {
         try {
             $stmt = $this->conn->prepare("
-            SELECT * FROM chats 
+            SELECT * FROM v_chats_details 
             WHERE product_id = :product_id 
             AND (buyer_id = :user_id OR seller_id = :user_id)
         ");

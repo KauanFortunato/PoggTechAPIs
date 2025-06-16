@@ -356,7 +356,14 @@ class Product
             $placeholders = implode(',', array_fill(0, count($categories), '?'));
 
             if ($all === true) {
-                $sql = "SELECT * FROM v_product_details WHERE category IN ($placeholders) ORDER BY RAND()";
+                $sql = "SELECT * FROM v_product_details 
+                        WHERE category IN ($placeholders)
+                        ORDER BY 
+                            CASE 
+                                WHEN status IN ('sold', 'nostock') THEN 1 
+                                ELSE 0 
+                            END,
+                            created_at DESC";
                 $stmt = $this->conn->prepare($sql);
                 $stmt->execute($categories);
             } else {
@@ -639,12 +646,22 @@ class Product
             $params[] = $cleanedSearch;
             $params[] = $cleanedSearch;
 
+
             $stmt = $this->conn->prepare($sql);
             $stmt->execute($params);
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             if (empty($products)) {
                 return $this->fallbackSearch($terms);
+            }
+
+            foreach ($products as &$product) {
+                if (isset($product['price_before']) && isset($product['price']) && $product['price_before'] > 0) {
+                    $discount = ($product['price_before'] - $product['price']) / $product['price_before'] * 100;
+                    $product['discount_percentage'] = round($discount, 2);
+                } else {
+                    $product['discount_percentage'] = 0;
+                }
             }
 
             return ["success" => true, "data" => $products];

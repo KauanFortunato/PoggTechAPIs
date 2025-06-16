@@ -34,3 +34,20 @@ $router->post('/order/register', function () use ($conn) {
         Response::error($result['message']);
     }
 });
+
+// GET /Order/items/{order_id} -> get order items
+$router->get('/order/items/(\d+)', function ($order_id) use ($conn) {
+    if (!is_numeric($order_id) || $order_id <= 0) {
+        Response::error("Parâmetro 'order_id' deve ser um número e ser maior que zero");
+        return;
+    }
+
+    $controller = new OrderController($conn);
+    $result = $controller->getOrderItems($order_id);
+
+    if ($result) {
+        Response::success($result['data'], $result['message']);
+    } else {
+        Response::error($result['data']);
+    }
+});

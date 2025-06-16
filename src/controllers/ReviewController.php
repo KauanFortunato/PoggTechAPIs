@@ -17,4 +17,9 @@ class ReviewController
     {
         return $this->review->getReviews($product_id, $quantity);
     }
+
+    public function createReview($data)
+    {
+        return $this->review->createReview($data);
+    }
 }
