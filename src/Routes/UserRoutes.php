@@ -23,9 +23,7 @@ $router->post('/user', function () use ($conn) {
     $result = $controller->registerUser(
         $data['firebase_uid'],
         $data['name'],
-        $data['last_name'],
         $data['email'],
-        $data['phone'],
         $data['avatar']
     );
 
@@ -112,5 +110,16 @@ $router->get('/health', function () use ($conn) {
     } catch (\PDOException $e) {
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'message' => 'Erro de conexão: ' . $e->getMessage()]);
+    }
+});
+
+// DELETE /products/{id} → deletar produto
+$router->delete('/user/delete/([^/]+)', function ($firebase_uid) use ($controller) {
+    $result = $controller->deleteUser($firebase_uid);
+
+    if ($result['success']) {
+        Response::success(null, "Produto deletado");
+    } else {
+        Response::error($result['message']);
     }
 });

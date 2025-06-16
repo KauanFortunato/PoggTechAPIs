@@ -14,24 +14,38 @@ class User
         $this->conn = $conn;
     }
 
-    public function createUser($firebase_uid, $name, $last_name, $email, $phone, $avatar)
+    public function createUser($firebase_uid, $name, $email, $avatar)
     {
         try {
-            $sql = "INSERT INTO users (firebase_uid, name, last_name, email, avatar, phone) 
-                    VALUES (:firebase_uid, :name, :last_name, :email, :avatar, :phone)";
+            $sql = "INSERT INTO users (firebase_uid, name, email, avatar) 
+                    VALUES (:firebase_uid, :name, :email, :avatar)";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':firebase_uid' => $firebase_uid,
                 ':name' => $name,
-                ':last_name' => $last_name,
                 ':email' => $email,
                 ':avatar' => $avatar,
-                ':phone' => $phone
             ]);
 
             return ["success" => true, "message" => "Cadastro Concluído."];
         } catch (PDOException $e) {
             return ["success" => false, "message" => "Erro ao cadastrar: " . $e->getMessage()];
+        }
+    }
+
+    public function deleteUser($firebase_uid)
+    {
+        try {
+            $stmt = $this->conn->prepare("DELETE FROM users WHERE firebase_uid = :firebase_uid");
+            $stmt->execute([':firebase_uid' => $firebase_uid]);
+
+            if ($stmt->rowCount() > 0) {
+                return ["success" => true, "message" => "Usuário deletado com sucesso"];
+            } else {
+                return ["success" => false, "message" => "Usuário não encontrado"];
+            }
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => "Erro ao deletar usuário: " . $e->getMessage()];
         }
     }
 

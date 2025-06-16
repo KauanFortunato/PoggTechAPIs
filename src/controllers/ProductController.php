@@ -122,4 +122,9 @@ class ProductController
     {
         return $this->product->getMyProducts($user_id);
     }
+
+    public function getPromotionProducts($minDiscountPercentage, $maxDiscountPercentage, $quantity, $all)
+    {
+        return $this->product->getPromotionProducts($minDiscountPercentage, $maxDiscountPercentage, $quantity, $all);
+    }
 }

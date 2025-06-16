@@ -19,3 +19,9 @@ require_once __DIR__ . '/RecomendationRoutes.php';
 require_once __DIR__ . '/ReviewRoutes.php';
 require_once __DIR__ . '/WalletRoutes.php';
 require_once __DIR__ . '/CartRoutes.php';
+
+// GET /product/{id} → redireciona para o app via deep link
+$router->get('/product/(\d+)', function ($productId) {
+    header("Location: poggtech://navigate/product?id=$productId");
+    exit;
+});

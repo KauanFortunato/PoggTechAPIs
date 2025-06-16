@@ -255,15 +255,68 @@ class Product
     public function getProduct($product_id)
     {
         try {
-            $stmt = $this->conn->prepare("SELECT * FROM v_product_details WHERE product_id = :product_id");
+            $stmt = $this->conn->prepare("
+            SELECT 
+                p.*, 
+                u.user_id as user_id_user,
+                u.name as user_name,
+                u.avatar as user_avatar,
+                u.phone as user_phone,
+                u.type as user_type,
+                u.created_at as user_created_at
+            FROM v_product_details p
+            LEFT JOIN users u ON p.user_id = u.user_id
+            WHERE p.product_id = :product_id
+        ");
             $stmt->execute([':product_id' => $product_id]);
-            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            return ["success" => true, "data" => $product];
+            if (!$row) {
+                return ["success" => false, "message" => "Produto não encontrado"];
+            }
+
+            $product = [
+                "product_id" => $row["product_id"],
+                "user_id" => $row["user_id"],
+                "title" => $row["title"],
+                "description" => $row["description"],
+                "price" => $row["price"],
+                "price_before" => $row["price_before"],
+                "category" => $row["category"],
+                "rating" => $row["rating"],
+                "cover" => $row["cover"],
+                "location" => $row["location"],
+                "created_at" => $row["created_at"],
+                "updated_at" => $row["updated_at"],
+                "seller_type" => $row["seller_type"],
+                "status" => $row["status"]
+            ];
+
+            $user = null;
+            if ($row["user_type"] === "user") {
+                $user = [
+                    "user_id" => $row["user_id_user"],
+                    "name" => $row["user_name"],
+                    "avatar" => $row["user_avatar"],
+                    "phone" => $row["user_phone"],
+                    "type" => $row["user_type"],
+                    "created_at" => $row["user_created_at"]
+                ];
+            }
+
+            return [
+                "success" => true,
+                "data" => [
+                    "product" => $product,
+                    "user" => $user // será null se não for type=user
+                ]
+            ];
         } catch (\Exception $e) {
             return ["success" => false, "message" => "Erro ao buscar produto: " . $e->getMessage()];
         }
     }
+
+
 
     public function getPopularProducts($all = false, $quantity = 6)
     {
@@ -765,6 +818,43 @@ class Product
             }
         } catch (\Exception $e) {
             return ["success" => false, "message" => "Erro ao buscar produtos do usuário: " . $e->getMessage()];
+        }
+    }
+
+    public function getPromotionProducts($minDiscountPercentage = 10, $maxDiscountPercentage = 100, $quantity = 10, $all = false)
+    {
+        try {
+            if ($all) {
+                $sql = "SELECT * FROM v_product_details
+                    WHERE discount_percentage BETWEEN :min_discount AND :max_discount
+                    AND status = 'available'
+                    ORDER BY discount_percentage DESC";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bindValue(':min_discount', $minDiscountPercentage, PDO::PARAM_INT);
+                $stmt->bindValue(':max_discount', $maxDiscountPercentage, PDO::PARAM_INT);
+            } else {
+                $sql = "SELECT * FROM v_product_details
+                    WHERE discount_percentage BETWEEN :min_discount AND :max_discount
+                    AND status = 'available'
+                    ORDER BY discount_percentage DESC
+                    LIMIT :quantity";
+                $stmt = $this->conn->prepare($sql);
+                $stmt->bindValue(':min_discount', $minDiscountPercentage, PDO::PARAM_INT);
+                $stmt->bindValue(':max_discount', $maxDiscountPercentage, PDO::PARAM_INT);
+                $stmt->bindValue(':quantity', $quantity, PDO::PARAM_INT);
+            }
+
+            $stmt->execute();
+
+            $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!empty($products)) {
+                return ["success" => true, "data" => $products];
+            } else {
+                return ["success" => false, "message" => "Nenhum produto em promoção foi encontrado"];
+            }
+        } catch (\Exception $e) {
+            return ["success" => false, "message" => "Erro ao buscar promoções: " . $e->getMessage()];
         }
     }
 }

@@ -209,3 +209,15 @@ $router->get('/products/favCategories/(\d+)/(\d+)', function ($user_id, $quantit
         Response::error("Produto não encontrados");
     }
 });
+
+// GET /products/promotions/{minDiscount}/{maxDiscount}/{quantity}/{all} → pegar produtos do carrinho ou favoritos do usuário
+$router->get('/products/promotions/(\d+)/(\d+)/(\d+)/(\d+)', function ($minDiscount, $maxDiscount, $quantity, $all) use ($controller) {
+    $all = filter_var($all, FILTER_VALIDATE_BOOLEAN);
+    $result = $controller->getPromotionProducts($minDiscount, $maxDiscount, $quantity, $all);
+
+    if ($result["success"] === true) {
+        Response::success($result['data'], "Produtos em promoção encontrados");
+    } else {
+        Response::error("Nenhum produto em promoção encontrado");
+    }
+});

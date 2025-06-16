@@ -13,9 +13,14 @@ class UserController
         $this->user = new User($conn);
     }
 
-    public function registerUser($firebase_uid, $name, $last_name, $email, $phone, $avatar)
+    public function registerUser($firebase_uid, $name, $email, $avatar)
     {
-        return $this->user->createUser($firebase_uid, $name, $last_name, $email, $phone, $avatar);
+        return $this->user->createUser($firebase_uid, $name, $email, $avatar);
+    }
+
+    public function deleteUser($firebase_uid)
+    {
+        return $this->user->deleteUser($firebase_uid);
     }
 
     public function getUser($firebase_uid)
