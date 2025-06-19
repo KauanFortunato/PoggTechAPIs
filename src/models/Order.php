@@ -13,7 +13,7 @@ class Order
         $this->conn = $conn;
     }
 
-    public function registerOrder($user_id, $items)
+    public function registerOrder($user_id, $location, $user_name, $user_phone, $items)
     {
         try {
             $total = 0;
@@ -34,18 +34,27 @@ class Order
             $balance = $wallet['balance'];
             $status = ($balance < $total) ? 'pendente' : 'pago';
 
-            // Criar pedido
-            $stmt = $this->conn->prepare("INSERT INTO orders (user_id, total_amount, status) VALUES (:user_id, :total, :status)");
+            // Criar pedido com novos dados
+            $stmt = $this->conn->prepare("
+            INSERT INTO orders (user_id, total_amount, status, location, user_name, user_phone)
+            VALUES (:user_id, :total, :status, :location, :user_name, :user_phone)
+            ");
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->bindParam(':total', $total);
             $stmt->bindParam(':status', $status);
+            $stmt->bindParam(':location', $location);
+            $stmt->bindParam(':user_name', $user_name);
+            $stmt->bindParam(':user_phone', $user_phone);
             $stmt->execute();
 
             $orderId = $this->conn->lastInsertId();
 
             if ($balance >= $total) {
                 // Inserir itens
-                $stmt = $this->conn->prepare("INSERT INTO order_items (order_id, product_id, quantity, unit_price) VALUES (:order_id, :product_id, :quantity, :unit_price)");
+                $stmt = $this->conn->prepare("
+                INSERT INTO order_items (order_id, product_id, quantity, unit_price)
+                VALUES (:order_id, :product_id, :quantity, :unit_price)
+                ");
                 foreach ($items as $item) {
                     $stmt->bindParam(':order_id', $orderId, PDO::PARAM_INT);
                     $stmt->bindParam(':product_id', $item['product_id'], PDO::PARAM_INT);
@@ -66,7 +75,10 @@ class Order
                 $stmt->execute();
 
                 // Registrar pagamento
-                $stmt = $this->conn->prepare("INSERT INTO payments (order_id, user_id, amount, status) VALUES (:order_id, :user_id, :amount, 'concluido')");
+                $stmt = $this->conn->prepare("
+                INSERT INTO payments (order_id, user_id, amount, status)
+                VALUES (:order_id, :user_id, :amount, 'concluido')
+                ");
                 $stmt->bindParam(':order_id', $orderId, PDO::PARAM_INT);
                 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
                 $stmt->bindParam(':amount', $total);
@@ -75,8 +87,11 @@ class Order
                 return ["success" => true, "message" => "Compra realizada com sucesso", "data" => $orderId];
             }
 
-            // Caso saldo insuficiente, registrar como falhou
-            $stmt = $this->conn->prepare("INSERT INTO payments (order_id, user_id, amount, status) VALUES (:order_id, :user_id, :amount, 'falhou')");
+            // Registrar pagamento falhou
+            $stmt = $this->conn->prepare("
+            INSERT INTO payments (order_id, user_id, amount, status)
+            VALUES (:order_id, :user_id, :amount, 'falhou')
+            ");
             $stmt->bindParam(':order_id', $orderId, PDO::PARAM_INT);
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->bindParam(':amount', $total);
@@ -96,7 +111,7 @@ class Order
     {
         try {
             $ordersQuery = $this->conn->prepare(query: "
-                SELECT id, total_amount, status, created_at
+                SELECT *
                 FROM orders
                 WHERE user_id = :user_id AND status != 'pendente'
                 ORDER BY created_at DESC
@@ -123,16 +138,21 @@ class Order
                 $imgStmt->execute();
                 $images = $imgStmt->fetchAll(PDO::FETCH_COLUMN);
 
-                // Contar total de produtos
-                $countStmt = $this->conn->prepare("SELECT COUNT(*) AS total_products FROM order_items WHERE order_id = :order_id");
+                // Contar total de produtos, levando em consideração a quantidade de cada produto
+                $countStmt = $this->conn->prepare("SELECT SUM(quantity) AS total_products FROM order_items WHERE order_id = :order_id");
                 $countStmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
                 $countStmt->execute();
                 $count = $countStmt->fetch(PDO::FETCH_ASSOC);
 
+
                 $result[] = [
                     'id' => $order['id'],
                     'total_amount' => $order['total_amount'],
+                    'user_name' => $order['user_name'],
+                    'user_phone' => $order['user_phone'],
+                    'location' => $order['location'],
                     'status' => $order['status'],
+                    'shipping_status' => $order['shipping_status'],
                     'created_at' => $order['created_at'],
                     'created_at_format' => $created_at_format,
                     'images' => $images,
@@ -149,7 +169,6 @@ class Order
     public function getOrderItems($order_id)
     {
         try {
-
             // Itens do pedido
             $stmt = $this->conn->prepare("
                 SELECT * FROM v_order_details

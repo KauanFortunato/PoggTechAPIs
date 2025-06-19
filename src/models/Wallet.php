@@ -61,4 +61,23 @@ class Wallet
             return ["success" => false, "message" => "Erro ao buscar pagamentos: " . $e->getMessage()];
         }
     }
+
+    public function deposit($user_id, $data)
+    {
+        if (empty($data['amount']) || !is_numeric($data['amount']) || $data['amount'] <= 0) {
+            return ["success" => false, "message" => "Valor inválido para depósito"];
+        }
+
+        try {
+            $stmt = $this->conn->prepare("UPDATE wallet SET balance = balance + :amount WHERE user_id = :user_id");
+            $stmt->execute([
+                ':user_id' => $user_id,
+                ':amount' => $data['amount']
+            ]);
+
+            return ["success" => true, "message" => "Depósito realizado com sucesso", "data" => null];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => "Erro ao realizar depósito: " . $e->getMessage()];
+        }
+    }
 }

@@ -33,9 +33,9 @@ class UserController
         return $this->user->getUserById($user_id);
     }
 
-    public function updateUser($name, $last_name, $phone, $firebase_uid)
+    public function updateUser($name, $phone, $firebase_uid)
     {
-        return $this->user->updateUser($name, $last_name, $phone, $firebase_uid);
+        return $this->user->updateUser($name, $phone, $firebase_uid);
     }
 
     public function updateUserAvatar($firebase_uid, $avatar)

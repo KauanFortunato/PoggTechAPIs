@@ -53,7 +53,6 @@ $router->put('/user', function () use ($conn) {
     $controller = new UserController($conn);
     $result = $controller->updateUser(
         $data['name'],
-        $data['last_name'],
         $data['phone'],
         $data['firebase_uid']
     );

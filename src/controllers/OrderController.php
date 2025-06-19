@@ -13,9 +13,9 @@ class OrderController
         $this->order = new Order($conn);
     }
 
-    public function registerOrder($user_id, $items)
+    public function registerOrder($user_id, $location, $user_name, $user_phone, $items)
     {
-        return $this->order->registerOrder($user_id, $items);
+        return $this->order->registerOrder($user_id, $location, $user_name, $user_phone, $items);
     }
 
     public function getOrder($user_id)

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2025 at 01:24 AM
+-- Generation Time: Jun 19, 2025 at 02:01 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,9 +65,9 @@ CREATE TABLE `chats` (
 --
 
 INSERT INTO `chats` (`chat_id`, `product_id`, `seller_id`, `buyer_id`, `timestamp`) VALUES
-(53, 5, 19, 28, '2025-06-12 22:31:27'),
-(54, 9, 15, 28, '2025-06-13 00:12:20'),
-(55, 24, 15, 28, '2025-06-15 14:37:35');
+(56, 5, 19, 28, '2025-06-17 08:48:06'),
+(57, 70, 28, 52, '2025-06-18 22:09:41'),
+(58, 6, 28, 52, '2025-06-18 23:41:46');
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,8 @@ INSERT INTO `gallery` (`gallery_id`, `product_id`, `created_at`) VALUES
 (24, 4, '2025-04-23 15:05:38'),
 (25, 23, '2025-04-23 15:05:38'),
 (26, 5, '2025-04-23 15:05:38'),
-(63, 67, '2025-06-14 21:56:02');
+(63, 67, '2025-06-14 21:56:02'),
+(64, 70, '2025-06-17 14:53:15');
 
 -- --------------------------------------------------------
 
@@ -187,7 +188,9 @@ INSERT INTO `images` (`image_id`, `gallery_id`, `path`) VALUES
 (107, 25, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_s-l1600-426613892.jpg'),
 (171, 63, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684deff2256a45.02643957.jpg'),
 (172, 63, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684deff225b0a7.47364033.jpg'),
-(173, 63, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684f612baac333.02104368.jpg');
+(173, 63, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684f612baac333.02104368.jpg'),
+(174, 64, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6851815b38a7a0.29021553.jpg'),
+(175, 64, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6851815b38dc60.90718257.jpg');
 
 -- --------------------------------------------------------
 
@@ -256,7 +259,26 @@ INSERT INTO `messages` (`id_message`, `chat_id`, `sender_id`, `message`, `timest
 (426, 53, 19, 'niggga', '2025-06-16 20:11:32', 1),
 (427, 53, 19, 'niggga', '2025-06-16 20:12:23', 1),
 (428, 53, 19, 'niggga', '2025-06-16 20:12:30', 1),
-(429, 53, 19, 'niggga', '2025-06-16 21:57:22', 1);
+(429, 53, 19, 'niggga', '2025-06-16 21:57:22', 1),
+(430, 54, 28, 'Ola', '2025-06-17 08:42:10', 0),
+(431, 56, 28, 'Oi, esse item está disponível?', '2025-06-17 08:48:06', 0),
+(432, 57, 52, 'Oi, esse item está disponível?', '2025-06-18 22:09:41', 0),
+(433, 57, 52, 'Oi, esse item está disponível?', '2025-06-18 23:36:57', 0),
+(434, 57, 52, 'Oi, esse item está disponível?', '2025-06-18 23:36:59', 0),
+(435, 57, 52, 'Oi, esse item está disponível?', '2025-06-18 23:37:01', 0),
+(436, 57, 52, 'Oi, esse item está disponível?', '2025-06-18 23:39:24', 0),
+(437, 57, 52, 'Oi, esse item está disponível?', '2025-06-18 23:39:25', 0),
+(438, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:41:46', 0),
+(439, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:42:28', 0),
+(440, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:49:26', 0),
+(441, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:52:26', 0),
+(442, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:52:28', 0),
+(443, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:55:34', 0),
+(444, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:55:35', 0),
+(445, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:57:00', 0),
+(446, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:58:15', 0),
+(447, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:58:52', 0),
+(448, 58, 52, 'Oi, esse item está disponível?', '2025-06-18 23:59:03', 0);
 
 -- --------------------------------------------------------
 
@@ -268,7 +290,11 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `user_phone` varchar(20) NOT NULL,
+  `location` varchar(255) NOT NULL,
   `status` enum('pendente','pago','cancelado') DEFAULT 'pendente',
+  `shipping_status` enum('confirmado','enviado','transito','entregue') NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -276,10 +302,12 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `total_amount`, `status`, `created_at`) VALUES
-(57, 28, 110.98, 'pago', '2025-06-15 19:00:17'),
-(58, 28, 69.00, 'pago', '2025-06-15 19:01:16'),
-(59, 28, 523.02, 'pago', '2025-06-16 23:08:21');
+INSERT INTO `orders` (`id`, `user_id`, `total_amount`, `user_name`, `user_phone`, `location`, `status`, `shipping_status`, `created_at`) VALUES
+(66, 52, 39.96, 'Kauan Fortunato', '910937520**', 'Rua dom duarte 2', 'pago', 'transito', '2025-06-18 20:17:15'),
+(70, 52, 2.00, 'kauan fortunatoss', '910937520', 'niggaaa', 'pago', 'enviado', '2025-06-18 21:08:21'),
+(71, 52, 2.00, 'kauan fortunatoss', '910937520', 'Rua Dom Duarte 2, Amadora, Portugal', 'pago', 'confirmado', '2025-06-19 00:29:11'),
+(72, 52, 2.00, 'kauan fortunatoss', '910937520', 'Rússia', 'pago', 'confirmado', '2025-06-19 00:31:43'),
+(73, 52, 10.00, 'kauan fortunatoss', '910937520', 'Nugaal, Somália', 'pago', 'confirmado', '2025-06-19 00:34:16');
 
 -- --------------------------------------------------------
 
@@ -300,12 +328,12 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `unit_price`) VALUES
-(36, 57, 4, 1, 110.98),
-(37, 58, 21, 2, 1.50),
-(38, 58, 22, 1, 2.00),
-(39, 58, 7, 2, 23.00),
-(40, 58, 8, 1, 18.00),
-(41, 59, 3, 1, 523.02);
+(47, 66, 23, 1, 6.00),
+(48, 66, 10, 3, 11.32),
+(52, 70, 22, 1, 2.00),
+(53, 71, 22, 1, 2.00),
+(54, 72, 22, 1, 2.00),
+(55, 73, 11, 1, 10.00);
 
 -- --------------------------------------------------------
 
@@ -327,9 +355,11 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `user_id`, `order_id`, `amount`, `status`, `created_at`) VALUES
-(28, 28, 57, 110.98, 'concluido', '2025-06-15 19:00:17'),
-(29, 28, 58, 69.00, 'concluido', '2025-06-15 19:01:16'),
-(30, 28, 59, 523.02, 'concluido', '2025-06-16 23:08:21');
+(37, 52, 66, 39.96, 'concluido', '2025-06-18 20:17:15'),
+(41, 52, 70, 2.00, 'concluido', '2025-06-18 21:08:21'),
+(42, 52, 71, 2.00, 'concluido', '2025-06-19 00:29:11'),
+(43, 52, 72, 2.00, 'concluido', '2025-06-19 00:31:43'),
+(44, 52, 73, 10.00, 'concluido', '2025-06-19 00:34:16');
 
 -- --------------------------------------------------------
 
@@ -359,29 +389,30 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `user_id`, `title`, `description`, `price`, `price_before`, `category`, `quantity`, `rating`, `cover`, `location`, `created_at`, `updated_at`, `status`) VALUES
-(3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\r\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\r\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\r\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\r\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 523.02, 590.23, 'Consolas', 10, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Xbox-Series-X-Test-1987881512.jpg', NULL, '2024-12-05 20:28:39', '2025-06-12 21:34:30', 'available'),
-(4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 10, 3.2, 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2016%2F07%2FXbox-Free-Download-PNG.png&f=1&nofb=1&ipt=f1e2015ce576a3b63e40ab904d61db31b73a96df9fd250d40612ce6475e4f112&ipo=images', NULL, '2025-01-09 18:40:07', '2025-06-12 21:34:30', 'available'),
+(3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\r\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\r\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\r\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\r\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 523.02, 590.23, 'Consolas', 10, 2.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Xbox-Series-X-Test-1987881512.jpg', NULL, '2024-12-05 20:28:39', '2025-06-18 21:59:53', 'available'),
+(4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 10, 3.0, 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2016%2F07%2FXbox-Free-Download-PNG.png&f=1&nofb=1&ipt=f1e2015ce576a3b63e40ab904d61db31b73a96df9fd250d40612ce6475e4f112&ipo=images', NULL, '2025-01-09 18:40:07', '2025-06-18 21:59:53', 'available'),
 (5, 19, '2DS Azul/Preto', 'O Nintendo 2DS mantém muitas das mesmas características de hardware como o Nintendo DS 3 incluindo o mesmo Nintendo 3DS gameplay controla, ao contrário de compatibilidade com a vasta biblioteca existente de jogos de Nintendo DS, bem como recursos de conectividade sem fio, como acesso a Nintendo eShop, além de funcionalidade StreetPass e o SpotPass.', 85.00, 122.00, 'Retro Gaming', 1, 3.7, 'https://pt.static.webuy.com/product_images/Jogos/3DS%20Consolas/S2DSAZUC_l.jpg', NULL, '2025-01-09 18:59:43', '2025-06-13 22:28:29', 'available'),
-(6, 28, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_310047-grand-theft-auto-v-xbox-360-front-cover-3516295299.png', NULL, '2025-01-09 18:59:43', '2025-06-16 19:13:54', 'available'),
-(7, 28, 'New Super Mario Bros 2ds', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 23.00, 28.00, 'Jogos', 10, 2.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496463106_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-16 19:14:20', 'available'),
-(8, 28, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 10, 2.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496470685_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-16 19:14:12', 'available'),
+(6, 28, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 10, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_310047-grand-theft-auto-v-xbox-360-front-cover-3516295299.png', NULL, '2025-01-09 18:59:43', '2025-06-18 21:59:53', 'available'),
+(7, 28, 'New Super Mario Bros 2ds', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 23.00, 28.00, 'Jogos', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496463106_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-18 21:59:53', 'available'),
+(8, 28, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 10, 2.6, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496470685_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-18 21:59:53', 'available'),
 (9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 54.92, 55.92, 'Acessórios', 1, 4.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0711719894650_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-15 00:46:30', 'available'),
-(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPS3ACCMOVE_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-12 21:34:30', 'available'),
+(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPS3ACCMOVE_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-18 21:59:53', 'available'),
 (11, 15, 'Xbox 360 Kinect (Sem FA)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 10.00, NULL, 'Acessórios', 10, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_S360KINSNXB_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-15 00:46:32', 'available'),
 (12, 15, 'Oficial Gamecube Indigo Controller', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 48.99, 71.99, 'Colecionáveis', 10, 3.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4902370505559_l.webp', NULL, '2025-01-11 23:31:19', '2025-06-15 00:46:34', 'available'),
 (13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Colecionáveis', 10, 2.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496370008_l.webp', NULL, '2025-01-11 23:31:19', '2025-06-12 21:34:30', 'available'),
-(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\n', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 225.00, 250.00, 'Retro Gaming', 10, 3.3, 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/SGCUGAMETS003_l.jpg', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:36', 'available'),
+(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\n', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 225.00, 250.00, 'Retro Gaming', 10, 3.0, 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/SGCUGAMETS003_l.jpg', NULL, '2025-01-11 23:44:12', '2025-06-18 21:59:53', 'available'),
 (15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 165.00, 180.00, 'Consolas', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NSL32BL01_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:38', 'available'),
 (16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 265.00, NULL, 'Consolas', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NS64V3WH02_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:40', 'available'),
-(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 15.00, NULL, 'Acessórios', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNSWVAL08_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:49', 'available'),
+(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 15.00, NULL, 'Acessórios', 10, 3.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNSWVAL08_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-18 21:59:53', 'available'),
 (18, 15, 'Official Nintendo Switch Preto Carry Case', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 8.00, NULL, 'Acessórios', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_45496430597_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:43', 'available'),
 (19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 42.00, NULL, 'Acessórios', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_04549643PGRR_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:41', 'available'),
 (20, 15, 'PS Vita Preto 3G, Descontada', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 140.00, 155.00, 'Retro Gaming', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPSVNEG3GC_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:45', 'available'),
-(21, 19, 'King Kong pc game', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 1.50, NULL, 'Jogos', 10, 3.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-06-16 19:15:41', 'available'),
-(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 10, 3.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4012927120088_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-13 22:28:51', 'available'),
+(21, 19, 'King Kong pc game', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 1.50, NULL, 'Jogos', 10, 3.5, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-06-18 21:59:53', 'available'),
+(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 10, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4012927120088_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-18 22:01:36', 'available'),
 (23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 1, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_5030917027598_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-12 21:34:30', 'available'),
 (24, 22, 'Gameboy Advance, Branco', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 90.00, 100.00, 'Retro Gaming', 1, 3.5, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNINGBACAW002_l.webp', NULL, '2025-02-19 00:10:21', '2025-06-16 19:15:28', 'available'),
-(67, 28, 'sla meu fi n ta dando', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sociosqu platea lorem sollicitudin phasellus eu a augue taciti nibh lectus hac sem taciti vivamus primis. Erat nec taciti sed augue vivamus volutpat finibus.\r\nEu nibh quis conubia maecenas turpis hendrerit. Ligula nostra ornare sollicitudin in pulvinar vitae posuere. Sed quis netus elit varius senectus sollicitudin mauris pulvinar vitae eros leo vitae. Maecenas suscipit arcu orci suspendisse est.\r\nNam consectetur fermentum tempor fusce ac donec. Consectetur ac porttitor rutrum suscipit donec nec tincidunt condimentum fames phasellus at nisi sed sit. Faucibus mollis taciti ornare ante iaculis sit condimentum himenaeos dictum quisque rutrum lorem viverra. Lectus feugiat justo lectus litora aliquet netus varius tempor.\r\nUrna eros sodales lacinia euismod ut ac quis. Tincidunt ac turpis sed vehicula dui fringilla sociosqu leo varius. Aliquam nulla ullamcorper odio urna pharetra tempus maecenas eros porta sapien.', 25.40, NULL, 'Colecionáveis', 1, 0.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684deff2256a45.02643957.jpg', 'Braga, Rua 21 de Agosto, Vimeiro, Portugal', '2025-06-14 21:56:02', '2025-06-16 23:22:16', 'available');
+(67, 28, 'sla meu fi n ta dando', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sociosqu platea lorem sollicitudin phasellus eu a augue taciti nibh lectus hac sem taciti vivamus primis. Erat nec taciti sed augue vivamus volutpat finibus.\r\nEu nibh quis conubia maecenas turpis hendrerit. Ligula nostra ornare sollicitudin in pulvinar vitae posuere. Sed quis netus elit varius senectus sollicitudin mauris pulvinar vitae eros leo vitae. Maecenas suscipit arcu orci suspendisse est.\r\nNam consectetur fermentum tempor fusce ac donec. Consectetur ac porttitor rutrum suscipit donec nec tincidunt condimentum fames phasellus at nisi sed sit. Faucibus mollis taciti ornare ante iaculis sit condimentum himenaeos dictum quisque rutrum lorem viverra. Lectus feugiat justo lectus litora aliquet netus varius tempor.\r\nUrna eros sodales lacinia euismod ut ac quis. Tincidunt ac turpis sed vehicula dui fringilla sociosqu leo varius. Aliquam nulla ullamcorper odio urna pharetra tempus maecenas eros porta sapien.', 25.40, NULL, 'Colecionáveis', 1, 0.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684deff2256a45.02643957.jpg', 'Braga, Rua 21 de Agosto, Vimeiro, Portugal', '2025-06-14 21:56:02', '2025-06-16 23:22:16', 'available'),
+(70, 28, 'hshdhdjdjdudfjdjdjjdjd', 'dbdghdhdhdhdhdhdhdrhdhdhdhhdhdhdhdhdhdjdj', 254.00, NULL, 'Acessórios', 1, 0.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_6851815b38a7a0.29021553.jpg', 'Kauai, Havaí, EUA', '2025-06-17 14:53:15', '2025-06-17 14:53:15', 'available');
 
 --
 -- Triggers `products`
@@ -480,38 +511,26 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`review_id`, `user_id`, `product_id`, `rating`, `comment`, `created_at`) VALUES
-(52, 27, 3, 4, 'Produto dentro do esperado.', '2025-01-31 05:20:20'),
 (53, 22, 3, 1, 'Não recomendo esse produto.', '2025-04-10 05:05:14'),
 (54, 18, 3, 3, 'Não gostei, veio com defeito.', '2024-12-18 14:20:58'),
-(55, 28, 3, 5, 'Já comprei outras vezes, sempre bom.', '2025-05-20 02:28:56'),
-(56, 26, 3, 4, 'Qualidade ótima!', '2025-02-24 01:22:31'),
 (57, 19, 3, 3, 'Excelente produto, superou minhas expectativas!', '2025-05-02 09:49:26'),
-(58, 28, 4, 5, 'Qualidade ótima!', '2025-01-25 20:25:25'),
 (59, 23, 4, 5, 'Não gostei, veio com defeito.', '2025-02-20 04:03:59'),
-(60, 27, 4, 2, 'Não gostei, veio com defeito.', '2025-02-17 14:31:13'),
 (61, 22, 4, 2, 'Não funcionou como esperado.', '2025-05-12 10:11:07'),
 (62, 19, 4, 2, 'Excelente produto, superou minhas expectativas!', '2025-02-27 20:47:13'),
 (63, 20, 4, 3, 'Excelente produto, superou minhas expectativas!', '2025-05-18 02:42:38'),
-(64, 26, 5, 3, 'Não gostei, veio com defeito.', '2024-12-19 01:59:26'),
 (65, 20, 5, 5, 'Qualidade ótima!', '2025-05-18 00:50:24'),
 (66, 15, 5, 5, 'Entrega rápida e tudo certo.', '2025-03-28 15:45:44'),
 (67, 19, 5, 3, 'Muito bom pelo custo-benefício.', '2025-02-26 16:19:29'),
 (68, 23, 5, 3, 'Não gostei, veio com defeito.', '2025-04-05 12:48:33'),
-(69, 27, 5, 3, 'Não recomendo esse produto.', '2025-03-25 15:27:08'),
 (70, 15, 6, 2, 'Bom, mas poderia ser melhor.', '2025-04-18 18:45:56'),
 (71, 18, 6, 5, 'Entrega rápida e tudo certo.', '2025-03-11 18:30:55'),
-(72, 28, 6, 2, 'Já comprei outras vezes, sempre bom.', '2025-03-05 21:29:03'),
 (73, 22, 6, 1, 'Já comprei outras vezes, sempre bom.', '2025-03-10 01:29:05'),
 (74, 20, 6, 5, 'Não gostei, veio com defeito.', '2025-03-16 04:04:53'),
-(75, 26, 6, 4, 'Já comprei outras vezes, sempre bom.', '2025-03-31 23:54:08'),
 (76, 19, 7, 3, 'Já comprei outras vezes, sempre bom.', '2025-03-21 07:42:40'),
-(77, 28, 7, 2, 'Não funcionou como esperado.', '2025-02-03 14:13:03'),
-(78, 26, 7, 1, 'Bom, mas poderia ser melhor.', '2025-01-23 01:01:17'),
 (79, 25, 7, 2, 'Produto dentro do esperado.', '2025-03-29 09:16:42'),
 (80, 22, 7, 2, 'Não gostei, veio com defeito.', '2025-04-10 14:04:44'),
 (81, 18, 7, 4, 'Qualidade ótima!', '2024-12-03 08:15:54'),
 (82, 19, 8, 4, 'Produto dentro do esperado.', '2025-05-07 04:12:19'),
-(83, 28, 8, 3, 'Muito bom pelo custo-benefício.', '2025-03-23 15:50:32'),
 (84, 20, 8, 2, 'Bom, mas poderia ser melhor.', '2025-05-24 08:54:22'),
 (85, 15, 8, 3, 'Não recomendo esse produto.', '2025-01-27 22:11:16'),
 (86, 18, 8, 1, 'Não gostei, veio com defeito.', '2024-12-09 15:13:45'),
@@ -521,10 +540,7 @@ INSERT INTO `reviews` (`review_id`, `user_id`, `product_id`, `rating`, `comment`
 (90, 19, 9, 4, 'Já comprei outras vezes, sempre bom.', '2025-02-23 20:44:29'),
 (91, 15, 9, 4, 'Entrega rápida e tudo certo.', '2025-05-18 10:56:34'),
 (92, 18, 9, 5, 'Muito bom pelo custo-benefício.', '2024-12-31 19:03:42'),
-(93, 26, 9, 5, 'Produto dentro do esperado.', '2024-12-15 00:07:12'),
 (94, 15, 10, 3, 'Produto dentro do esperado.', '2025-02-25 05:28:35'),
-(95, 28, 10, 3, 'Entrega rápida e tudo certo.', '2025-02-20 11:53:55'),
-(96, 26, 10, 5, 'Não funcionou como esperado.', '2025-04-05 08:28:52'),
 (97, 21, 10, 3, 'Excelente produto, superou minhas expectativas!', '2025-03-29 15:27:01'),
 (98, 19, 10, 4, 'Não funcionou como esperado.', '2025-05-19 08:41:25'),
 (99, 25, 10, 1, 'Não funcionou como esperado.', '2025-01-26 05:21:23'),
@@ -548,42 +564,34 @@ INSERT INTO `reviews` (`review_id`, `user_id`, `product_id`, `rating`, `comment`
 (117, 18, 13, 3, 'Não recomendo esse produto.', '2025-01-11 01:58:25'),
 (118, 18, 14, 1, 'Não gostei, veio com defeito.', '2025-04-01 08:37:08'),
 (119, 25, 14, 4, 'Muito bom pelo custo-benefício.', '2025-04-01 15:59:15'),
-(120, 28, 14, 5, 'Não funcionou como esperado.', '2025-03-21 11:08:25'),
 (121, 15, 14, 3, 'Não recomendo esse produto.', '2025-05-19 13:18:55'),
 (122, 22, 14, 5, 'Já comprei outras vezes, sempre bom.', '2025-02-06 14:11:22'),
 (123, 20, 14, 2, 'Já comprei outras vezes, sempre bom.', '2025-04-16 06:31:52'),
-(124, 26, 15, 2, 'Não gostei, veio com defeito.', '2025-05-14 19:31:36'),
 (125, 15, 15, 2, 'Já comprei outras vezes, sempre bom.', '2024-12-07 11:00:17'),
 (126, 25, 15, 4, 'Bom, mas poderia ser melhor.', '2025-01-21 04:40:27'),
-(127, 27, 15, 5, 'Produto dentro do esperado.', '2025-03-11 07:29:24'),
 (128, 23, 15, 3, 'Produto dentro do esperado.', '2024-12-17 01:27:57'),
 (129, 18, 15, 1, 'Já comprei outras vezes, sempre bom.', '2025-04-30 01:18:37'),
 (130, 21, 16, 4, 'Bom, mas poderia ser melhor.', '2025-03-23 07:53:35'),
 (131, 23, 16, 1, 'Excelente produto, superou minhas expectativas!', '2025-02-18 05:13:48'),
 (132, 19, 16, 4, 'Já comprei outras vezes, sempre bom.', '2024-12-04 16:54:38'),
-(133, 27, 16, 1, 'Não funcionou como esperado.', '2025-05-25 16:59:16'),
 (134, 25, 16, 5, 'Excelente produto, superou minhas expectativas!', '2025-01-21 03:17:50'),
 (135, 20, 16, 2, 'Não recomendo esse produto.', '2025-04-15 05:51:02'),
 (136, 20, 17, 1, 'Não funcionou como esperado.', '2025-01-09 11:27:15'),
 (137, 18, 17, 4, 'Produto dentro do esperado.', '2025-05-07 13:47:06'),
 (138, 15, 17, 3, 'Bom, mas poderia ser melhor.', '2025-04-09 14:14:28'),
-(139, 27, 17, 5, 'Já comprei outras vezes, sempre bom.', '2025-02-26 09:48:43'),
 (140, 23, 17, 4, 'Qualidade ótima!', '2025-04-30 09:57:31'),
-(141, 28, 17, 2, 'Qualidade ótima!', '2025-03-26 14:11:08'),
 (142, 25, 18, 4, 'Não gostei, veio com defeito.', '2025-03-14 13:55:20'),
 (143, 19, 18, 2, 'Não recomendo esse produto.', '2024-12-23 11:18:16'),
 (144, 20, 18, 4, 'Produto dentro do esperado.', '2025-03-02 23:23:07'),
 (145, 22, 18, 1, 'Entrega rápida e tudo certo.', '2025-05-16 05:14:30'),
 (146, 15, 18, 5, 'Produto dentro do esperado.', '2025-01-18 14:56:06'),
 (147, 18, 18, 1, 'Produto dentro do esperado.', '2025-03-15 17:23:25'),
-(148, 27, 19, 4, 'Qualidade ótima!', '2025-02-11 00:19:14'),
 (149, 20, 19, 3, 'Entrega rápida e tudo certo.', '2025-05-23 11:06:36'),
 (150, 19, 19, 1, 'Não gostei, veio com defeito.', '2025-03-09 15:53:11'),
 (151, 21, 19, 3, 'Excelente produto, superou minhas expectativas!', '2025-05-04 02:40:02'),
 (152, 18, 19, 5, 'Já comprei outras vezes, sempre bom.', '2025-01-08 00:32:59'),
 (153, 22, 19, 3, 'Qualidade ótima!', '2025-01-25 01:56:27'),
 (154, 18, 20, 5, 'Produto dentro do esperado.', '2025-02-18 13:31:06'),
-(155, 26, 20, 5, 'Qualidade ótima!', '2025-01-16 02:16:01'),
 (156, 19, 20, 4, 'Qualidade ótima!', '2024-12-02 16:31:53'),
 (157, 23, 20, 2, 'Entrega rápida e tudo certo.', '2025-01-12 07:45:51'),
 (158, 15, 20, 2, 'Não gostei, veio com defeito.', '2025-04-28 21:12:35'),
@@ -591,9 +599,7 @@ INSERT INTO `reviews` (`review_id`, `user_id`, `product_id`, `rating`, `comment`
 (160, 18, 21, 1, 'Não funcionou como esperado.', '2025-01-19 19:18:11'),
 (161, 19, 21, 4, 'Muito bom pelo custo-benefício.', '2025-02-17 18:49:27'),
 (162, 15, 21, 5, 'Qualidade ótima!', '2024-12-10 22:41:22'),
-(163, 27, 21, 5, 'Bom, mas poderia ser melhor.', '2025-03-02 16:44:11'),
 (164, 25, 21, 4, 'Não recomendo esse produto.', '2024-12-11 19:20:32'),
-(165, 26, 21, 3, 'Entrega rápida e tudo certo.', '2025-05-04 01:43:18'),
 (166, 22, 22, 3, 'Qualidade ótima!', '2025-03-31 01:53:32'),
 (167, 15, 22, 5, 'Já comprei outras vezes, sempre bom.', '2025-04-29 04:59:01'),
 (168, 25, 22, 1, 'Já comprei outras vezes, sempre bom.', '2025-05-07 12:49:12'),
@@ -601,20 +607,15 @@ INSERT INTO `reviews` (`review_id`, `user_id`, `product_id`, `rating`, `comment`
 (170, 21, 22, 2, 'Não funcionou como esperado.', '2025-01-22 18:11:26'),
 (171, 18, 22, 4, 'Não recomendo esse produto.', '2025-02-16 12:15:36'),
 (172, 18, 23, 2, 'Entrega rápida e tudo certo.', '2025-01-06 19:49:17'),
-(173, 26, 23, 5, 'Excelente produto, superou minhas expectativas!', '2025-05-06 08:54:41'),
 (174, 22, 23, 5, 'Qualidade ótima!', '2025-04-02 18:52:47'),
-(175, 28, 23, 2, 'Muito bom pelo custo-benefício.', '2025-04-26 16:59:17'),
 (176, 23, 23, 3, 'Já comprei outras vezes, sempre bom.', '2025-04-13 21:53:10'),
 (177, 15, 23, 3, 'Excelente produto, superou minhas expectativas!', '2025-01-16 22:12:25'),
 (178, 23, 24, 5, 'Excelente produto, superou minhas expectativas!', '2025-03-13 10:37:47'),
-(179, 26, 24, 5, 'Qualidade ótima!', '2025-04-19 00:38:14'),
 (180, 22, 24, 1, 'Bom, mas poderia ser melhor.', '2025-02-10 11:48:40'),
 (181, 20, 24, 5, 'Não gostei, veio com defeito.', '2025-01-16 10:43:36'),
 (182, 15, 24, 4, 'Não funcionou como esperado.', '2025-02-08 20:37:05'),
 (183, 21, 24, 1, 'Produto dentro do esperado.', '2025-02-03 16:45:56'),
-(184, 28, 11, 3, 'Não gostei muito...', '2025-06-14 20:43:07'),
-(185, 28, 21, 4, 'Gostei muito desse product.....', '2025-06-15 22:42:27'),
-(186, 28, 7, 5, 'Ganda mario', '2025-06-15 22:45:10');
+(188, 52, 22, 5, 'ola2', '2025-06-18 22:01:16');
 
 --
 -- Triggers `reviews`
@@ -688,8 +689,12 @@ CREATE TABLE `saved` (
 
 INSERT INTO `saved` (`saved_id`, `user_id`, `product_id`, `tipo`, `quantity`, `created_at`) VALUES
 (299, 15, 4, 0, 10, '2025-06-12 16:02:02'),
-(444, 28, 20, 1, 1, '2025-06-15 00:48:29'),
-(445, 28, 5, 1, 1, '2025-06-15 00:48:31');
+(470, 52, 8, 1, 1, '2025-06-17 21:01:30'),
+(479, 52, 12, 1, 1, '2025-06-18 08:52:34'),
+(480, 52, 15, 1, 1, '2025-06-18 08:52:36'),
+(482, 52, 6, 1, 1, '2025-06-18 08:55:33'),
+(483, 52, 20, 1, 1, '2025-06-18 08:56:35'),
+(484, 52, 14, 1, 1, '2025-06-18 08:56:55');
 
 -- --------------------------------------------------------
 
@@ -721,10 +726,8 @@ INSERT INTO `users` (`user_id`, `firebase_uid`, `name`, `email`, `avatar`, `phon
 (22, '0pFZo8kGEGgrBs780ERuVTQ94CA2', 'santos fortunato', 'santosfortunato@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', 'user', '2024-12-09 18:08:58'),
 (23, '55CpNAK9azXHrAS5rUYzxAakmvz1', 'Maria', 'maria@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', 'user', '2024-12-10 19:09:25'),
 (25, 'QFTTiIROtzLbSR0GpAslYStGYwD2', 'Diogo', 'diogadaesteves@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', 'user', '2025-02-07 03:25:13'),
-(26, 'bw116RwG62h3Ugfh9cMBaMHfl2o1', 'Kauan', 'kauansitesaleatorios@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '123 999 233', 'user', '2025-02-26 20:31:28'),
-(27, 'B0etnmMLDJh4pUuF4vc9QCXMyiv2', 'bor', 'cuzinhoroxo@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', 'user', '2025-02-26 20:39:15'),
 (28, '6P6mwx4gURUuk4CDPda8zQbcB1q1', 'Mordekai', 'mordekaias360@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/avatar_68503d2961fc17.32085439.jpg', '123 XXX XXX', 'user', '2025-03-10 17:49:41'),
-(31, 'EbTW213QylVJFC4nxuBNtpie6VD3', 'Kauan', 'kauansfsgd@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/poggers-11645679-default-avatar.png', '', 'user', '2025-06-05 22:01:41');
+(52, 'vbxr9cOIaCUTcNezNMg6BiaqoVF3', 'kauan fortunatoss', 'kauansitesaleatorios@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/avatar_6851ff9639e229.90938837.jpg', '910937520', 'user', '2025-06-17 21:01:21');
 
 --
 -- Triggers `users`
@@ -758,8 +761,7 @@ INSERT INTO `users_tokens` (`id_token`, `user_id`, `token`, `create_at`) VALUES
 (16, 15, 'cfqdAvsOTqurJQWIaM3Efe:APA91bGozKvoQ-OnoMCawcnIxnUJlhJJ-99KxuaQSgyAS-WZOLo10-kcR8tR3yeJHfyWoEtfTYdiVsn8IeI_67_5jn6zWOhl2bFxSUrwbRNXO7G7LPsZrqI', '2025-04-14 15:58:39'),
 (38, 28, 'cNQrYoKhSM6dH3bJuAwcR8:APA91bFfhjZ0pEB_D54I_lNHUEkVzi2xl16-Xpiy7agTAy3uG4HrKWpYP1f93bV5oMzugcut77XFDkCX8Phw4xN0ygEQt_u0cPkCTBV5OjbaJ8m4tVfjMhU', '2025-06-04 08:49:10'),
 (40, 28, 'f_6YJWjtQ3in1Yz7MgMSxC:APA91bGOYT-tDAmo3H29OATztCwX6JAQXpiTDJ7v2sBWr3Pa6lE262rubmRGqNdiyb0cccCYBMFkCQMQptJnuGvvdVAJjhB3iYRygT8p9cW8pIdJP2pPTOU', '2025-06-05 12:35:34'),
-(44, 15, 'fUaLP0t4RLCvn_53jPJhDT:APA91bF36pR7LGJNpyHw-3xa9gadXW_xO5nk_0KnBpezjKKCONqf3lsZaGm5Ocwkan3hjCPIvwaF7wI92B06KsgIl4uqF-D938HNGexNiUq4pfVEHL0_uxE', '2025-06-05 16:42:08'),
-(64, 28, 'dqAxcGrEQGioj0OaYXeAGb:APA91bEp0yKouyIn8xf_QunlANrJWIXshvkGqHzaHq6PcjPEwvSqLwSQ3XjqPtsTyrfRa64BYRzNef4oXUA2ALfAKAgMs5GTjlKfikeUZmMin298TjejhTQ', '2025-06-16 23:17:53');
+(78, 52, 'cfTlNz3vQ5q-M5jAGegdWG:APA91bG0FUU2f20E95el8SWL2Nlb2ltApE7RiaRfEnJLMqNDmDVjRv4bIYAb59evEms3zcNSxqjweHg-kVN2FnVBAQ07ng4beCXGNcY3r9ZCImFc0ntgkkU', '2025-06-18 22:18:11');
 
 -- --------------------------------------------------------
 
@@ -852,11 +854,6 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (70, 15, 21, 'view', '2025-02-24 14:36:19'),
 (71, 15, 5, 'view', '2025-02-24 14:36:21'),
 (72, 15, 6, 'view', '2025-02-24 14:36:25'),
-(73, 27, 22, 'view', '2025-02-26 21:00:50'),
-(74, 27, 23, 'view', '2025-02-26 21:04:07'),
-(75, 27, 7, 'view', '2025-02-26 21:04:11'),
-(76, 27, 22, 'view', '2025-02-26 21:04:13'),
-(77, 27, 4, 'view', '2025-02-26 21:04:16'),
 (78, 15, 21, 'view', '2025-02-28 12:41:03'),
 (79, 15, 5, 'view', '2025-02-28 12:41:06'),
 (80, 15, 7, 'view', '2025-02-28 12:41:12'),
@@ -913,8 +910,6 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (131, 15, 11, 'view', '2025-03-03 19:17:32'),
 (132, 15, 11, 'view', '2025-03-03 19:17:41'),
 (133, 15, 23, 'view', '2025-03-03 19:17:45'),
-(134, 26, 5, 'view', '2025-03-03 19:20:46'),
-(135, 26, 3, 'view', '2025-03-03 19:21:09'),
 (136, 15, 7, 'view', '2025-03-03 19:24:03'),
 (137, 15, 11, 'view', '2025-03-05 09:20:52'),
 (138, 15, 15, 'view', '2025-03-05 09:21:28'),
@@ -931,16 +926,6 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (149, 15, 11, 'view', '2025-03-05 13:11:08'),
 (150, 15, 24, 'view', '2025-03-05 15:08:06'),
 (151, 15, 9, 'view', '2025-03-06 18:05:20'),
-(152, 26, 13, 'view', '2025-03-07 11:11:43'),
-(153, 26, 5, 'view', '2025-03-07 11:11:53'),
-(154, 26, 4, 'view', '2025-03-07 11:12:29'),
-(155, 26, 4, 'view', '2025-03-08 14:52:02'),
-(156, 26, 14, 'view', '2025-03-08 14:52:08'),
-(157, 26, 14, 'view', '2025-03-08 14:52:16'),
-(158, 26, 4, 'view', '2025-03-10 17:10:47'),
-(159, 26, 14, 'view', '2025-03-10 17:28:00'),
-(160, 26, 15, 'view', '2025-03-10 17:44:06'),
-(180, 26, 15, 'view', '2025-03-10 17:53:24'),
 (181, 28, 11, 'view', '2025-03-10 17:53:41'),
 (182, 28, 10, 'view', '2025-03-10 17:53:45'),
 (183, 28, 10, 'view', '2025-03-10 17:55:35'),
@@ -992,7 +977,6 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (229, 15, 4, 'view', '2025-03-10 18:33:31'),
 (230, 15, 3, 'view', '2025-03-10 18:35:23'),
 (231, 28, 3, 'view', '2025-03-12 12:12:30'),
-(232, 26, 3, 'view', '2025-03-12 12:15:12'),
 (233, 15, 3, 'view', '2025-03-31 13:07:28'),
 (234, 15, 24, 'view', '2025-04-02 13:04:48'),
 (235, 15, 6, 'view', '2025-04-02 13:08:36'),
@@ -1836,7 +1820,68 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (1553, 28, 67, 'view', '2025-06-16 22:07:39'),
 (1554, 28, 5, 'view', '2025-06-16 22:08:04'),
 (1555, 28, 3, 'view', '2025-06-16 22:08:10'),
-(1556, 28, 67, 'view', '2025-06-16 23:22:27');
+(1556, 28, 67, 'view', '2025-06-16 23:22:27'),
+(1557, 28, 5, 'view', '2025-06-17 08:45:50'),
+(1563, 28, 5, 'view', '2025-06-17 08:48:05'),
+(1564, 28, 15, 'view', '2025-06-17 08:49:35'),
+(1565, 28, 15, 'view', '2025-06-17 14:20:50'),
+(1568, 52, 20, 'view', '2025-06-17 22:16:13'),
+(1569, 52, 14, 'view', '2025-06-17 23:12:03'),
+(1570, 52, 20, 'view', '2025-06-17 23:15:41'),
+(1571, 52, 14, 'view', '2025-06-17 23:49:55'),
+(1572, 52, 20, 'view', '2025-06-17 23:52:16'),
+(1573, 52, 5, 'view', '2025-06-17 23:52:25'),
+(1574, 52, 20, 'view', '2025-06-18 08:53:18'),
+(1575, 52, 14, 'view', '2025-06-18 08:55:54'),
+(1576, 52, 12, 'view', '2025-06-18 08:57:02'),
+(1577, 52, 12, 'view', '2025-06-18 08:57:44'),
+(1578, 52, 18, 'view', '2025-06-18 08:57:52'),
+(1579, 52, 18, 'view', '2025-06-18 08:58:11'),
+(1580, 52, 18, 'view', '2025-06-18 08:58:13'),
+(1581, 52, 18, 'view', '2025-06-18 08:58:18'),
+(1582, 52, 18, 'view', '2025-06-18 08:58:27'),
+(1583, 52, 18, 'view', '2025-06-18 08:58:30'),
+(1584, 52, 4, 'view', '2025-06-18 08:58:45'),
+(1585, 52, 4, 'view', '2025-06-18 13:11:28'),
+(1586, 52, 9, 'view', '2025-06-18 13:11:37'),
+(1587, 52, 16, 'view', '2025-06-18 13:11:41'),
+(1588, 52, 24, 'view', '2025-06-18 13:11:46'),
+(1589, 52, 24, 'view', '2025-06-18 13:12:27'),
+(1590, 52, 21, 'view', '2025-06-18 19:10:28'),
+(1591, 52, 22, 'view', '2025-06-18 19:10:30'),
+(1592, 52, 23, 'view', '2025-06-18 19:13:32'),
+(1593, 52, 23, 'view', '2025-06-18 19:13:41'),
+(1594, 52, 8, 'view', '2025-06-18 19:13:48'),
+(1595, 52, 7, 'view', '2025-06-18 19:13:50'),
+(1596, 52, 21, 'view', '2025-06-18 19:13:52'),
+(1597, 52, 22, 'view', '2025-06-18 19:13:54'),
+(1598, 52, 10, 'view', '2025-06-18 19:14:35'),
+(1599, 52, 10, 'view', '2025-06-18 19:16:27'),
+(1600, 52, 10, 'view', '2025-06-18 19:18:39'),
+(1601, 52, 22, 'view', '2025-06-18 20:04:02'),
+(1602, 52, 22, 'view', '2025-06-18 20:07:34'),
+(1603, 52, 22, 'view', '2025-06-18 20:08:03'),
+(1604, 52, 22, 'view', '2025-06-18 21:35:11'),
+(1605, 52, 70, 'view', '2025-06-18 21:48:33'),
+(1606, 52, 70, 'view', '2025-06-18 22:09:40'),
+(1607, 52, 70, 'view', '2025-06-18 22:10:05'),
+(1608, 52, 22, 'view', '2025-06-18 23:07:39'),
+(1609, 52, 22, 'view', '2025-06-18 23:31:31'),
+(1610, 52, 11, 'view', '2025-06-18 23:34:02'),
+(1611, 52, 70, 'view', '2025-06-18 23:35:50'),
+(1612, 52, 70, 'view', '2025-06-18 23:36:55'),
+(1613, 52, 4, 'view', '2025-06-18 23:41:34'),
+(1614, 52, 15, 'view', '2025-06-18 23:41:35'),
+(1615, 52, 16, 'view', '2025-06-18 23:41:36'),
+(1616, 52, 3, 'view', '2025-06-18 23:41:38'),
+(1617, 52, 6, 'view', '2025-06-18 23:41:44'),
+(1618, 52, 6, 'view', '2025-06-18 23:42:27'),
+(1619, 52, 6, 'view', '2025-06-18 23:49:25'),
+(1620, 52, 6, 'view', '2025-06-18 23:52:25'),
+(1621, 52, 6, 'view', '2025-06-18 23:55:33'),
+(1622, 52, 6, 'view', '2025-06-18 23:56:59'),
+(1623, 52, 6, 'view', '2025-06-18 23:58:14'),
+(1624, 52, 6, 'view', '2025-06-18 23:58:51');
 
 -- --------------------------------------------------------
 
@@ -2035,16 +2080,14 @@ CREATE TABLE `wallet` (
 INSERT INTO `wallet` (`id`, `user_id`, `balance`) VALUES
 (1, 22, 0.00),
 (2, 23, 0.00),
-(3, 28, 999477.90),
+(3, 28, 999333.12),
 (4, 18, 0.00),
-(5, 27, 0.00),
 (6, 15, 99999999.99),
-(7, 26, 0.00),
 (8, 21, 0.00),
 (9, 19, 0.00),
 (10, 25, 0.00),
 (11, 20, 0.00),
-(14, 31, 0.00);
+(33, 52, 280.40);
 
 -- --------------------------------------------------------
 
@@ -2204,8 +2247,8 @@ ALTER TABLE `products_views`
 --
 ALTER TABLE `reviews`
   ADD PRIMARY KEY (`review_id`),
-  ADD KEY `reviewer_id` (`user_id`),
-  ADD KEY `reviews_ibfk_2` (`product_id`);
+  ADD UNIQUE KEY `idx_product_user` (`product_id`,`user_id`),
+  ADD KEY `reviewer_id` (`user_id`);
 
 --
 -- Indexes for table `saved`
@@ -2261,85 +2304,85 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `gallery`
 --
 ALTER TABLE `gallery`
-  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `gallery_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=174;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=430;
+  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=449;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
+  MODIFY `review_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=190;
 
 --
 -- AUTO_INCREMENT for table `saved`
 --
 ALTER TABLE `saved`
-  MODIFY `saved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=462;
+  MODIFY `saved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=506;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `users_tokens`
 --
 ALTER TABLE `users_tokens`
-  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `user_history`
 --
 ALTER TABLE `user_history`
-  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1557;
+  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1625;
 
 --
 -- AUTO_INCREMENT for table `wallet`
 --
 ALTER TABLE `wallet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- Constraints for dumped tables

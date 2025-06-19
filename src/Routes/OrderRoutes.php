@@ -26,7 +26,13 @@ $router->post('/order/register', function () use ($conn) {
     }
 
     $controller = new OrderController($conn);
-    $result = $controller->registerOrder($data['user_id'], $data['items']);
+    $result = $controller->registerOrder(
+        $data['user_id'],
+        $data['location'],
+        $data['user_name'],
+        $data['user_phone'],
+        $data['items']
+    );
 
     if ($result['success']) {
         Response::success($result['data'], $result['message']);
@@ -34,6 +40,7 @@ $router->post('/order/register', function () use ($conn) {
         Response::error($result['message']);
     }
 });
+
 
 // GET /Order/items/{order_id} -> get order items
 $router->get('/order/items/(\d+)', function ($order_id) use ($conn) {

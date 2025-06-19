@@ -172,7 +172,7 @@ $router->get('/products/my/(\d+)', function ($user_id) use ($controller) {
     if ($result["success"]) {
         Response::success($result['data'], "Seus produtos");
     } else {
-        Response::error("Nenhum produto encontrado");
+        Response::error($result['message'] ?: "Nenhum produto encontrado");
     }
 });
 

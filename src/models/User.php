@@ -79,15 +79,14 @@ class User
         }
     }
 
-    public function updateUser($name, $last_name, $phone, $firebase_uid)
+    public function updateUser($name, $phone, $firebase_uid)
     {
         try {
-            $sql = "UPDATE users SET name = :name, last_name = :last_name, phone = :phone 
+            $sql = "UPDATE users SET name = :name, phone = :phone 
                     WHERE firebase_uid = :firebase_uid";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':name' => $name,
-                ':last_name' => $last_name,
                 ':phone' => $phone,
                 ':firebase_uid' => $firebase_uid
             ]);

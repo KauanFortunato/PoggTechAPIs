@@ -22,4 +22,9 @@ class WalletController
     {
         return $this->wallet->getPayments($user_id);
     }
+
+    public function deposit($user_id, $data)
+    {
+        return $this->wallet->deposit($user_id, $data);
+    }
 }

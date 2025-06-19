@@ -285,6 +285,7 @@ class Product
                 "category" => $row["category"],
                 "rating" => $row["rating"],
                 "cover" => $row["cover"],
+                "quantity" => $row["quantity"],
                 "location" => $row["location"],
                 "created_at" => $row["created_at"],
                 "updated_at" => $row["updated_at"],
@@ -315,8 +316,6 @@ class Product
             return ["success" => false, "message" => "Erro ao buscar produto: " . $e->getMessage()];
         }
     }
-
-
 
     public function getPopularProducts($all = false, $quantity = 6)
     {
@@ -688,13 +687,16 @@ class Product
             $likeQuery = implode(' OR ', $likeConditions);
 
             $sql = "
-            SELECT *, 
-                MATCH(title, description, category) AGAINST(? IN NATURAL LANGUAGE MODE) AS relevance
-            FROM products
+            SELECT p.*, 
+                u.type as seller_type,
+                MATCH(p.title, p.description, p.category) AGAINST(? IN NATURAL LANGUAGE MODE) AS relevance
+            FROM products p
+            JOIN users u ON u.user_id = p.user_id
             WHERE ($likeQuery)
-            OR MATCH(title, description, category) AGAINST(? IN NATURAL LANGUAGE MODE)
+            OR MATCH(p.title, p.description, p.category) AGAINST(? IN NATURAL LANGUAGE MODE)
             ORDER BY relevance DESC
             ";
+
 
             $params[] = $cleanedSearch;
             $params[] = $cleanedSearch;
