@@ -22,3 +22,22 @@ $router->get('/category/(\d+)', function ($id) use ($conn) {
     $controller = new CategoryController($conn);
     echo json_encode($controller->getCategory($id));
 });
+
+$router->post('/category', function () use ($conn) {
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    $controller = new CategoryController($conn);
+    echo json_encode($controller->createCategory($data));
+});
+
+$router->put('/category/(\d+)', function ($id) use ($conn) {
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    $controller = new CategoryController($conn);
+    echo json_encode($controller->updateCategory($id, $data));
+});
+
+$router->delete('/category/(\d+)', function ($id) use ($conn) {
+    $controller = new CategoryController($conn);
+    echo json_encode($controller->deleteCategory($id,));
+});

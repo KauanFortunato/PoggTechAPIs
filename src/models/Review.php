@@ -126,4 +126,91 @@ class Review
             ];
         }
     }
+
+    public function updateReview($data)
+    {
+        try {
+            $sql = "UPDATE reviews 
+                SET rating = :rating, comment = :comment 
+                WHERE review_id = :review_id";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':review_id', $data['review_id'], PDO::PARAM_INT);
+            $stmt->bindParam(':rating', $data['rating'], PDO::PARAM_INT);
+            $stmt->bindParam(':comment', $data['comment'], PDO::PARAM_STR);
+
+            if ($stmt->execute()) {
+                return [
+                    "success" => true,
+                    "message" => "Avaliação atualizada com sucesso",
+                    "data" => null
+                ];
+            } else {
+                return [
+                    "success" => false,
+                    "message" => "Erro ao atualizar a avaliação",
+                    "data" => null
+                ];
+            }
+        } catch (PDOException $e) {
+            return [
+                "success" => false,
+                "message" => "Erro no banco de dados: " . $e->getMessage(),
+                "data" => null
+            ];
+        }
+    }
+
+    public function deleteReview($productId, $userId)
+    {
+        try {
+            $sql = "DELETE FROM reviews WHERE product_id = :product_id AND user_id = :user_id";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindParam(':product_id', $productId, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+
+            if ($stmt->execute()) {
+                return [
+                    "success" => true,
+                    "message" => "Avaliação deletada com sucesso",
+                    "data" => null
+                ];
+            } else {
+                return [
+                    "success" => false,
+                    "message" => "Erro ao deletar a avaliação",
+                    "data" => null
+                ];
+            }
+        } catch (PDOException $e) {
+            return [
+                "success" => false,
+                "message" => "Erro no banco de dados: " . $e->getMessage(),
+                "data" => null
+            ];
+        }
+    }
+
+    public function getAllReviews()
+    {
+        try {
+            $sql = "SELECT * FROM reviews";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute();
+
+            $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return [
+                "success" => true,
+                "message" => "Avaliações obtidas com sucesso",
+                "data" => $reviews
+            ];
+        } catch (PDOException $e) {
+            return [
+                "success" => false,
+                "message" => "Erro no banco de dados: " . $e->getMessage(),
+                "data" => null
+            ];
+        }
+    }
 }

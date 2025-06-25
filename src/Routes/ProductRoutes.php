@@ -7,15 +7,35 @@ global $router, $conn;
 
 $controller = new ProductController($conn);
 
+function normalizeUploadedFiles($filePost)
+{
+    $files = [];
+    $fileCount = is_array($filePost['name']) ? count($filePost['name']) : 0;
+
+    for ($i = 0; $i < $fileCount; $i++) {
+        $files[] = [
+            'name'     => $filePost['name'][$i],
+            'type'     => $filePost['type'][$i],
+            'tmp_name' => $filePost['tmp_name'][$i],
+            'error'    => $filePost['error'][$i],
+            'size'     => $filePost['size'][$i]
+        ];
+    }
+
+    return $files;
+}
+
 // POST /products → criar produto (recebe JSON e arquivos)
 $router->post('/products', function () use ($controller) {
     // Recebe dados do produto no JSON
-    $data = json_decode(file_get_contents('php://input'), true) ?: $_POST;
+    $data =  $_POST;
 
     // Recebe arquivos (imagens) via $_FILES
-    $images = $_FILES['images'] ?? [];
+    $images = $_FILES['images'] ?? ($_FILES['images[]'] ?? []);
 
     $result = $controller->createProduct($data, $images);
+
+    echo "images: " . json_encode($images) . "\n";
 
     if ($result['success']) {
         Response::success($result['data'], "Produto criado com sucesso");

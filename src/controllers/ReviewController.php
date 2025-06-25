@@ -22,4 +22,19 @@ class ReviewController
     {
         return $this->review->createReview($data);
     }
+
+    public function updateReview($data)
+    {
+        return $this->review->updateReview($data);
+    }
+
+    public function deleteReview($product_id, $user_id)
+    {
+        return $this->review->deleteReview($product_id, $user_id);
+    }
+
+    public function getAllReviews()
+    {
+        return $this->review->getAllReviews();
+    }
 }

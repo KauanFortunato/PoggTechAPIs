@@ -33,13 +33,28 @@ class UserController
         return $this->user->getUserById($user_id);
     }
 
-    public function updateUser($name, $phone, $firebase_uid)
+    public function updateUser($name, $phone, $firebase_uid,  $type)
     {
-        return $this->user->updateUser($name, $phone, $firebase_uid);
+        return $this->user->updateUser($name, $phone, $firebase_uid,  $type);
+    }
+
+    public function updateEmail($userId, $newEmail)
+    {
+        return $this->user->updateEmail($userId, $newEmail);
+    }
+
+    public function updateAccountStatus($userId, $isActive)
+    {
+        return $this->user->updateAccountStatus($userId, $isActive);
     }
 
     public function updateUserAvatar($firebase_uid, $avatar)
     {
         return $this->user->updateUserAvatar($firebase_uid, $avatar);
+    }
+
+    public function getAllusers()
+    {
+        return $this->user->getAllUsers();
     }
 }

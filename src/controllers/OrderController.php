@@ -2,15 +2,25 @@
 
 namespace App\Controllers;
 
+use App\Controllers\FCMControler;
+use function App\Utils\sendNotification;
+
 use App\Models\Order;
 
 class OrderController
 {
     private $order;
+    private \PDO $conn;
 
     public function __construct(\PDO $conn)
     {
+        $this->conn = $conn;
         $this->order = new Order($conn);
+    }
+
+    public function getAllOrders()
+    {
+        return $this->order->getAllOrders();
     }
 
     public function registerOrder($user_id, $location, $user_name, $user_phone, $items)
@@ -26,5 +36,25 @@ class OrderController
     public function getOrderItems($order_id)
     {
         return $this->order->getOrderItems($order_id);
+    }
+
+    public function updateShipping($user_id, $newStatus)
+    {
+        $result = $this->order->updateShipping($user_id, $newStatus);
+        if ($result["success"]) {
+            $user_id = $result["data"]["user_id"];
+            $fcmController = new FCMControler($this->conn);
+            $tokenResult = $fcmController->getToken($user_id);
+
+            $message = "Seu pedido foi $newStatus";
+
+            if ($tokenResult["success"]) {
+                foreach ($tokenResult["tokens"] as $token) {
+                    sendNotification($token, "Atualização no pedido", $message, "order");
+                }
+            }
+        }
+
+        return $result;
     }
 }

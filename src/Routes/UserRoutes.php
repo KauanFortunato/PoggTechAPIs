@@ -54,7 +54,8 @@ $router->put('/user', function () use ($conn) {
     $result = $controller->updateUser(
         $data['name'],
         $data['phone'],
-        $data['firebase_uid']
+        $data['firebase_uid'],
+        $data['type']
     );
 
     if ($result['success']) {
@@ -64,6 +65,41 @@ $router->put('/user', function () use ($conn) {
     }
 });
 
+// PUT /user/email → Atualizar email
+$router->put('/user/email', function () use ($conn) {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $controller = new UserController($conn);
+    $result = $controller->updateEmail(
+        $data['user_id'],
+        $data['email'],
+    );
+
+    if ($result['success']) {
+        Response::success(null, $result['message']);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// PUT /user/blockUn → Atualizar conta isActive
+$router->put('/user/active', function () use ($conn) {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    $controller = new UserController($conn);
+    $result = $controller->updateAccountStatus(
+        $data['user_id'],
+        $data['isActive'],
+    );
+
+    if ($result['success']) {
+        Response::success(null, $result['message']);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// POST /user/avatar → Atualizar avatar do usuário
 $router->post('/user/avatar', function () use ($conn) {
     if (!isset($_POST['firebase_uid']) || !isset($_FILES['avatar'])) {
         Response::error('Dados incompletos para atualizar o avatar');
@@ -96,6 +132,30 @@ $router->get('/user/id/(\d+)', function ($user_id) use ($conn) {
     }
 });
 
+// DELETE /products/{id} → deletar produto
+$router->delete('/user/delete/([^/]+)', function ($firebase_uid) use ($controller) {
+    $result = $controller->deleteUser($firebase_uid);
+
+    if ($result['success']) {
+        Response::success(null, "Produto deletado");
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// GET /users → Listar todos os usuários
+$router->get('/user', function () use ($conn) {
+    $controller = new UserController($conn);
+    $result = $controller->getAllUsers();
+
+    if ($result['success']) {
+        Response::success($result['data']);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// GET /health → Verificar saúde do serviço
 $router->get('/health', function () use ($conn) {
     try {
         $stmt = $conn->query("SELECT 1");
@@ -109,16 +169,5 @@ $router->get('/health', function () use ($conn) {
     } catch (\PDOException $e) {
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'message' => 'Erro de conexão: ' . $e->getMessage()]);
-    }
-});
-
-// DELETE /products/{id} → deletar produto
-$router->delete('/user/delete/([^/]+)', function ($firebase_uid) use ($controller) {
-    $result = $controller->deleteUser($firebase_uid);
-
-    if ($result['success']) {
-        Response::success(null, "Produto deletado");
-    } else {
-        Response::error($result['message']);
     }
 });

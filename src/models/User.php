@@ -40,12 +40,12 @@ class User
             $stmt->execute([':firebase_uid' => $firebase_uid]);
 
             if ($stmt->rowCount() > 0) {
-                return ["success" => true, "message" => "Usuário deletado com sucesso"];
+                return ["success" => true, "message" => "Utilizador deletado com sucesso"];
             } else {
-                return ["success" => false, "message" => "Usuário não encontrado"];
+                return ["success" => false, "message" => "Utilizador não encontrado"];
             }
         } catch (PDOException $e) {
-            return ["success" => false, "message" => "Erro ao deletar usuário: " . $e->getMessage()];
+            return ["success" => false, "message" => "Erro ao deletar utilizador: " . $e->getMessage()];
         }
     }
 
@@ -61,7 +61,7 @@ class User
             if ($user) {
                 return ["success" => true, "data" => $user];
             } else {
-                return ["success" => false, "message" => "Usuário não encontrado"];
+                return ["success" => false, "message" => "Utilizador não encontrado"];
             }
         } catch (PDOException $e) {
             return ["success" => false, "message" => "Erro: " . $e->getMessage()];
@@ -79,21 +79,56 @@ class User
         }
     }
 
-    public function updateUser($name, $phone, $firebase_uid)
+    public function updateUser($name, $phone, $firebase_uid, $type)
     {
         try {
-            $sql = "UPDATE users SET name = :name, phone = :phone 
+            $sql = "UPDATE users SET name = :name, phone = :phone, type = :type
                     WHERE firebase_uid = :firebase_uid";
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 ':name' => $name,
                 ':phone' => $phone,
-                ':firebase_uid' => $firebase_uid
+                ':firebase_uid' => $firebase_uid,
+                ':type' => $type
             ]);
 
-            return ["success" => true, "message" => "Usuário alterado com sucesso"];
+            return ["success" => true, "message" => "Utilizador alterado com sucesso"];
         } catch (PDOException $e) {
-            return ["success" => false, "message" => "Erro ao atualizar usuário: " . $e->getMessage()];
+            return ["success" => false, "message" => "Erro ao atualizar utilizador: " . $e->getMessage()];
+        }
+    }
+
+    public function updateAccountStatus($userId, $isActive)
+    {
+        try {
+            $sql = "UPDATE users SET isActive = :isActive
+                    WHERE user_id = :userId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':isActive' => $isActive,
+                ':userId' => $userId,
+            ]);
+
+            return ["success" => true, "message" => "Status de conta alterado com sucesso."];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => "Erro ao atualizar status: " . $e->getMessage()];
+        }
+    }
+
+    public function updateEmail($userId, $newEmail)
+    {
+        try {
+            $sql = "UPDATE users SET email = :email
+                    WHERE user_id = :userId";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':email' => $newEmail,
+                ':userId' => $userId,
+            ]);
+
+            return ["success" => true, "message" => "Email alterado com sucesso"];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => "Erro ao atualizar utilizador: " . $e->getMessage()];
         }
     }
 
@@ -148,6 +183,17 @@ class User
             return ["success" => true, "message" => "Avatar atualizado com sucesso", "data" => $publicUrl];
         } catch (PDOException $e) {
             return ["success" => false, "message" => "Erro no banco: " . $e->getMessage()];
+        }
+    }
+
+    public function getAllUsers()
+    {
+        try {
+            $stmt = $this->conn->query("SELECT * FROM users");
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return ["success" => true, "data" => $users];
+        } catch (PDOException $e) {
+            return ["success" => false, "message" => "Erro ao buscar usuários: " . $e->getMessage()];
         }
     }
 }

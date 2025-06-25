@@ -22,4 +22,19 @@ class CategoryController
     {
         return $this->category->getAllCategories();
     }
+
+    public function createCategory($data)
+    {
+        return $this->category->createCategory($data);
+    }
+
+    public function updateCategory($id, $data)
+    {
+        return $this->category->updateCategory($id, $data);
+    }
+
+    public function deleteCategory($id)
+    {
+        return $this->category->deleteCategory($id);
+    }
 }

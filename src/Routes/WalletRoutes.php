@@ -19,6 +19,18 @@ $router->get('/wallet/(\d+)', function ($user_id) use ($conn) {
     }
 });
 
+// GET /wallet/ → Buscar todas as carteiras
+$router->get('/wallet', function () use ($conn) {
+    $controller = new WalletController($conn);
+    $result = $controller->getAllWallets();
+
+    if ($result['success']) {
+        Response::success($result['data']);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
 // GET /wallet/{user_id}/payments → Buscar pagamentos do usuário
 $router->get('/wallet/(\d+)/payments', function ($user_id) use ($conn) {
     $controller = new WalletController($conn);
@@ -31,13 +43,38 @@ $router->get('/wallet/(\d+)/payments', function ($user_id) use ($conn) {
     }
 });
 
+// PUT /wallet/payments/{payment_id} -> Mudar status do pagamento
+$router->put('/wallet/payments/(\d+)', function ($payment_id) use ($conn) {
+    $data = json_decode(file_get_contents('php://input'), true);
 
-// POST /wallet/{user_id}/deposit → Depositar na carteira do usuário
-$router->post('/wallet/(\d+)/deposit', function ($user_id) use ($conn) {
+    $controller = new WalletController($conn);
+    $result = $controller->updateStatusPayment($payment_id, $data);
+
+    if ($result['success']) {
+        Response::success($result['data']);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// GET /wallet/payments → pegar todos os pagamentos
+$router->get('/wallet/payments', function () use ($conn) {
+    $controller = new WalletController($conn);
+    $result = $controller->getAllPayments();
+
+    if ($result['success']) {
+        Response::success($result['data']);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// POST /wallet/{user_id}/balance → Depositar na carteira do usuário
+$router->post('/wallet/(\d+)/balance', function ($user_id) use ($conn) {
     $data = json_decode(file_get_contents('php://input'), true) ?: $data = $_POST;
 
     $controller = new WalletController($conn);
-    $result = $controller->deposit($user_id, $data);
+    $result = $controller->updateBalance($user_id, $data);
 
     if ($result['success']) {
         Response::success($result['data'], $result["message"]);

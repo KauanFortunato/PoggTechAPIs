@@ -13,6 +13,27 @@ class Order
         $this->conn = $conn;
     }
 
+    public function getAllOrders()
+    {
+        try {
+            $stmt = $this->conn->prepare("
+                SELECT *
+                FROM orders
+                ORDER BY created_at DESC
+            ");
+            $stmt->execute();
+            $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            return [
+                "success" => true,
+                "message" => "Pedidos encontrados",
+                "data" => $orders
+            ];
+        } catch (\PDOException $e) {
+            return ["success" => false, "message" => "Erro ao encontar pedidos" . $e->getMessage(), "data" => null];
+        }
+    }
+
     public function registerOrder($user_id, $location, $user_name, $user_phone, $items)
     {
         try {
@@ -189,6 +210,40 @@ class Order
             ];
         } catch (\PDOException $e) {
             return ["success" => false, "message" => "Erro ao buscar detalhes do pedido: " . $e->getMessage(), "data" => null];
+        }
+    }
+
+    public function updateShipping($order_id, $newStatus)
+    {
+        try {
+            // Atualizar o status de envio
+            $stmt = $this->conn->prepare("UPDATE orders SET shipping_status = :newStatus WHERE id = :order_id");
+            $stmt->bindParam(':newStatus', $newStatus);
+            $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            // Buscar o user_id do pedido
+            $stmt = $this->conn->prepare("SELECT user_id FROM orders WHERE id = :order_id");
+            $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $order = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if (!$order) {
+                return ["success" => false, "message" => "Pedido não encontrado", "data" => null];
+            }
+
+            $user_id = $order['user_id'];
+
+            return [
+                "success" => true,
+                "message" => "Status de envio atualizado com sucesso",
+                "data" => [
+                    "user_id" => $user_id,
+                    "shipping_status" => $newStatus
+                ]
+            ];
+        } catch (\PDOException $e) {
+            return ["success" => false, "message" => "Erro ao dar update no status de envio" . $e->getMessage(), "data" => null];
         }
     }
 }
