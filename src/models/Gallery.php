@@ -35,6 +35,9 @@ class Gallery
             $stmt->execute();
 
             $images = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            foreach ($images as &$image) {
+                $image = BASE_URL . 'uploads/' . $image;
+            }
 
             if (empty($images)) {
                 return ["success" => false, "message" => "Nenhuma imagem encontrada para o produto"];

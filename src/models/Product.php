@@ -67,16 +67,15 @@ class Product
                 $uploadPath = $uploadDir . $uniqueName;
 
                 if (move_uploaded_file($tmpName, $uploadPath)) {
-                    $publicUrl = BASE_URL . $relativePath;
 
                     if ($firstImagePath === null) {
-                        $firstImagePath = $publicUrl;
+                        $firstImagePath = $uniqueName;
                     }
 
                     $stmt = $this->conn->prepare("INSERT INTO images (gallery_id, path) VALUES (:gallery_id, :path)");
                     $stmt->execute([
                         ':gallery_id' => $galleryId,
-                        ':path' => $publicUrl
+                        ':path' => $uniqueName // só o nome do ficheiro
                     ]);
                 }
             }
@@ -400,7 +399,7 @@ class Product
                 "price_before" => $row["price_before"],
                 "category" => $row["category"],
                 "rating" => $row["rating"],
-                "cover" => $row["cover"],
+                "cover" => BASE_URL . 'uploads/' . $row["cover"],
                 "quantity" => $row["quantity"],
                 "location" => $row["location"],
                 "created_at" => $row["created_at"],
@@ -415,7 +414,7 @@ class Product
                 $user = [
                     "user_id" => $row["user_id_user"],
                     "name" => $row["user_name"],
-                    "avatar" => $row["user_avatar"],
+                    "avatar" => BASE_URL . 'uploads/avatars/' . $row["user_avatar"],
                     "phone" => $row["user_phone"],
                     "type" => $row["user_type"],
                     "created_at" => $row["user_created_at"]
@@ -443,6 +442,7 @@ class Product
             }
             $stmt->execute();
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            addCoverUrl($products);
 
             return ["success" => true, "data" => $products];
         } catch (\Exception $e) {
@@ -464,6 +464,7 @@ class Product
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([':user_id' => $user_id]);
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            addCoverUrl($products);
 
             return ["success" => true, "data" => $products];
         } catch (\Exception $e) {
@@ -543,6 +544,7 @@ class Product
             }
 
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            addCoverUrl($products);
 
             if (!empty($products)) {
                 return ["success" => true, "data" => $products];
@@ -583,6 +585,9 @@ class Product
 
             shuffle($products);
             $products = array_slice($products, 0, $totalQuantity);
+            foreach ($products as &$product) {
+                $product['cover'] = BASE_URL . 'uploads/' . $product['cover'];
+            }
 
             return ["success" => true, "data" => $products];
         } catch (\Exception $e) {
@@ -596,6 +601,7 @@ class Product
             $stmt = $this->conn->prepare("SELECT * FROM products ORDER BY product_id DESC");
             $stmt->execute();
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            addCoverUrl($products);
 
             if (!empty($products)) {
                 return ["success" => true, "data" => $products];
@@ -718,6 +724,7 @@ class Product
             $stmt = $this->conn->prepare("SELECT * FROM v_cart_fav WHERE user_id = :user_id AND tipo = :tipo");
             $stmt->execute([':user_id' => $user_id, ':tipo' => $tipo]);
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            addCoverUrl($products);
 
             if (!empty($products)) {
                 return ["success" => true, "data" => $products];
@@ -822,6 +829,7 @@ class Product
             $stmt = $this->conn->prepare($sql);
             $stmt->execute($params);
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            addCoverUrl($products);
 
             if (empty($products)) {
                 return $this->fallbackSearch($terms);
@@ -860,6 +868,7 @@ class Product
             $stmt = $this->conn->prepare($sql);
             $stmt->execute($params);
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            addCoverUrl($products);
 
             return ["success" => true, "data" => $products];
         } catch (\Exception $e) {
@@ -929,6 +938,7 @@ class Product
             $stmt = $this->conn->prepare("SELECT * FROM v_product_full_details WHERE user_id = :user_id ORDER BY product_id DESC");
             $stmt->execute([':user_id' => $user_id]);
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            addCoverUrl($products);
 
             if (!empty($products)) {
                 return ["success" => true, "data" => $products];
@@ -966,6 +976,8 @@ class Product
             $stmt->execute();
 
             $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            addCoverUrl($products);
+
 
             if (!empty($products)) {
                 return ["success" => true, "data" => $products];
@@ -974,6 +986,15 @@ class Product
             }
         } catch (\Exception $e) {
             return ["success" => false, "message" => "Erro ao buscar promoções: " . $e->getMessage()];
+        }
+    }
+}
+
+function addCoverUrl(&$products)
+{
+    foreach ($products as &$product) {
+        if (isset($product['cover'])) {
+            $product['cover'] = BASE_URL . 'uploads/' . $product['cover'];
         }
     }
 }

@@ -59,6 +59,7 @@ class User
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user) {
+                addAvatarUrl($user);
                 return ["success" => true, "data" => $user];
             } else {
                 return ["success" => false, "message" => "Utilizador não encontrado"];
@@ -73,7 +74,10 @@ class User
         try {
             $stmt = $this->conn->prepare("SELECT * FROM users WHERE user_id = :user_id");
             $stmt->execute([':user_id' => $user_id]);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            addAvatarUrl($user);
+
+            return $user;
         } catch (PDOException $e) {
             return null;
         }
@@ -161,14 +165,14 @@ class User
                 return ["success" => false, "message" => "Erro ao mover arquivo para pasta de destino"];
             }
 
-            $publicUrl = BASE_URL . $relativePath;
-
-            // 4. Atualizar no banco
+            // Atualizar no banco
             $stmt = $this->conn->prepare("UPDATE users SET avatar = :avatar WHERE firebase_uid = :firebase_uid");
             $stmt->execute([
-                ':avatar' => $publicUrl,
+                ':avatar' => $uniqueName,
                 ':firebase_uid' => $firebase_uid
             ]);
+
+            $publicUrl = BASE_URL . 'uploads/avatars/' . $uniqueName;
 
             // 5. Apagar imagem anterior (se for um arquivo real)
             if ($oldAvatar) {
@@ -191,9 +195,21 @@ class User
         try {
             $stmt = $this->conn->query("SELECT * FROM users");
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($users as &$user) {
+                if (isset($user['avatar'])) {
+                    $user['avatar'] = BASE_URL . 'uploads/avatars/' . $user['avatar'];
+                }
+            }
             return ["success" => true, "data" => $users];
         } catch (PDOException $e) {
             return ["success" => false, "message" => "Erro ao buscar usuários: " . $e->getMessage()];
         }
+    }
+}
+
+function addAvatarUrl(&$user)
+{
+    if (isset($user['avatar'])) {
+        $user['avatar'] = BASE_URL . 'uploads/avatars/' . $user['avatar'];
     }
 }

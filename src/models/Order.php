@@ -135,7 +135,6 @@ class Order
         }
     }
 
-
     public function getOrders($user_id)
     {
         try {
@@ -166,6 +165,7 @@ class Order
                 $imgStmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
                 $imgStmt->execute();
                 $images = $imgStmt->fetchAll(PDO::FETCH_COLUMN);
+                addImageUrl($images);
 
                 // Contar total de produtos, levando em consideração a quantidade de cada produto
                 $countStmt = $this->conn->prepare("SELECT SUM(quantity) AS total_products FROM order_items WHERE order_id = :order_id");
@@ -206,6 +206,12 @@ class Order
             $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
             $stmt->execute();
             $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($items as &$item) {
+                if (isset($item['product_cover'])) {
+                    addImageUrl($item['product_cover']); // adiciona BASE_URL à imagem do produto
+                }
+            }
 
             if (!$items) {
                 return ["success" => false, "message" => "Pedido não encontrado", "data" => null];
@@ -253,5 +259,18 @@ class Order
         } catch (\PDOException $e) {
             return ["success" => false, "message" => "Erro ao dar update no status de envio" . $e->getMessage(), "data" => null];
         }
+    }
+}
+
+function addImageUrl(&$valueOrArray, $path = 'uploads/')
+{
+    if (is_array($valueOrArray)) {
+        foreach ($valueOrArray as &$v) {
+            if (is_string($v)) {
+                $v = BASE_URL . $path . $v;
+            }
+        }
+    } elseif (is_string($valueOrArray)) {
+        $valueOrArray = BASE_URL . $path . $valueOrArray;
     }
 }

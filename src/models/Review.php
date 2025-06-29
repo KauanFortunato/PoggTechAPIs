@@ -64,7 +64,12 @@ class Review
 
                 foreach ($reviews as &$review) {
                     $review['time_ago'] = timeAgo($review['created_at']);
+
+                    if (isset($review['user_avatar'])) {
+                        addImageUrl($review['user_avatar'], 'uploads/avatars/');
+                    }
                 }
+
 
                 return [
                     "success" => true,
@@ -212,5 +217,18 @@ class Review
                 "data" => null
             ];
         }
+    }
+}
+
+function addImageUrl(&$valueOrArray, $path = 'uploads/')
+{
+    if (is_array($valueOrArray)) {
+        foreach ($valueOrArray as &$v) {
+            if (is_string($v)) {
+                $v = BASE_URL . $path . $v;
+            }
+        }
+    } elseif (is_string($valueOrArray)) {
+        $valueOrArray = BASE_URL . $path . $valueOrArray;
     }
 }

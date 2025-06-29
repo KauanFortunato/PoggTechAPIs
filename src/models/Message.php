@@ -101,6 +101,7 @@ class Message
 
             foreach ($chats as &$chat) {
                 $chatId = $chat['chat_id'];
+                $chat['cover_product'] = BASE_URL . 'uploads/' . $chat['cover_product'];
 
                 // Última mensagem
                 $stmtLast = $this->conn->prepare("
@@ -161,6 +162,7 @@ class Message
 
             foreach ($chats as &$chat) {
                 $chatId = $chat['chat_id'];
+                $chat['cover_product'] = BASE_URL . 'uploads/' . $chat['cover_product'];
 
                 // Última mensagem
                 $stmtLast = $this->conn->prepare("
@@ -203,6 +205,9 @@ class Message
             $stmt->bindParam(':product_id', $product_id, PDO::PARAM_INT);
             $stmt->execute();
             $chat = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($chat && isset($chat['cover_product'])) {
+                $chat['cover_product'] = BASE_URL . 'uploads/' . $chat['cover_product'];
+            }
 
             if (!$chat) {
                 return ["success" => false, "message" => "Chat não encontrado"];
