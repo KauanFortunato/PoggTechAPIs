@@ -69,12 +69,27 @@ $router->get('/wallet/payments', function () use ($conn) {
     }
 });
 
-// POST /wallet/{user_id}/balance → Depositar na carteira do usuário
+// POST /wallet/{user_id}/balance → Atualizar valor da carteira
 $router->post('/wallet/(\d+)/balance', function ($user_id) use ($conn) {
     $data = json_decode(file_get_contents('php://input'), true) ?: $data = $_POST;
 
     $controller = new WalletController($conn);
     $result = $controller->updateBalance($user_id, $data);
+
+    if ($result['success']) {
+        Response::success($result['data'], $result["message"]);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+
+// POST /wallet/{user_id}/balance → Depositar na carteira do usuário
+$router->post('/wallet/(\d+)/deposit', function ($user_id) use ($conn) {
+    $data = json_decode(file_get_contents('php://input'), true) ?: $data = $_POST;
+
+    $controller = new WalletController($conn);
+    $result = $controller->deposit($user_id, $data);
 
     if ($result['success']) {
         Response::success($result['data'], $result["message"]);

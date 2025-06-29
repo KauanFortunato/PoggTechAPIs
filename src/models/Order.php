@@ -55,7 +55,7 @@ class Order
             $balance = $wallet['balance'];
             $status = ($balance < $total) ? 'pendente' : 'pago';
 
-            // Criar pedido com novos dados
+            // Criar pedido
             $stmt = $this->conn->prepare("
             INSERT INTO orders (user_id, total_amount, status, location, user_name, user_phone)
             VALUES (:user_id, :total, :status, :location, :user_name, :user_phone)
@@ -71,17 +71,24 @@ class Order
             $orderId = $this->conn->lastInsertId();
 
             if ($balance >= $total) {
-                // Inserir itens
-                $stmt = $this->conn->prepare("
+                // Inserir itens e atualizar stock
+                $stmtInsert = $this->conn->prepare("
                 INSERT INTO order_items (order_id, product_id, quantity, unit_price)
                 VALUES (:order_id, :product_id, :quantity, :unit_price)
                 ");
+                $stmtUpdateStock = $this->conn->prepare("
+                UPDATE products SET quantity = quantity - :quantity WHERE product_id = :product_id
+                ");
                 foreach ($items as $item) {
-                    $stmt->bindParam(':order_id', $orderId, PDO::PARAM_INT);
-                    $stmt->bindParam(':product_id', $item['product_id'], PDO::PARAM_INT);
-                    $stmt->bindParam(':quantity', $item['quantity'], PDO::PARAM_INT);
-                    $stmt->bindParam(':unit_price', $item['unitPrice']);
-                    $stmt->execute();
+                    $stmtInsert->bindParam(':order_id', $orderId, PDO::PARAM_INT);
+                    $stmtInsert->bindParam(':product_id', $item['product_id'], PDO::PARAM_INT);
+                    $stmtInsert->bindParam(':quantity', $item['quantity'], PDO::PARAM_INT);
+                    $stmtInsert->bindParam(':unit_price', $item['unitPrice']);
+                    $stmtInsert->execute();
+
+                    $stmtUpdateStock->bindParam(':product_id', $item['product_id'], PDO::PARAM_INT);
+                    $stmtUpdateStock->bindParam(':quantity', $item['quantity'], PDO::PARAM_INT);
+                    $stmtUpdateStock->execute();
                 }
 
                 // Atualizar carteira
@@ -99,7 +106,7 @@ class Order
                 $stmt = $this->conn->prepare("
                 INSERT INTO payments (order_id, user_id, amount, status)
                 VALUES (:order_id, :user_id, :amount, 'concluido')
-                ");
+            ");
                 $stmt->bindParam(':order_id', $orderId, PDO::PARAM_INT);
                 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
                 $stmt->bindParam(':amount', $total);
@@ -112,7 +119,7 @@ class Order
             $stmt = $this->conn->prepare("
             INSERT INTO payments (order_id, user_id, amount, status)
             VALUES (:order_id, :user_id, :amount, 'falhou')
-            ");
+        ");
             $stmt->bindParam(':order_id', $orderId, PDO::PARAM_INT);
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->bindParam(':amount', $total);
@@ -127,6 +134,7 @@ class Order
             return ["success" => false, "message" => "Erro ao registrar pedido: " . $e->getMessage(), "data" => null];
         }
     }
+
 
     public function getOrders($user_id)
     {

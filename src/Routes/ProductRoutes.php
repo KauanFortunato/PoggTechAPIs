@@ -61,6 +61,23 @@ $router->post('/products/(\d+)', function ($productId) use ($controller) {
     }
 });
 
+// POST /products/{id} → atualizar produto admin
+$router->post('/products/admin/(\d+)', function ($productId) use ($controller) {
+    // Recebe dados do produto no JSON
+    $data = json_decode(file_get_contents('php://input'), true) ?: $_POST;
+
+    // Recebe arquivos (imagens) via $_FILES
+    $images = $_FILES['images'] ?? [];
+
+    $result = $controller->updateProductAdmin($productId, $data, $images);
+
+    if ($result['success']) {
+        Response::success(null, "Produto atualizado com sucesso");
+    } else {
+        Response::error($result['message']);
+    }
+});
+
 // DELETE /products/{id} → deletar produto
 $router->delete('/products/(\d+)', function ($id) use ($controller) {
     $result = $controller->deleteProduct($id);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 25, 2025 at 11:55 PM
+-- Generation Time: Jun 29, 2025 at 07:32 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -65,7 +65,9 @@ CREATE TABLE `chats` (
 --
 
 INSERT INTO `chats` (`chat_id`, `product_id`, `seller_id`, `buyer_id`, `timestamp`) VALUES
-(66, 5, 19, 28, '2025-06-24 22:05:11');
+(66, 5, 19, 28, '2025-06-24 22:05:11'),
+(67, 5, 19, 20, '2025-06-27 23:00:37'),
+(68, 6, 28, 20, '2025-06-28 13:34:34');
 
 -- --------------------------------------------------------
 
@@ -208,7 +210,23 @@ CREATE TABLE `messages` (
 
 INSERT INTO `messages` (`id_message`, `chat_id`, `sender_id`, `message`, `timestamp`, `is_read`) VALUES
 (461, 66, 28, 'Hi, is this item available?', '2025-06-24 22:05:11', 0),
-(462, 66, 28, 'Olaaa', '2025-06-24 22:05:17', 0);
+(462, 66, 28, 'Olaaa', '2025-06-24 22:05:17', 0),
+(464, 66, 19, 'Oi tudo bem?', '2025-06-27 09:11:04', 0),
+(465, 66, 19, 'Oi tudo bem?', '2025-06-27 09:11:32', 0),
+(466, 66, 19, 'Oi tudo bem?', '2025-06-27 09:25:34', 0),
+(467, 66, 19, 'Oi tudo bem?', '2025-06-27 09:25:46', 0),
+(468, 66, 19, 'Oi tudo bem?', '2025-06-27 09:26:03', 0),
+(469, 66, 19, 'Oi tudo bem?', '2025-06-27 09:26:42', 0),
+(470, 66, 19, 'Oi tudo bem?', '2025-06-27 09:42:26', 0),
+(471, 66, 19, 'Oi tudo bem?', '2025-06-27 09:42:29', 0),
+(472, 66, 19, 'O produto disponível sim', '2025-06-27 09:42:46', 0),
+(473, 67, 20, 'Olá, este artigo ainda está disponível?', '2025-06-27 23:00:37', 0),
+(474, 67, 20, 'Olá, este artigo ainda está disponível?', '2025-06-27 23:01:03', 0),
+(475, 67, 20, 'Olá, este artigo ainda está disponível?', '2025-06-27 23:02:52', 0),
+(476, 67, 20, 'Olá, este artigo ainda está disponível?', '2025-06-27 23:05:03', 0),
+(477, 67, 20, 'Olá, este artigo ainda está disponível?', '2025-06-28 13:21:03', 0),
+(478, 67, 20, 'Olá, este artigo ', '2025-06-28 13:21:15', 0),
+(479, 68, 20, 'Olá, este artigo ainda está disponível?', '2025-06-28 13:34:34', 0);
 
 -- --------------------------------------------------------
 
@@ -233,13 +251,23 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `total_amount`, `user_name`, `user_phone`, `location`, `status`, `shipping_status`, `created_at`) VALUES
-(66, 52, 39.96, 'Kauan Fortunato', '910937520**', 'Rua dom duarte 2', 'pago', 'transito', '2025-06-18 20:17:15'),
+(66, 52, 39.96, 'Kauan Fortunato', '910937520**', 'Rua dom duarte 2', 'pago', 'enviado', '2025-06-18 20:17:15'),
 (70, 52, 2.00, 'kauan fortunatoss', '910937520', 'niggaaa', 'pago', 'enviado', '2025-06-18 21:08:21'),
 (71, 52, 2.00, 'kauan fortunatoss', '910937520', 'Rua Dom Duarte 2, Amadora, Portugal', 'pago', 'enviado', '2025-06-19 00:29:11'),
 (72, 52, 2.00, 'kauan fortunatoss', '910937520', 'Rússia', 'pago', 'entregue', '2025-06-19 00:31:43'),
 (73, 52, 10.00, 'kauan fortunatoss', '910937520', 'Nugaal, Somália', 'pendente', 'confirmado', '2025-06-19 00:34:16'),
 (74, 28, 48.99, 'Mordekai', '910 937 520', 'Blatten, Suíça', 'pago', 'entregue', '2025-06-21 13:32:44'),
-(75, 15, 1109.80, 'Kauan Fortunato', '910937520', 'Amadora, Portugal', 'pago', 'confirmado', '2025-06-24 10:09:45');
+(75, 15, 1109.80, 'Kauan Fortunato', '910937520', 'Amadora, Portugal', 'pago', 'confirmado', '2025-06-24 10:09:45'),
+(76, 20, 56.99, 'Bitman Biman', '123123123', 'Rua Dom Pedro II - Centro, Guarulhos - SP, Brasil', 'pago', 'confirmado', '2025-06-28 12:13:56'),
+(77, 20, 54.92, 'Bitman Biman', '25252525', 'Rügen, Alemanha', 'pago', 'confirmado', '2025-06-28 13:38:08'),
+(78, 20, 54.92, 'Bitman Biman', '123123', 'Geórgia', 'pago', 'confirmado', '2025-06-28 13:42:46'),
+(79, 20, 54.92, 'Bitman Biman', '123123', 'Hyderabad, Telangana, Índia', 'pago', 'confirmado', '2025-06-28 13:43:51'),
+(80, 20, 54.92, 'Bitman Biman', '123123', 'Gdansk, Polônia', 'pago', 'confirmado', '2025-06-28 13:55:30'),
+(81, 20, 629.39, 'Bitman Biman', '123123123', 'Amadora, Portugal', 'pago', 'confirmado', '2025-06-28 13:56:11'),
+(82, 20, 48.99, 'Bitman Biman', '645123123', 'HSR Layout, Bangalore, Karnataka, Índia', 'pago', 'confirmado', '2025-06-28 13:57:53'),
+(83, 20, 48.99, 'Bitman Biman', '123123', 'Ystad, Suécia', 'pago', 'confirmado', '2025-06-28 13:59:04'),
+(84, 20, 103.91, 'Bitman Biman', '123123', 'TT. Xuân Mai, Chương Mỹ, Hanói, Vietnã', 'pago', 'confirmado', '2025-06-28 14:18:02'),
+(85, 20, 54.92, 'Bitman Biman', '62434346', 'Hsinchu, North District, Hsinchu City, Taiwan', 'pago', 'confirmado', '2025-06-28 16:24:03');
 
 -- --------------------------------------------------------
 
@@ -267,7 +295,21 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `unit_pri
 (54, 72, 22, 1, 2.00),
 (55, 73, 11, 1, 10.00),
 (56, 74, 12, 1, 48.99),
-(57, 75, 4, 10, 110.98);
+(57, 75, 4, 10, 110.98),
+(58, 76, 12, 1, 48.99),
+(59, 76, 22, 1, 2.00),
+(60, 76, 23, 1, 6.00),
+(61, 77, 9, 1, 54.92),
+(62, 78, 9, 1, 54.92),
+(63, 79, 9, 1, 54.92),
+(64, 80, 9, 1, 54.92),
+(65, 81, 9, 7, 54.92),
+(66, 81, 12, 5, 48.99),
+(67, 82, 12, 1, 48.99),
+(68, 83, 12, 1, 48.99),
+(69, 84, 9, 1, 54.92),
+(70, 84, 12, 1, 48.99),
+(71, 85, 9, 1, 54.92);
 
 -- --------------------------------------------------------
 
@@ -289,13 +331,21 @@ CREATE TABLE `payments` (
 --
 
 INSERT INTO `payments` (`id`, `user_id`, `order_id`, `amount`, `status`, `created_at`) VALUES
-(37, 52, 66, 39.96, '', '2025-06-18 20:17:15'),
+(37, 52, 66, 39.96, 'concluido', '2025-06-18 20:17:15'),
 (41, 52, 70, 2.00, 'concluido', '2025-06-18 21:08:21'),
 (42, 52, 71, 2.00, 'concluido', '2025-06-19 00:29:11'),
 (43, 52, 72, 2.00, 'concluido', '2025-06-19 00:31:43'),
 (44, 52, 73, 10.00, 'concluido', '2025-06-19 00:34:16'),
 (45, 28, 74, 48.99, 'concluido', '2025-06-21 13:32:44'),
-(46, 15, 75, 1109.80, 'concluido', '2025-06-24 10:09:45');
+(46, 15, 75, 1109.80, 'concluido', '2025-06-24 10:09:45'),
+(47, 20, 76, 56.99, 'concluido', '2025-06-28 12:13:56'),
+(48, 20, 78, 54.92, 'concluido', '2025-06-28 13:42:46'),
+(49, 20, 80, 54.92, 'concluido', '2025-06-28 13:55:30'),
+(50, 20, 81, 629.39, 'concluido', '2025-06-28 13:56:11'),
+(51, 20, 82, 48.99, 'concluido', '2025-06-28 13:57:53'),
+(52, 20, 83, 48.99, 'concluido', '2025-06-28 13:59:04'),
+(53, 20, 84, 103.91, 'concluido', '2025-06-28 14:18:02'),
+(54, 20, 85, 54.92, 'concluido', '2025-06-28 16:24:03');
 
 -- --------------------------------------------------------
 
@@ -325,29 +375,29 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `user_id`, `title`, `description`, `price`, `price_before`, `category`, `quantity`, `rating`, `cover`, `location`, `created_at`, `updated_at`, `status`) VALUES
-(3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\r\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\r\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\r\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\r\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 523.02, 590.23, 'Consolas', 10, 3.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Xbox-Series-X-Test-1987881512.jpg', NULL, '2024-12-05 20:28:39', '2025-06-23 01:01:39', 'available'),
-(4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 10, 3.0, 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pngall.com%2Fwp-content%2Fuploads%2F2016%2F07%2FXbox-Free-Download-PNG.png&f=1&nofb=1&ipt=f1e2015ce576a3b63e40ab904d61db31b73a96df9fd250d40612ce6475e4f112&ipo=images', NULL, '2025-01-09 18:40:07', '2025-06-18 21:59:53', 'available'),
-(5, 19, '2DS Azul/Preto', 'O Nintendo 2DS mantém muitas das mesmas características de hardware como o Nintendo DS 3 incluindo o mesmo Nintendo 3DS gameplay controla, ao contrário de compatibilidade com a vasta biblioteca existente de jogos de Nintendo DS, bem como recursos de conectividade sem fio, como acesso a Nintendo eShop, além de funcionalidade StreetPass e o SpotPass.', 85.00, 122.00, 'Retro Gaming', 1, 3.7, 'https://pt.static.webuy.com/product_images/Jogos/3DS%20Consolas/S2DSAZUC_l.jpg', NULL, '2025-01-09 18:59:43', '2025-06-13 22:28:29', 'available'),
-(6, 28, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 10, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_310047-grand-theft-auto-v-xbox-360-front-cover-3516295299.png', NULL, '2025-01-09 18:59:43', '2025-06-18 21:59:53', 'available'),
-(7, 28, 'New Super Mario Bros 2ds', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 23.00, 28.00, 'Jogos', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496463106_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-18 21:59:53', 'available'),
-(8, 28, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 10, 2.6, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496470685_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-18 21:59:53', 'available'),
-(9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 54.92, 55.92, 'Acessórios', 1, 4.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0711719894650_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-15 00:46:30', 'available'),
-(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPS3ACCMOVE_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-18 21:59:53', 'available'),
-(11, 15, 'Xbox 360 Kinect (Sem FA)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 10.00, NULL, 'Acessórios', 10, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_S360KINSNXB_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-15 00:46:32', 'available'),
-(12, 15, 'Oficial Gamecube Indigo Controller', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 48.99, 71.99, 'Colecionáveis', 10, 3.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4902370505559_l.webp', NULL, '2025-01-11 23:31:19', '2025-06-15 00:46:34', 'available'),
-(13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Colecionáveis', 10, 2.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496370008_l.webp', NULL, '2025-01-11 23:31:19', '2025-06-12 21:34:30', 'available'),
-(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\n', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 225.00, 250.00, 'Retro Gaming', 10, 3.0, 'https://pt.static.webuy.com/product_images/Jogos/GameCube%20Consolas/SGCUGAMETS003_l.jpg', NULL, '2025-01-11 23:44:12', '2025-06-18 21:59:53', 'available'),
-(15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 165.00, 180.00, 'Consolas', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NSL32BL01_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:38', 'available'),
-(16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 265.00, NULL, 'Consolas', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NS64V3WH02_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:40', 'available'),
-(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 15.00, NULL, 'Acessórios', 10, 3.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNSWVAL08_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-18 21:59:53', 'available'),
-(18, 15, 'Official Nintendo Switch Preto Carry Case', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 8.00, NULL, 'Acessórios', 10, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_45496430597_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:43', 'available'),
-(19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 42.00, NULL, 'Acessórios', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_04549643PGRR_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:41', 'available'),
-(20, 15, 'PS Vita Preto 3G, Descontada', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 140.00, 155.00, 'Retro Gaming', 10, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPSVNEG3GC_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-15 00:46:45', 'available'),
-(21, 19, 'King Kong pc game', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 1.50, NULL, 'Jogos', 10, 3.5, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-06-18 21:59:53', 'available'),
-(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 10, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4012927120088_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-18 22:01:36', 'available'),
-(23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 1, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_5030917027598_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-12 21:34:30', 'available'),
+(3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 523.02, 590.23, 'Consolas', 31, 3.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Xbox-Series-X-Test-1987881512.jpg', NULL, '2024-12-05 20:28:39', '2025-06-28 12:54:28', 'available'),
+(4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 31, 3.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_Xbox-Free-Download-PNG-721582555.png', NULL, '2025-01-09 18:40:07', '2025-06-28 12:54:28', 'available'),
+(5, 19, '2DS Azul/Preto', 'O Nintendo 2DS mantém muitas das mesmas características de hardware como o Nintendo DS 3 incluindo o mesmo Nintendo 3DS gameplay controla, ao contrário de compatibilidade com a vasta biblioteca existente de jogos de Nintendo DS, bem como recursos de conectividade sem fio, como acesso a Nintendo eShop, além de funcionalidade StreetPass e o SpotPass.', 85.00, 122.00, 'Retro Gaming', 1, 3.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_S2DSAZUC_l.webp', NULL, '2025-01-09 18:59:43', '2025-06-28 12:50:40', 'available'),
+(6, 28, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 1, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_310047-grand-theft-auto-v-xbox-360-front-cover-3516295299.png', NULL, '2025-01-09 18:59:43', '2025-06-28 12:53:27', 'available'),
+(7, 28, 'New Super Mario Bros 2ds', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 23.00, 28.00, 'Jogos', 1, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496463106_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-28 12:53:27', 'available'),
+(8, 28, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 1, 2.6, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496470685_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-28 12:53:27', 'available'),
+(9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 54.92, 55.92, 'Acessórios', 21, 4.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0711719894650_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-28 15:24:03', 'available'),
+(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 31, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPS3ACCMOVE_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-28 12:54:28', 'available'),
+(11, 15, 'Xbox 360 Kinect (Sem FA)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 10.00, NULL, 'Acessórios', 31, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_S360KINSNXB_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-28 12:54:28', 'available'),
+(12, 15, 'Oficial Gamecube Indigo Controller', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 48.99, 71.99, 'Colecionáveis', 23, 3.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4902370505559_l.webp', NULL, '2025-01-11 23:31:19', '2025-06-28 13:18:02', 'available'),
+(13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Colecionáveis', 31, 2.7, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_045496370008_l.webp', NULL, '2025-01-11 23:31:19', '2025-06-28 12:54:28', 'available'),
+(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\n', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 225.00, 250.00, 'Retro Gaming', 31, 3.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SGCUGAMETS003_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-28 12:54:28', 'available'),
+(15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 165.00, 180.00, 'Consolas', 31, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NSL32BL01_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-28 12:54:28', 'available'),
+(16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 265.00, NULL, 'Consolas', 31, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_0454964NS64V3WH02_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-28 12:54:28', 'available'),
+(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 15.00, NULL, 'Acessórios', 31, 3.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNSWVAL08_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-28 12:54:28', 'available'),
+(18, 15, 'Official Nintendo Switch Preto Carry Case', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 8.00, NULL, 'Acessórios', 31, 2.8, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_45496430597_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-28 12:54:28', 'available'),
+(19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 42.00, NULL, 'Acessórios', 31, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_04549643PGRR_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-28 12:54:28', 'available'),
+(20, 15, 'PS Vita Preto 3G, Descontada', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 140.00, 155.00, 'Retro Gaming', 31, 3.2, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SPSVNEG3GC_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-28 12:54:28', 'available'),
+(21, 19, 'King Kong pc game', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 1.50, NULL, 'Jogos', 1, 3.5, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-06-28 12:53:27', 'available'),
+(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 31, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_4012927120088_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-28 12:54:28', 'available'),
+(23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 31, 3.3, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_5030917027598_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-28 12:54:28', 'available'),
 (24, 22, 'Gameboy Advance, Branco', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 90.00, 100.00, 'Retro Gaming', 1, 3.5, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_SNINGBACAW002_l.webp', NULL, '2025-02-19 00:10:21', '2025-06-16 19:15:28', 'available'),
-(67, 28, 'sla meu fi n ta dando', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sociosqu platea lorem sollicitudin phasellus eu a augue taciti nibh lectus hac sem taciti vivamus primis. Erat nec taciti sed augue vivamus volutpat finibus.\r\nEu nibh quis conubia maecenas turpis hendrerit. Ligula nostra ornare sollicitudin in pulvinar vitae posuere. Sed quis netus elit varius senectus sollicitudin mauris pulvinar vitae eros leo vitae. Maecenas suscipit arcu orci suspendisse est.\r\nNam consectetur fermentum tempor fusce ac donec. Consectetur ac porttitor rutrum suscipit donec nec tincidunt condimentum fames phasellus at nisi sed sit. Faucibus mollis taciti ornare ante iaculis sit condimentum himenaeos dictum quisque rutrum lorem viverra. Lectus feugiat justo lectus litora aliquet netus varius tempor.\r\nUrna eros sodales lacinia euismod ut ac quis. Tincidunt ac turpis sed vehicula dui fringilla sociosqu leo varius. Aliquam nulla ullamcorper odio urna pharetra tempus maecenas eros porta sapien.', 25.40, NULL, 'Colecionáveis', 1, 0.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684deff2256a45.02643957.jpg', 'Braga, Rua 21 de Agosto, Vimeiro, Portugal', '2025-06-14 21:56:02', '2025-06-16 23:22:16', 'available');
+(67, 28, 'Teste 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sociosqu platea lorem sollicitudin phasellus eu a augue taciti nibh lectus hac sem taciti vivamus primis. Erat nec taciti sed augue vivamus volutpat finibus.\r\nEu nibh quis conubia maecenas turpis hendrerit. Ligula nostra ornare sollicitudin in pulvinar vitae posuere. Sed quis netus elit varius senectus sollicitudin mauris pulvinar vitae eros leo vitae. Maecenas suscipit arcu orci suspendisse est.\r\nNam consectetur fermentum tempor fusce ac donec. Consectetur ac porttitor rutrum suscipit donec nec tincidunt condimentum fames phasellus at nisi sed sit. Faucibus mollis taciti ornare ante iaculis sit condimentum himenaeos dictum quisque rutrum lorem viverra. Lectus feugiat justo lectus litora aliquet netus varius tempor.\r\nUrna eros sodales lacinia euismod ut ac quis. Tincidunt ac turpis sed vehicula dui fringilla sociosqu leo varius. Aliquam nulla ullamcorper odio urna pharetra tempus maecenas eros porta sapien.', 40.00, NULL, 'Retro Gaming', 1, 0.0, 'http://poggers.ddns.net/PoggTech-APIs/uploads/img_684deff2256a45.02643957.jpg', 'Braga, Rua 21 de Agosto, Vimeiro, Portugal', '2025-06-14 21:56:02', '2025-06-28 12:51:11', 'available');
 
 --
 -- Triggers `products`
@@ -359,19 +409,17 @@ END
 $$
 DELIMITER ;
 DELIMITER $$
-CREATE TRIGGER `trg_quantity_above_zero` BEFORE UPDATE ON `products` FOR EACH ROW BEGIN
-    IF NEW.quantity > 0 THEN
-        SET NEW.status = 'available';
-    END IF;
-END
-$$
-DELIMITER ;
-DELIMITER $$
 CREATE TRIGGER `trg_quantity_zero` BEFORE UPDATE ON `products` FOR EACH ROW BEGIN
+    DECLARE tipo_vendedor VARCHAR(10);
+
+    SELECT type INTO tipo_vendedor
+    FROM users
+    WHERE user_id = NEW.user_id;
+
     IF NEW.quantity = 0 THEN
-        IF NEW.seller_type = 'admin' THEN
+        IF tipo_vendedor = 'admin' THEN
             SET NEW.status = 'nostock';
-        ELSEIF NEW.seller_type = 'user' THEN
+        ELSEIF tipo_vendedor = 'user' THEN
             SET NEW.status = 'sold';
         END IF;
     END IF;
@@ -611,15 +659,10 @@ CREATE TABLE `saved` (
 --
 
 INSERT INTO `saved` (`saved_id`, `user_id`, `product_id`, `tipo`, `quantity`, `created_at`) VALUES
-(470, 52, 8, 1, 1, '2025-06-17 21:01:30'),
-(479, 52, 12, 1, 1, '2025-06-18 08:52:34'),
-(480, 52, 15, 1, 1, '2025-06-18 08:52:36'),
-(482, 52, 6, 1, 1, '2025-06-18 08:55:33'),
-(483, 52, 20, 1, 1, '2025-06-18 08:56:35'),
-(484, 52, 14, 1, 1, '2025-06-18 08:56:55'),
 (507, 52, 23, 0, 1, '2025-06-23 15:23:12'),
 (508, 52, 9, 0, 1, '2025-06-23 15:23:17'),
-(509, 52, 17, 0, 1, '2025-06-23 15:23:22');
+(509, 52, 17, 0, 1, '2025-06-23 15:23:22'),
+(529, 52, 21, 1, 1, '2025-06-29 16:51:04');
 
 -- --------------------------------------------------------
 
@@ -647,7 +690,7 @@ INSERT INTO `users` (`user_id`, `firebase_uid`, `name`, `email`, `avatar`, `phon
 (15, 'bCXhKqZvrYTAZm867tMzpyNWWz33', 'Kauan Fortunato', 'kauanmatiasfortunato@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/avatar_6854376ddbd0e5.60378070.jpg', '910937520', 'admin', 1, '2024-11-27 20:52:50'),
 (18, 'A2YOrJ9js0ZUcec9r9EW9o4kXEZ2', 'Diogo Dioguinho', 'sayodiggo@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/poggers-11645679-default-avatar.png', ' 910310242', 'admin', 1, '2024-12-02 00:17:17'),
 (19, 'gO3K6796eQTMiVgss8MTarijpCg1', 'Rodrigo Alexandre', 'rodrigoalexandre@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/poggers-11645679-default-avatar.png', '930 463 424', 'user', 1, '2024-12-06 22:35:17'),
-(20, 'sC0UoxF2GwNtSiF2dWTo9UTFxN22', 'Bitman Biman', 'bitmanniggers@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/poggers-11645679-default-avatar.png', '', 'user', 1, '2024-12-06 23:42:22'),
+(20, 'sC0UoxF2GwNtSiF2dWTo9UTFxN22', 'Bitman Biman', 'bitman@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/poggers-11645679-default-avatar.png', '', 'user', 1, '2024-12-06 23:42:22'),
 (21, 'dbfjtKdnmdPpYoA5WfIOqbr3KOD3', 'Joao Santos', 'joaosantos@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/poggers-11645679-default-avatar.png', '', 'user', 1, '2024-12-09 18:02:46'),
 (22, '0pFZo8kGEGgrBs780ERuVTQ94CA2', 'santos fortunato', 'santosfortunato@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/poggers-11645679-default-avatar.png', '', 'user', 1, '2024-12-09 18:08:58'),
 (25, 'QFTTiIROtzLbSR0GpAslYStGYwD2', 'Diogo', 'diogadaesteves@gmail.com', 'http://poggers.ddns.net/PoggTech-APIs/uploads/avatars/poggers-11645679-default-avatar.png', '', 'user', 1, '2025-02-07 03:25:13'),
@@ -687,7 +730,7 @@ INSERT INTO `users_tokens` (`id_token`, `user_id`, `token`, `create_at`) VALUES
 (16, 15, 'cfqdAvsOTqurJQWIaM3Efe:APA91bGozKvoQ-OnoMCawcnIxnUJlhJJ-99KxuaQSgyAS-WZOLo10-kcR8tR3yeJHfyWoEtfTYdiVsn8IeI_67_5jn6zWOhl2bFxSUrwbRNXO7G7LPsZrqI', '2025-04-14 15:58:39'),
 (38, 28, 'cNQrYoKhSM6dH3bJuAwcR8:APA91bFfhjZ0pEB_D54I_lNHUEkVzi2xl16-Xpiy7agTAy3uG4HrKWpYP1f93bV5oMzugcut77XFDkCX8Phw4xN0ygEQt_u0cPkCTBV5OjbaJ8m4tVfjMhU', '2025-06-04 08:49:10'),
 (40, 28, 'f_6YJWjtQ3in1Yz7MgMSxC:APA91bGOYT-tDAmo3H29OATztCwX6JAQXpiTDJ7v2sBWr3Pa6lE262rubmRGqNdiyb0cccCYBMFkCQMQptJnuGvvdVAJjhB3iYRygT8p9cW8pIdJP2pPTOU', '2025-06-05 12:35:34'),
-(86, 28, 'cfTlNz3vQ5q-M5jAGegdWG:APA91bG0FUU2f20E95el8SWL2Nlb2ltApE7RiaRfEnJLMqNDmDVjRv4bIYAb59evEms3zcNSxqjweHg-kVN2FnVBAQ07ng4beCXGNcY3r9ZCImFc0ntgkkU', '2025-06-24 22:05:05');
+(104, 52, 'cfTlNz3vQ5q-M5jAGegdWG:APA91bG0FUU2f20E95el8SWL2Nlb2ltApE7RiaRfEnJLMqNDmDVjRv4bIYAb59evEms3zcNSxqjweHg-kVN2FnVBAQ07ng4beCXGNcY3r9ZCImFc0ntgkkU', '2025-06-29 16:50:52');
 
 -- --------------------------------------------------------
 
@@ -1849,7 +1892,65 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (1671, 15, 16, 'view', '2025-06-24 09:09:11'),
 (1672, 15, 9, 'view', '2025-06-24 09:09:17'),
 (1673, 15, 9, 'view', '2025-06-24 22:04:46'),
-(1674, 28, 5, 'view', '2025-06-24 22:05:09');
+(1674, 28, 5, 'view', '2025-06-24 22:05:09'),
+(1675, 15, 15, 'view', '2025-06-27 20:44:36'),
+(1676, 15, 16, 'view', '2025-06-27 20:45:05'),
+(1677, 15, 16, 'view', '2025-06-27 20:45:10'),
+(1678, 15, 4, 'view', '2025-06-27 20:45:13'),
+(1679, 15, 3, 'view', '2025-06-27 20:45:15'),
+(1680, 15, 3, 'view', '2025-06-27 20:47:15'),
+(1681, 15, 3, 'view', '2025-06-27 20:56:54'),
+(1682, 15, 3, 'view', '2025-06-27 21:03:09'),
+(1683, 15, 3, 'view', '2025-06-27 21:10:28'),
+(1684, 20, 12, 'view', '2025-06-27 22:50:56'),
+(1685, 20, 15, 'view', '2025-06-27 22:56:10'),
+(1686, 20, 13, 'view', '2025-06-27 22:56:22'),
+(1687, 20, 13, 'view', '2025-06-27 22:59:10'),
+(1688, 20, 13, 'fav', '2025-06-27 22:59:11'),
+(1689, 20, 5, 'view', '2025-06-27 23:00:35'),
+(1690, 20, 5, 'view', '2025-06-27 23:01:01'),
+(1691, 20, 5, 'view', '2025-06-27 23:02:50'),
+(1692, 20, 12, 'view', '2025-06-28 11:12:26'),
+(1693, 20, 12, 'fav', '2025-06-28 11:12:26'),
+(1694, 20, 22, 'view', '2025-06-28 11:12:32'),
+(1695, 20, 22, 'fav', '2025-06-28 11:12:33'),
+(1696, 20, 23, 'view', '2025-06-28 11:12:36'),
+(1697, 20, 23, 'fav', '2025-06-28 11:12:36'),
+(1698, 20, 6, 'view', '2025-06-28 11:12:40'),
+(1699, 20, 11, 'view', '2025-06-28 11:13:10'),
+(1700, 20, 11, 'fav', '2025-06-28 11:13:11'),
+(1701, 20, 18, 'view', '2025-06-28 11:13:14'),
+(1702, 20, 18, 'fav', '2025-06-28 11:13:15'),
+(1703, 20, 13, 'view', '2025-06-28 11:37:35'),
+(1704, 20, 9, 'view', '2025-06-28 12:21:28'),
+(1705, 20, 21, 'view', '2025-06-28 12:21:34'),
+(1706, 20, 9, 'view', '2025-06-28 12:21:37'),
+(1707, 20, 9, 'fav', '2025-06-28 12:21:39'),
+(1708, 20, 9, 'view', '2025-06-28 12:25:52'),
+(1709, 20, 12, 'view', '2025-06-28 12:43:16'),
+(1710, 20, 12, 'fav', '2025-06-28 12:43:17'),
+(1711, 20, 9, 'view', '2025-06-28 12:43:21'),
+(1712, 20, 9, 'fav', '2025-06-28 12:43:22'),
+(1713, 20, 9, 'view', '2025-06-28 12:55:43'),
+(1714, 20, 9, 'fav', '2025-06-28 12:55:46'),
+(1715, 20, 12, 'view', '2025-06-28 12:55:54'),
+(1716, 20, 12, 'fav', '2025-06-28 12:55:56'),
+(1717, 20, 12, 'view', '2025-06-28 12:57:40'),
+(1718, 20, 12, 'fav', '2025-06-28 12:57:41'),
+(1719, 20, 12, 'view', '2025-06-28 12:58:54'),
+(1720, 20, 12, 'fav', '2025-06-28 12:58:55'),
+(1721, 20, 12, 'view', '2025-06-28 13:07:18'),
+(1722, 20, 12, 'fav', '2025-06-28 13:07:20'),
+(1723, 20, 12, 'view', '2025-06-28 13:08:10'),
+(1724, 20, 9, 'view', '2025-06-28 13:14:17'),
+(1725, 20, 9, 'fav', '2025-06-28 13:14:18'),
+(1726, 20, 9, 'view', '2025-06-28 13:20:54'),
+(1727, 20, 5, 'view', '2025-06-28 13:21:01'),
+(1728, 20, 6, 'view', '2025-06-28 13:34:31'),
+(1729, 20, 9, 'view', '2025-06-28 15:23:50'),
+(1730, 20, 9, 'fav', '2025-06-28 15:23:51'),
+(1731, 20, 9, 'view', '2025-06-29 13:04:13'),
+(1732, 20, 8, 'view', '2025-06-29 13:04:28');
 
 -- --------------------------------------------------------
 
@@ -1891,6 +1992,19 @@ CREATE TABLE `v_chats_details` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `v_daily_metrics`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_daily_metrics` (
+`day` date
+,`new_users` decimal(42,0)
+,`total_orders` decimal(42,0)
+,`total_revenue` decimal(54,2)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `v_message_details`
 -- (See below for the actual view)
 --
@@ -1910,6 +2024,17 @@ CREATE TABLE `v_message_details` (
 ,`date_label` varchar(70)
 ,`TIMESTAMP` timestamp
 ,`timestamp_format` varchar(10)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_monthly_active_users`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_monthly_active_users` (
+`month` varchar(7)
+,`active_users` bigint(21)
 );
 
 -- --------------------------------------------------------
@@ -1956,6 +2081,19 @@ CREATE TABLE `v_popular_products` (
 ,`seller_type` enum('admin','user')
 ,`status` enum('sold','nostock','available')
 ,`view_count` int(11)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `v_products_sales`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_products_sales` (
+`product_id` int(11)
+,`product_name` varchar(150)
+,`total_sales` bigint(21)
+,`total_quantity_sold` decimal(32,0)
 );
 
 -- --------------------------------------------------------
@@ -2032,6 +2170,16 @@ CREATE TABLE `v_review_details` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `v_total_wallet`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_total_wallet` (
+`total_balance` decimal(32,2)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wallet`
 --
 
@@ -2053,7 +2201,7 @@ INSERT INTO `wallet` (`id`, `user_id`, `balance`) VALUES
 (8, 21, 0.00),
 (9, 19, 0.00),
 (10, 25, 0.00),
-(11, 20, 0.00),
+(11, 20, 25895.97),
 (33, 52, 280.40),
 (37, 56, 1.00);
 
@@ -2078,11 +2226,29 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Structure for view `v_daily_metrics`
+--
+DROP TABLE IF EXISTS `v_daily_metrics`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_daily_metrics`  AS SELECT `daily_data`.`day` AS `day`, sum(`daily_data`.`new_users`) AS `new_users`, sum(`daily_data`.`total_orders`) AS `total_orders`, sum(`daily_data`.`total_revenue`) AS `total_revenue` FROM (select cast(`users`.`created_at` as date) AS `day`,count(0) AS `new_users`,0 AS `total_orders`,0 AS `total_revenue` from `users` group by cast(`users`.`created_at` as date) union all select cast(`orders`.`created_at` as date) AS `day`,0 AS `new_users`,count(0) AS `total_orders`,0 AS `total_revenue` from `orders` group by cast(`orders`.`created_at` as date) union all select cast(`payments`.`created_at` as date) AS `day`,0 AS `new_users`,0 AS `total_orders`,sum(`payments`.`amount`) AS `total_revenue` from `payments` where `payments`.`status` = 'concluido' group by cast(`payments`.`created_at` as date)) AS `daily_data` GROUP BY `daily_data`.`day` ORDER BY `daily_data`.`day` DESC ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `v_message_details`
 --
 DROP TABLE IF EXISTS `v_message_details`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_message_details`  AS SELECT `m`.`id_message` AS `id_message`, `c`.`chat_id` AS `chat_id`, `p`.`user_id` AS `owner_id`, `m`.`sender_id` AS `sender_id`, `sender`.`name` AS `sender_name`, CASE WHEN `m`.`sender_id` = `c`.`seller_id` THEN `c`.`buyer_id` ELSE `c`.`seller_id` END AS `receiver_id`, CASE WHEN `m`.`sender_id` = `c`.`seller_id` THEN `buyer`.`name` ELSE `seller`.`name` END AS `receiver_name`, `c`.`product_id` AS `product_id`, `p`.`title` AS `product_title`, `p`.`cover` AS `product_cover`, `m`.`message` AS `message`, cast(`m`.`timestamp` as date) AS `date_raw`, CASE WHEN cast(`m`.`timestamp` as date) = curdate() THEN 'Hoje' WHEN cast(`m`.`timestamp` as date) = curdate() - interval 1 day THEN 'Ontem' ELSE date_format(`m`.`timestamp`,'%d de %M') END AS `date_label`, `m`.`timestamp` AS `TIMESTAMP`, date_format(`m`.`timestamp`,'%H:%i') AS `timestamp_format` FROM (((((`messages` `m` join `chats` `c` on(`m`.`chat_id` = `c`.`chat_id`)) join `products` `p` on(`c`.`product_id` = `p`.`product_id`)) join `users` `sender` on(`m`.`sender_id` = `sender`.`user_id`)) join `users` `seller` on(`c`.`seller_id` = `seller`.`user_id`)) join `users` `buyer` on(`c`.`buyer_id` = `buyer`.`user_id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_monthly_active_users`
+--
+DROP TABLE IF EXISTS `v_monthly_active_users`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_monthly_active_users`  AS SELECT date_format(`user_history`.`accessed_at`,'%Y-%m') AS `month`, count(distinct `user_history`.`user_id`) AS `active_users` FROM `user_history` GROUP BY date_format(`user_history`.`accessed_at`,'%Y-%m') ;
 
 -- --------------------------------------------------------
 
@@ -2101,6 +2267,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `v_popular_products`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_popular_products`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`user_id` AS `user_id`, `u`.`name` AS `user_name`, `p`.`title` AS `title`, `p`.`description` AS `description`, `p`.`price` AS `price`, `p`.`price_before` AS `price_before`, round((`p`.`price_before` - `p`.`price`) / `p`.`price_before` * 100,2) AS `discount_percentage`, `p`.`category` AS `category`, `p`.`quantity` AS `quantity`, `p`.`rating` AS `rating`, `p`.`cover` AS `cover`, `p`.`created_at` AS `created_at`, `p`.`updated_at` AS `updated_at`, `u`.`type` AS `seller_type`, `p`.`status` AS `status`, `pv`.`view_count` AS `view_count` FROM ((`products` `p` join `products_views` `pv` on(`p`.`product_id` = `pv`.`product_id`)) left join `users` `u` on(`p`.`user_id` = `u`.`user_id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_products_sales`
+--
+DROP TABLE IF EXISTS `v_products_sales`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_products_sales`  AS SELECT `p`.`product_id` AS `product_id`, `p`.`title` AS `product_name`, count(`oi`.`id`) AS `total_sales`, sum(`oi`.`quantity`) AS `total_quantity_sold` FROM (`products` `p` join `order_items` `oi` on(`oi`.`product_id` = `p`.`product_id`)) GROUP BY `p`.`product_id` ;
 
 -- --------------------------------------------------------
 
@@ -2128,6 +2303,15 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `v_review_details`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_review_details`  AS SELECT `r`.`review_id` AS `review_id`, `r`.`product_id` AS `product_id`, `r`.`user_id` AS `user_id`, `u`.`name` AS `user_name`, `u`.`avatar` AS `user_avatar`, `r`.`rating` AS `rating`, `r`.`comment` AS `comment`, `r`.`created_at` AS `created_at` FROM (`reviews` `r` join `users` `u` on(`r`.`user_id` = `u`.`user_id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `v_total_wallet`
+--
+DROP TABLE IF EXISTS `v_total_wallet`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_total_wallet`  AS SELECT sum(`wallet`.`balance`) AS `total_balance` FROM `wallet` ;
 
 --
 -- Indexes for dumped tables
@@ -2266,13 +2450,13 @@ ALTER TABLE `wallet`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `gallery`
@@ -2290,25 +2474,25 @@ ALTER TABLE `images`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=463;
+  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=480;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -2326,7 +2510,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `saved`
 --
 ALTER TABLE `saved`
-  MODIFY `saved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=512;
+  MODIFY `saved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=530;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -2338,13 +2522,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users_tokens`
 --
 ALTER TABLE `users_tokens`
-  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `user_history`
 --
 ALTER TABLE `user_history`
-  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1675;
+  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1733;
 
 --
 -- AUTO_INCREMENT for table `wallet`

@@ -23,6 +23,11 @@ class ProductController
         return $this->product->updateProduct($product_id, $data, $images);
     }
 
+    public function updateProductAdmin($product_id, $data, $images)
+    {
+        return $this->product->updateProductAdmin($product_id, $data, $images);
+    }
+
     public function deleteProduct($product_id)
     {
         return $this->product->deleteProduct($product_id);

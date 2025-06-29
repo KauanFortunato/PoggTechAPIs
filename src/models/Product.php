@@ -213,6 +213,122 @@ class Product
         }
     }
 
+    public function updateProductAdmin($productId, $data, $imagens)
+    {
+        try {
+            error_log("Atualizando produto ID: $productId com dados: " . print_r($data, true));
+            $this->conn->beginTransaction();
+
+            // 1. Atualizar os dados principais
+            $sql = "UPDATE products SET title = :title, description = :description, location = :location, 
+            price = :price, category = :category, quantity = :quantity, status = :status
+            WHERE product_id = :product_id";
+
+            $data['price'] = floatval(str_replace(',', '.', $data['price']));
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->execute([
+                ':title' => $data['title'],
+                ':description' => $data['description'],
+                ':location' => $data['location'],
+                ':price' => $data['price'],
+                ':category' => $data['category'],
+                ':quantity' => $data['quantity'],
+                ':status' => $data['status'],
+                ':product_id' => $productId
+            ]);
+
+            // 2. Obter galeria
+            $stmt = $this->conn->prepare("SELECT gallery_id FROM gallery WHERE product_id = :product_id");
+            $stmt->execute([':product_id' => $productId]);
+            $galleryId = $stmt->fetchColumn();
+
+            if (!$galleryId) {
+                throw new \Exception("Galeria não encontrada para o produto.");
+            }
+
+            // 3. Buscar todas imagens antigas do banco
+            $stmt = $this->conn->prepare("SELECT path FROM images WHERE gallery_id = :gallery_id");
+            $stmt->execute([':gallery_id' => $galleryId]);
+            $oldImages = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+            // 4. Pegar as imagens que o usuário quer manter
+            $existingImages = isset($data['existing_images']) ? $data['existing_images'] : [];
+
+            // 5. Determinar quais imagens remover
+            $imagesToDelete = array_diff($oldImages, $existingImages);
+
+            foreach ($imagesToDelete as $path) {
+                $relativePath = str_replace(BASE_URL, '', $path);
+                $filePath = realpath(__DIR__ . '/../../' . $relativePath);
+                if ($filePath && file_exists($filePath)) {
+                    unlink($filePath);
+                }
+
+                // Remover do banco
+                $stmt = $this->conn->prepare("DELETE FROM images WHERE gallery_id = :gallery_id AND path = :path");
+                $stmt->execute([
+                    ':gallery_id' => $galleryId,
+                    ':path' => $path
+                ]);
+            }
+
+            // 6. Inserir novas imagens, se houver
+            $newImagePaths = [];
+            $firstImagePath = null;
+            $uploadDir = __DIR__ . '/../../uploads/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+
+            if (!empty($imagens['tmp_name'])) {
+                if (!is_array($imagens['tmp_name'])) {
+                    foreach ($imagens as $key => $value) {
+                        $imagens[$key] = [$value];
+                    }
+                }
+
+                foreach ($imagens['tmp_name'] as $index => $tmpName) {
+                    if ($imagens['error'][$index] !== UPLOAD_ERR_OK) continue;
+
+                    $ext = pathinfo($imagens['name'][$index], PATHINFO_EXTENSION);
+                    $uniqueName = uniqid('img_', true) . '.' . $ext;
+                    $relativePath = 'uploads/' . $uniqueName;
+                    $uploadPath = $uploadDir . $uniqueName;
+
+                    if (move_uploaded_file($tmpName, $uploadPath)) {
+                        $publicUrl = BASE_URL . $relativePath;
+                        $newImagePaths[] = $publicUrl;
+
+                        $stmt = $this->conn->prepare("INSERT INTO images (gallery_id, path) VALUES (:gallery_id, :path)");
+                        $stmt->execute([
+                            ':gallery_id' => $galleryId,
+                            ':path' => $publicUrl
+                        ]);
+                    }
+                }
+            }
+
+            // 7. Atualizar imagem de capa
+            // prioridade: primeira imagem da nova lista total (existentes + novas)
+            $finalImages = array_merge($existingImages, $newImagePaths);
+            $firstImagePath = $finalImages[0] ?? null;
+
+            $stmt = $this->conn->prepare("UPDATE products SET cover = :cover WHERE product_id = :product_id");
+            $stmt->execute([
+                ':cover' => $firstImagePath,
+                ':product_id' => $productId
+            ]);
+
+            $this->conn->commit();
+            return ["success" => true, "message" => "Produto atualizado com sucesso."];
+        } catch (\Exception $e) {
+            $this->conn->rollBack();
+            error_log("Erro ao atualizar produto: " . $e->getMessage());
+            return ["success" => false, "message" => "Erro: " . $e->getMessage()];
+        }
+    }
+
     public function deleteProduct($product_id)
     {
         try {
@@ -290,6 +406,7 @@ class Product
                 "created_at" => $row["created_at"],
                 "updated_at" => $row["updated_at"],
                 "seller_type" => $row["seller_type"],
+                "review_count" => $row["review_count"],
                 "status" => $row["status"]
             ];
 
@@ -499,7 +616,7 @@ class Product
             $stock = $stmt->fetchColumn();
 
             if ($stock === false) {
-                return ["success" => false, "message" => "Produto não encontrado."];
+                return ["success" => false, "message" => "Produto não encontrado.", "data" => null];
             }
 
             // Verificar se já existe no carrinho
@@ -513,7 +630,7 @@ class Product
             if ($currentQuantity === false) $currentQuantity = 0;
 
             if ($currentQuantity >= $stock) {
-                return ["success" => false, "message" => "Não há mais stock disponível."];
+                return ["success" => false, "message" => "Não há mais stock disponível.", "data" => null];
             }
 
             if ($stock >= $quantity + $currentQuantity) {
@@ -526,12 +643,12 @@ class Product
                     ':quantity' => $quantity,
                     ':quantity_upd' => $quantity
                 ]);
-                return ["success" => true, "message" => "Adicionado ao carrinho com sucesso."];
+                return ["success" => true, "message" => "Adicionado ao carrinho com sucesso.", "data" => null];
             } else {
-                return ["success" => false, "message" => "Não há essa quantidade em stock."];
+                return ["success" => false, "message" => "Não há essa quantidade em stock.", "data" => null];
             }
         } catch (\Exception $e) {
-            return ["success" => false, "message" => "Erro: " . $e->getMessage()];
+            return ["success" => false, "message" => "Erro: " . $e->getMessage(), "data" => null];
         }
     }
 
