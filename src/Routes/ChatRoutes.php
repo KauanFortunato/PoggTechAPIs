@@ -56,7 +56,7 @@ $router->get('/chat/selling/(\d+)', function ($user_id) use ($controller) {
     $result = $controller->getSellingChats($user_id);
 
     if ($result['success']) {
-        Response::success($result['chats']);
+        Response::success($result['data']);
     } else {
         Response::error($result['message']);
     }
