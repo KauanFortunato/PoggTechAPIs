@@ -104,7 +104,6 @@ class Product
             error_log("Atualizando produto ID: $productId com dados: " . print_r($data, true));
             $this->conn->beginTransaction();
 
-            // 1. Atualizar os dados principais
             $sql = "UPDATE products SET title = :title, description = :description, location = :location, 
             price = :price, category = :category 
             WHERE product_id = :product_id";
@@ -121,7 +120,6 @@ class Product
                 ':product_id' => $productId
             ]);
 
-            // 2. Obter galeria
             $stmt = $this->conn->prepare("SELECT gallery_id FROM gallery WHERE product_id = :product_id");
             $stmt->execute([':product_id' => $productId]);
             $galleryId = $stmt->fetchColumn();
@@ -130,35 +128,27 @@ class Product
                 throw new \Exception("Galeria não encontrada para o produto.");
             }
 
-            // 3. Buscar todas imagens antigas do banco
             $stmt = $this->conn->prepare("SELECT path FROM images WHERE gallery_id = :gallery_id");
             $stmt->execute([':gallery_id' => $galleryId]);
             $oldImages = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-            // 4. Pegar as imagens que o usuário quer manter
             $existingImages = isset($data['existing_images']) ? $data['existing_images'] : [];
-
-            // 5. Determinar quais imagens remover
             $imagesToDelete = array_diff($oldImages, $existingImages);
 
-            foreach ($imagesToDelete as $path) {
-                $relativePath = str_replace(BASE_URL, '', $path);
-                $filePath = realpath(__DIR__ . '/../../' . $relativePath);
+            foreach ($imagesToDelete as $filename) {
+                $filePath = realpath(__DIR__ . '/../../uploads/' . $filename);
                 if ($filePath && file_exists($filePath)) {
                     unlink($filePath);
                 }
 
-                // Remover do banco
                 $stmt = $this->conn->prepare("DELETE FROM images WHERE gallery_id = :gallery_id AND path = :path");
                 $stmt->execute([
                     ':gallery_id' => $galleryId,
-                    ':path' => $path
+                    ':path' => $filename
                 ]);
             }
 
-            // 6. Inserir novas imagens, se houver
             $newImagePaths = [];
-            $firstImagePath = null;
             $uploadDir = __DIR__ . '/../../uploads/';
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
@@ -176,25 +166,29 @@ class Product
 
                     $ext = pathinfo($imagens['name'][$index], PATHINFO_EXTENSION);
                     $uniqueName = uniqid('img_', true) . '.' . $ext;
-                    $relativePath = 'uploads/' . $uniqueName;
                     $uploadPath = $uploadDir . $uniqueName;
 
                     if (move_uploaded_file($tmpName, $uploadPath)) {
-                        $publicUrl = BASE_URL . $relativePath;
-                        $newImagePaths[] = $publicUrl;
+                        $newImagePaths[] = $uniqueName;
 
                         $stmt = $this->conn->prepare("INSERT INTO images (gallery_id, path) VALUES (:gallery_id, :path)");
                         $stmt->execute([
                             ':gallery_id' => $galleryId,
-                            ':path' => $publicUrl
+                            ':path' => $uniqueName
                         ]);
                     }
                 }
             }
 
-            // 7. Atualizar imagem de capa
-            // prioridade: primeira imagem da nova lista total (existentes + novas)
+            // Filtrar existingImages: aceitar apenas nomes de arquivos válidos
+            $existingImages = array_filter($existingImages, function ($img) {
+                return preg_match('/^img_[a-zA-Z0-9_.-]+\.(jpg|jpeg|png|webp)$/', $img);
+            });
+
+            // Juntar imagens válidas (existentes + novas)
             $finalImages = array_merge($existingImages, $newImagePaths);
+
+            // Garantir que cover venha de uma imagem realmente salva
             $firstImagePath = $finalImages[0] ?? null;
 
             $stmt = $this->conn->prepare("UPDATE products SET cover = :cover WHERE product_id = :product_id");
@@ -218,10 +212,9 @@ class Product
             error_log("Atualizando produto ID: $productId com dados: " . print_r($data, true));
             $this->conn->beginTransaction();
 
-            // 1. Atualizar os dados principais
             $sql = "UPDATE products SET title = :title, description = :description, location = :location, 
-            price = :price, category = :category, quantity = :quantity, status = :status
-            WHERE product_id = :product_id";
+        price = :price, category = :category, quantity = :quantity, status = :status
+        WHERE product_id = :product_id";
 
             $data['price'] = floatval(str_replace(',', '.', $data['price']));
 
@@ -237,7 +230,6 @@ class Product
                 ':product_id' => $productId
             ]);
 
-            // 2. Obter galeria
             $stmt = $this->conn->prepare("SELECT gallery_id FROM gallery WHERE product_id = :product_id");
             $stmt->execute([':product_id' => $productId]);
             $galleryId = $stmt->fetchColumn();
@@ -246,35 +238,27 @@ class Product
                 throw new \Exception("Galeria não encontrada para o produto.");
             }
 
-            // 3. Buscar todas imagens antigas do banco
             $stmt = $this->conn->prepare("SELECT path FROM images WHERE gallery_id = :gallery_id");
             $stmt->execute([':gallery_id' => $galleryId]);
             $oldImages = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-            // 4. Pegar as imagens que o usuário quer manter
             $existingImages = isset($data['existing_images']) ? $data['existing_images'] : [];
-
-            // 5. Determinar quais imagens remover
             $imagesToDelete = array_diff($oldImages, $existingImages);
 
-            foreach ($imagesToDelete as $path) {
-                $relativePath = str_replace(BASE_URL, '', $path);
-                $filePath = realpath(__DIR__ . '/../../' . $relativePath);
+            foreach ($imagesToDelete as $filename) {
+                $filePath = realpath(__DIR__ . '/../../uploads/' . $filename);
                 if ($filePath && file_exists($filePath)) {
                     unlink($filePath);
                 }
 
-                // Remover do banco
                 $stmt = $this->conn->prepare("DELETE FROM images WHERE gallery_id = :gallery_id AND path = :path");
                 $stmt->execute([
                     ':gallery_id' => $galleryId,
-                    ':path' => $path
+                    ':path' => $filename
                 ]);
             }
 
-            // 6. Inserir novas imagens, se houver
             $newImagePaths = [];
-            $firstImagePath = null;
             $uploadDir = __DIR__ . '/../../uploads/';
             if (!file_exists($uploadDir)) {
                 mkdir($uploadDir, 0777, true);
@@ -292,25 +276,29 @@ class Product
 
                     $ext = pathinfo($imagens['name'][$index], PATHINFO_EXTENSION);
                     $uniqueName = uniqid('img_', true) . '.' . $ext;
-                    $relativePath = 'uploads/' . $uniqueName;
                     $uploadPath = $uploadDir . $uniqueName;
 
                     if (move_uploaded_file($tmpName, $uploadPath)) {
-                        $publicUrl = BASE_URL . $relativePath;
-                        $newImagePaths[] = $publicUrl;
+                        $newImagePaths[] = $uniqueName;
 
                         $stmt = $this->conn->prepare("INSERT INTO images (gallery_id, path) VALUES (:gallery_id, :path)");
                         $stmt->execute([
                             ':gallery_id' => $galleryId,
-                            ':path' => $publicUrl
+                            ':path' => $uniqueName
                         ]);
                     }
                 }
             }
 
-            // 7. Atualizar imagem de capa
-            // prioridade: primeira imagem da nova lista total (existentes + novas)
+            // Filtrar existingImages: aceitar apenas nomes de arquivos válidos
+            $existingImages = array_filter($existingImages, function ($img) {
+                return preg_match('/^img_[a-zA-Z0-9_.-]+\.(jpg|jpeg|png|webp)$/', $img);
+            });
+
+            // Juntar imagens válidas (existentes + novas)
             $finalImages = array_merge($existingImages, $newImagePaths);
+
+            // Garantir que cover venha de uma imagem realmente salva
             $firstImagePath = $finalImages[0] ?? null;
 
             $stmt = $this->conn->prepare("UPDATE products SET cover = :cover WHERE product_id = :product_id");
@@ -346,8 +334,7 @@ class Product
 
             // 3. Deletar imagens do servidor
             foreach ($imagesPaths as $imagePath) {
-                $relativePath = str_replace(BASE_URL, '', $imagePath);
-                $localPath = realpath(__DIR__ . '/../../' . $relativePath);
+                $localPath = realpath(__DIR__ . '/../../uploads/' . $imagePath);
 
                 if ($localPath && file_exists($localPath)) {
                     unlink($localPath);
