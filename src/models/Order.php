@@ -138,11 +138,17 @@ class Order
     public function getOrders($user_id)
     {
         try {
-            $ordersQuery = $this->conn->prepare(query: "
-                SELECT *
-                FROM orders
-                WHERE user_id = :user_id AND status != 'pendente'
-                ORDER BY created_at DESC
+            $ordersQuery = $this->conn->prepare("
+                SELECT 
+                    o.*, 
+                    EXISTS(
+                        SELECT 1 
+                        FROM refund_requests rr 
+                        WHERE rr.order_id = o.id AND rr.status = 'pendente'
+                    ) AS is_refund_pending
+                FROM orders o
+                WHERE o.user_id = :user_id AND o.status != 'pendente'
+                ORDER BY o.created_at DESC
             ");
             $ordersQuery->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $ordersQuery->execute();
@@ -173,7 +179,6 @@ class Order
                 $countStmt->execute();
                 $count = $countStmt->fetch(PDO::FETCH_ASSOC);
 
-
                 $result[] = [
                     'id' => $order['id'],
                     'total_amount' => $order['total_amount'],
@@ -185,7 +190,8 @@ class Order
                     'created_at' => $order['created_at'],
                     'created_at_format' => $created_at_format,
                     'images' => $images,
-                    'total_products' => $count['total_products']
+                    'total_products' => $count['total_products'],
+                    'is_refund_pending' => (bool)$order['is_refund_pending']
                 ];
             }
 
@@ -258,6 +264,64 @@ class Order
             ];
         } catch (\PDOException $e) {
             return ["success" => false, "message" => "Erro ao dar update no status de envio" . $e->getMessage(), "data" => null];
+        }
+    }
+
+    public function setRefundRequest($order_id, $user_id, $reason, $status)
+    {
+        try {
+            $stmt = $this->conn->prepare("
+                INSERT INTO refund_requests (order_id, user_id, reason, status)
+                VALUES (:order_id, :user_id, :reason, :status)
+            ");
+            $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindParam(':reason', $reason);
+            $stmt->bindParam(':status', $status);
+            $stmt->execute();
+
+            return [
+                "success" => true,
+                "message" => "Status do reembolso: `$status`",
+                "data" => null
+            ];
+        } catch (\PDOException $e) {
+            return ["success" => false, "message" => "Erro ao dar update no status de reembolso" . $e->getMessage(), "data" => null];
+        }
+    }
+
+    public function getAllRefundRequests()
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM refund_requests ORDER BY refund_id DESC");
+            $stmt->execute();
+            $refunds = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!empty($refunds)) {
+                return ["success" => true, "data" => $refunds];
+            } else {
+                return ["success" => false, "message" => "Nenhum produto foi encontrado"];
+            }
+        } catch (\PDOException $e) {
+            return ["success" => false, "message" => "Erro ao obter reembolsos" . $e->getMessage(), "data" => null];
+        }
+    }
+
+    public function getRefundRequest($order_id)
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM refund_requests WHERE order_id = :order_id ORDER BY refund_id DESC");
+            $stmt->bindParam(':order_id', $order_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $refund = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if (!empty($refund)) {
+                return ["success" => true, "data" => $refund];
+            } else {
+                return ["success" => false, "message" => "Nenhum produto foi encontrado"];
+            }
+        } catch (\PDOException $e) {
+            return ["success" => false, "message" => "Erro ao obter reembolsos" . $e->getMessage(), "data" => null];
         }
     }
 }

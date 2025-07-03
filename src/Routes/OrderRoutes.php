@@ -81,3 +81,52 @@ $router->put('/order/(\d+)/([^/]+)', function ($order_id, $newStatus) use ($conn
         Response::error($result['message']);
     }
 });
+
+// POST /order/refund → request refund
+$router->post('/order/refund', function () use ($conn) {
+    $data = json_decode(file_get_contents('php://input'), true);
+
+    if (!$data) {
+        $data = $_POST;
+    }
+
+    $controller = new OrderController($conn);
+    $result = $controller->setRefundRequest(
+        $data['order_id'],
+        $data['user_id'],
+        $data['reason'],
+        $data['status'],
+    );
+
+    if ($result['success']) {
+        Response::success($result['data'], $result['message']);
+    } else {
+        Response::error($result['message']);
+    }
+});
+
+// GET /Order/refund/ -> get request refunds
+$router->get('/order/refund', function () use ($conn) {
+
+    $controller = new OrderController($conn);
+    $result = $controller->getAllRefundRequests();
+
+    if ($result["success"]) {
+        Response::success($result['data'], "Pedidos de reembolsos encontrados");
+    } else {
+        Response::error("Nenhum pedido reembolso encontrado");
+    }
+});
+
+// GET /Order/refund/{order_id} -> get request refund
+$router->get('/order/refund/(\d+)', function ($order_id) use ($conn) {
+
+    $controller = new OrderController($conn);
+    $result = $controller->getRefundRequest($order_id);
+
+    if ($result["success"]) {
+        Response::success($result['data'], "Pedidos de reembolsos encontrados");
+    } else {
+        Response::error("Nenhum pedido reembolso encontrado");
+    }
+});

@@ -57,4 +57,19 @@ class OrderController
 
         return $result;
     }
+
+    public function setRefundRequest($order_id, $user_id, $reason, $status)
+    {
+        return $this->order->setRefundRequest($order_id, $user_id, $reason, $status);
+    }
+
+    public function getAllRefundRequests()
+    {
+        return $this->order->getAllRefundRequests();
+    }
+
+    public function getRefundRequest($order_id)
+    {
+        return $this->order->getRefundRequest($order_id);
+    }
 }
