@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/07/2025 às 22:27
+-- Tempo de geração: 03/07/2025 às 23:29
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -67,7 +67,9 @@ CREATE TABLE `chats` (
 INSERT INTO `chats` (`chat_id`, `product_id`, `seller_id`, `buyer_id`, `timestamp`) VALUES
 (66, 5, 19, 28, '2025-06-24 22:05:11'),
 (67, 5, 19, 20, '2025-06-27 23:00:37'),
-(68, 6, 28, 20, '2025-06-28 13:34:34');
+(68, 6, 28, 20, '2025-06-28 13:34:34'),
+(69, 8, 28, 15, '2025-07-02 21:54:37'),
+(70, 6, 28, 15, '2025-07-03 16:42:27');
 
 -- --------------------------------------------------------
 
@@ -325,7 +327,11 @@ INSERT INTO `messages` (`id_message`, `chat_id`, `sender_id`, `message`, `timest
 (477, 67, 20, 'Olá, este artigo ainda está disponível?', '2025-06-28 13:21:03', 0),
 (478, 67, 20, 'Olá, este artigo ', '2025-06-28 13:21:15', 0),
 (479, 68, 20, 'Olá, este artigo ainda está disponível?', '2025-06-28 13:34:34', 0),
-(480, 68, 20, 'Olaaa', '2025-06-29 20:20:20', 0);
+(480, 68, 20, 'Olaaa', '2025-06-29 20:20:20', 0),
+(481, 69, 15, 'Olá, este artigo ainda está disponível?', '2025-07-02 21:54:38', 1),
+(482, 70, 15, 'Olá, este artigo ainda está disponível?', '2025-07-03 16:42:27', 0),
+(483, 70, 28, 'Olá...', '2025-07-03 16:55:29', 0),
+(484, 70, 28, 'Olá...', '2025-07-03 16:55:35', 0);
 
 -- --------------------------------------------------------
 
@@ -350,7 +356,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `total_amount`, `user_name`, `user_phone`, `location`, `status`, `shipping_status`, `created_at`) VALUES
-(66, 52, 39.96, 'Kauan Fortunato', '910937520**', 'Rua dom duarte 2', 'pago', 'enviado', '2025-06-18 20:17:15'),
+(66, 52, 39.96, 'Kauan Fortunato', '910937520', 'Rua dom duarte 2', 'pago', 'enviado', '2025-06-18 20:17:15'),
 (70, 52, 2.00, 'kauan fortunatoss', '910937520', 'niggaaa', 'pago', 'enviado', '2025-06-18 21:08:21'),
 (71, 52, 2.00, 'kauan fortunatoss', '910937520', 'Rua Dom Duarte 2, Amadora, Portugal', 'pago', 'enviado', '2025-06-19 00:29:11'),
 (72, 52, 2.00, 'kauan fortunatoss', '910937520', 'Rússia', 'pago', 'entregue', '2025-06-19 00:31:43'),
@@ -366,7 +372,10 @@ INSERT INTO `orders` (`id`, `user_id`, `total_amount`, `user_name`, `user_phone`
 (82, 20, 48.99, 'Bitman Biman', '645123123', 'HSR Layout, Bangalore, Karnataka, Índia', 'pago', 'confirmado', '2025-06-28 13:57:53'),
 (83, 20, 48.99, 'Bitman Biman', '123123', 'Ystad, Suécia', 'pago', 'confirmado', '2025-06-28 13:59:04'),
 (84, 20, 103.91, 'Bitman Biman', '123123', 'TT. Xuân Mai, Chương Mỹ, Hanói, Vietnã', 'pago', 'confirmado', '2025-06-28 14:18:02'),
-(85, 20, 54.92, 'Bitman Biman', '62434346', 'Hsinchu, North District, Hsinchu City, Taiwan', 'pago', 'confirmado', '2025-06-28 16:24:03');
+(85, 20, 54.92, 'Bitman Biman', '62434346', 'Hsinchu, North District, Hsinchu City, Taiwan', 'pago', 'confirmado', '2025-06-28 16:24:03'),
+(86, 58, 38.00, 'Nuno', '34619731', 'Amadora, Portugal', 'pendente', 'confirmado', '2025-07-03 12:48:17'),
+(87, 58, 38.00, 'Nuno', '910937520', 'Rua Dom Duarte 2, Lisboa, Portugal', 'pago', 'confirmado', '2025-07-03 12:55:46'),
+(88, 28, 15.00, 'Mordekai', '910937520', 'Rua Dom Duarte 2, Amadora, Portugal', 'pago', 'confirmado', '2025-07-03 20:30:03');
 
 -- --------------------------------------------------------
 
@@ -408,7 +417,10 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `unit_pri
 (68, 83, 12, 1, 48.99),
 (69, 84, 9, 1, 54.92),
 (70, 84, 12, 1, 48.99),
-(71, 85, 9, 1, 54.92);
+(71, 85, 9, 1, 54.92),
+(72, 87, 107, 1, 8.00),
+(73, 87, 111, 1, 30.00),
+(74, 88, 118, 1, 15.00);
 
 -- --------------------------------------------------------
 
@@ -444,7 +456,10 @@ INSERT INTO `payments` (`id`, `user_id`, `order_id`, `amount`, `status`, `create
 (51, 20, 82, 48.99, 'concluido', '2025-06-28 13:57:53'),
 (52, 20, 83, 48.99, 'concluido', '2025-06-28 13:59:04'),
 (53, 20, 84, 103.91, 'concluido', '2025-06-28 14:18:02'),
-(54, 20, 85, 54.92, 'concluido', '2025-06-28 16:24:03');
+(54, 20, 85, 54.92, 'concluido', '2025-06-28 16:24:03'),
+(55, 58, 86, 38.00, 'falhou', '2025-07-03 12:48:17'),
+(56, 58, 87, 38.00, 'concluido', '2025-07-03 12:55:46'),
+(57, 28, 88, 15.00, 'concluido', '2025-07-03 20:30:03');
 
 -- --------------------------------------------------------
 
@@ -474,79 +489,79 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `user_id`, `title`, `description`, `price`, `price_before`, `category`, `quantity`, `rating`, `cover`, `location`, `created_at`, `updated_at`, `status`) VALUES
-(3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 523.02, 590.23, 'Consolas', 31, 3.0, 'img_Xbox-Series-X-Test-1987881512.jpg', NULL, '2024-12-05 20:28:39', '2025-06-29 17:55:46', 'available'),
-(4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 31, 3.0, 'img_Xbox-Free-Download-PNG-721582555.png', NULL, '2025-01-09 18:40:07', '2025-06-29 17:55:46', 'available'),
+(3, 15, 'Xbox Series X, 1tb, Preto', 'A nova série Xbox Jogue milhares de jogos em quatro gerações de console – todos os jogos têm uma ótima aparência e funcionam perfeitamente no Xbox Series\nExperimente velocidade e desempenho de próxima geração com Xbox Velocity Architecture, com SSD personalizado e software integrado\nJogue milhares de jogos de quatro gerações de Xbox com compatibilidade retroativa, incluindo títulos otimizados no lançamento\nO Xbox O Game Pass Ultimate inclui mais de 100 jogos de alta qualidade para consoles, PC, dispositivos móveis Android, multijogador online e uma assinatura do EA Play por um baixo preço mensal (assinatura vendida separadamente).\nUm Xbox Smart Delivery permite que você jogue a melhor versão do seu jogo, independentemente do console que você usa', 523.02, 590.23, 'Consolas', 31, 3.0, 'img_Xbox-Series-X-Test-1987881512.jpg', 'Rua dom Duarte 2, Amadora', '2024-12-05 20:28:39', '2025-07-02 20:42:02', 'available'),
+(4, 18, 'Xbox 360', 'Console em bom estado', 110.98, 120.00, 'Consolas', 31, 3.0, 'img_Xbox-Free-Download-PNG-721582555.png', 'Rua dom Duarte 2, Amadora', '2025-01-09 18:40:07', '2025-07-02 20:42:48', 'available'),
 (5, 19, '2DS Azul/Preto', 'O Nintendo 2DS mantém muitas das mesmas características de hardware como o Nintendo DS 3 incluindo o mesmo Nintendo 3DS gameplay controla, ao contrário de compatibilidade com a vasta biblioteca existente de jogos de Nintendo DS, bem como recursos de conectividade sem fio, como acesso a Nintendo eShop, além de funcionalidade StreetPass e o SpotPass.', 85.00, 122.00, 'Retro Gaming', 1, 3.7, 'img_S2DSAZUC_l.webp', NULL, '2025-01-09 18:59:43', '2025-06-29 17:55:46', 'available'),
 (6, 28, 'Grand Theft Auto V (5) 2 discos', 'Los Santos - uma alastrando sun-soaked metrópole cheio de self-help gurus, starlets, e desvanecimento celebridades, inveja do ocidental mundo, agora struggling para stay afloat em uma era de econômica incerteza e barato reality TV.\r\n\r\nAmidst o turmoil, três muito diferentes criminosos enredo suas próprias chances de sobrevivência e sucesso: Franklin, antiga rua gângster, agora procurando real oportunidades e grave dinheiro; Michael, um profissional ex-con aposentadoria é um muito menos do que ele esperança isso Seria e Trevor, um maníaco violento dirigido pela próxima grande pontuação. Ficando sem opções, a tripulação arrisca tudo em uma série de assaltos ousados e perigosas que podem defini-las pelo resto da vida.\r\n\r\nO maior, mais dinâmica e mais diversas abrir mundo jamais criado, Grand Theft Auto V combina narrativa e jogabilidade em novas formas, como jogadores repetidamente saltar dentro e fora da vida dos três personagens de chumbo do jogo, jogando todos os lados da história do jogo entrelaçadas.\r\n\r\nTodas as características clássicas da inovadora série de retorno, incluindo a incrível atenção ao detalhe e Grand Theft Auto sombriamente humorístico leve na cultura moderna, ao lado de uma abordagem nova e ambiciosa para abrir o mundo multiplayer.', 15.00, 20.00, 'Jogos', 1, 3.3, 'img_310047-grand-theft-auto-v-xbox-360-front-cover-3516295299.png', NULL, '2025-01-09 18:59:43', '2025-06-29 17:55:46', 'available'),
 (7, 28, 'New Super Mario Bros 2ds', 'New Super Mario Bros características enorme vívida 2D mundos inspiraram por aqueles das aventuras de Mario clássicas, mas combinado com lindamente prestados personagens 3D que quase parecem saltar para fora da tela. Cada mundo tem um tema diferente e apresenta vários níveis, que devem ser concluídos antes de avançar para o próximo. Os jogadores também devem dominar mini fortaleza do mundo cada e bater um personagem chefe antes que podem progredir para o próximo mundo. Só depois de derrotar todos os chefes um personagem será pronto para enfrentar o derradeiro desafio do Bowser ele mesmo.', 23.00, 28.00, 'Jogos', 1, 2.8, 'img_045496463106_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-29 17:55:46', 'available'),
-(8, 28, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 1, 2.6, 'img_045496470685_l.webp', NULL, '2025-01-11 23:26:18', '2025-06-29 17:55:46', 'available'),
-(9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 54.92, 55.92, 'Acessórios', 31, 4.0, 'img_0711719894650_l.webp', NULL, '2025-01-11 23:29:49', '2025-07-02 19:50:23', 'available'),
-(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 31, 2.8, 'img_SPS3ACCMOVE_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-29 17:55:46', 'available'),
-(11, 15, 'Xbox 360 Kinect (Sem FA)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 10.00, NULL, 'Acessórios', 31, 3.3, 'img_S360KINSNXB_l.webp', NULL, '2025-01-11 23:29:49', '2025-06-29 17:55:46', 'available'),
-(12, 15, 'Oficial Gamecube Indigo Controller', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 48.99, 71.99, 'Colecionáveis', 31, 3.8, 'img_4902370505559_l.webp', NULL, '2025-01-11 23:31:19', '2025-07-02 19:50:23', 'available'),
-(13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Colecionáveis', 31, 2.7, 'img_045496370008_l.webp', NULL, '2025-01-11 23:31:19', '2025-06-29 17:55:46', 'available'),
-(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\n', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 225.00, 250.00, 'Retro Gaming', 31, 3.0, 'img_SGCUGAMETS003_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-29 17:55:46', 'available'),
-(15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 165.00, 180.00, 'Consolas', 31, 2.8, 'img_0454964NSL32BL01_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-29 17:55:46', 'available'),
-(16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 265.00, NULL, 'Consolas', 31, 2.8, 'img_0454964NS64V3WH02_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-29 17:55:46', 'available'),
-(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 15.00, NULL, 'Acessórios', 31, 3.0, 'img_SNSWVAL08_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-29 17:55:46', 'available'),
-(18, 15, 'Official Nintendo Switch Preto Carry Case', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 8.00, NULL, 'Acessórios', 31, 2.8, 'img_45496430597_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-29 17:55:46', 'available'),
-(19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 42.00, NULL, 'Acessórios', 31, 3.2, 'img_04549643PGRR_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-29 17:55:46', 'available'),
-(20, 15, 'PS Vita Preto 3G, Descontada', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 140.00, 155.00, 'Retro Gaming', 31, 3.2, 'img_SPSVNEG3GC_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-29 17:55:46', 'available'),
+(8, 28, 'Inazuma Eleven', 'Sequências de anime cativante enriquecem o enredo nesta aventura e os jogadores são capazes de explorar a cidade no jogo para procurar potenciais companheiros de equipe. Existem mais de 1000 personagens no jogo que você pode explorar, cada um com suas próprias estatísticas, habilidades únicas e habilidades especiais.', 18.00, 20.00, 'Jogos', 1, 2.6, 'img_045496470685_l.webp', 'Rua Dom Duarte 2A, Lisboa, Portugal', '2025-01-11 23:26:18', '2025-07-02 21:45:18', 'available'),
+(9, 15, 'PS4 Official DualShock 4 Branco Controller (V2)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 54.92, 55.92, 'Acessórios', 31, 4.0, 'img_0711719894650_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:29:49', '2025-07-02 20:42:02', 'available'),
+(10, 15, 'Playstation Move Motion Controller V1 (CECH-ZCM 1) (PS3/PS4)', 'PlayStation Move redefine os jogos de movimento com experiência de jogo mais envolvente e realista só é possível no sistema PlayStation3. O controlador simples, fácil de usar captura uma gama completa de movimento, dando-lhe controle final sobre como você joga o jogo. Com uma variada selecção de jogos e os novos lançamento todo o tempo, pode desfrutar de horas de diversão com amigos e família.', 11.32, 12.32, 'Acessórios', 31, 2.8, 'img_SPS3ACCMOVE_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:29:49', '2025-07-02 20:42:02', 'available'),
+(11, 15, 'Xbox 360 Kinect (Sem FA)', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 10.00, NULL, 'Acessórios', 31, 3.3, 'img_S360KINSNXB_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:29:49', '2025-07-02 20:42:02', 'available'),
+(12, 15, 'Oficial Gamecube Indigo Controller', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 48.99, 71.99, 'Colecionáveis', 31, 3.8, 'img_4902370505559_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:31:19', '2025-07-02 20:42:02', 'available'),
+(13, 15, 'Gamecube, Indigo (Sem Jogo), Sem Caixa', 'Um olhar para o hardware do Nintendo Game Cube e você sabe que é diferente.\r\n\r\nA forma compacta não é apenas prática, que o projeto original é um símbolo do compromisso da Nintendo para se concentrar na criação de jogos de vídeo mais original e inovador do mundo.', 150.00, NULL, 'Colecionáveis', 31, 2.7, 'img_045496370008_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:31:19', '2025-07-02 20:42:02', 'available'),
+(14, 15, 'Gamecube, Tales of Symphonia L.E + G.B Player,(Sem Jogo)\n', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 225.00, 250.00, 'Retro Gaming', 31, 3.0, 'img_SGCUGAMETS003_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:44:12', '2025-07-02 20:42:02', 'available'),
+(15, 15, 'Nintendo Switch Lite Consola, 32GB Azul, Caixa', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 165.00, 180.00, 'Consolas', 31, 2.8, 'img_0454964NSL32BL01_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:44:12', '2025-07-02 20:42:02', 'available'),
+(16, 15, 'Switch Consola, 64GB OLED + Branca Joy-Con', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 265.00, NULL, 'Consolas', 31, 2.8, 'img_0454964NS64V3WH02_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:44:12', '2025-07-02 20:42:02', 'available'),
+(17, 15, 'Generico 3rd Party Joy-Con Comfort Grip', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 15.00, NULL, 'Acessórios', 31, 3.0, 'img_SNSWVAL08_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:44:12', '2025-07-02 20:42:02', 'available'),
+(18, 15, 'Official Nintendo Switch Preto Carry Case', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 8.00, NULL, 'Acessórios', 31, 2.8, 'img_45496430597_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:44:12', '2025-07-02 20:42:02', 'available'),
+(19, 15, 'Nintendo Switch Joy-Con Direito Verde Pastel, Sem Correia', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 42.00, NULL, 'Acessórios', 31, 3.2, 'img_04549643PGRR_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:44:12', '2025-07-02 20:42:02', 'available'),
+(20, 15, 'PS Vita Preto 3G, Descontada', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 140.00, 155.00, 'Retro Gaming', 31, 3.2, 'img_SPSVNEG3GC_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:44:12', '2025-07-02 20:42:02', 'available'),
 (21, 19, 'King Kong pc game', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 1.50, NULL, 'Jogos', 1, 3.5, 'img_3307210201669_l.jpg', NULL, '2025-01-11 23:44:12', '2025-06-29 17:55:46', 'available'),
-(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 31, 3.3, 'img_4012927120088_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-29 17:55:46', 'available'),
-(23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 31, 3.3, 'img_5030917027598_l.webp', NULL, '2025-01-11 23:44:12', '2025-06-29 17:55:46', 'available'),
+(22, 15, 'Pro Evolution Soccer 6', 'PES6 para o PS2 é quase idênticos à versão 360 magistral: jogável através do éter, graças à compatibilidade jogar Net e PSP-para-PSP, mas com Visual de sempre-assim-ligeiramente degradada. Não importa. Pro Evolution tem sido sempre a jogabilidade e 6 tem isso tudo e muito mais. Esta vez ao redor, o sistema de disparo foi refinado. Os jogadores são capazes de assumir um pop de gol mais instintivamente do que da última vez para fora, e voleios e metade-voleios tiveram um re-vamp também. Fintas, ao contrário, dribles e reter a posse após um tackle de slide são também novos recursos para 2006. As coisas podem ficar mais físicas no PES6, com defensores fechando os atacantes muito mais em evidência, defensiva de bloqueio (legal ou ilegal) e esperto novo se transforma para os jogadores mais altamente cotados no jogo. Essas coisas levam tempo para aprender, mas é muito divertido ficar lá.', 2.00, NULL, 'Jogos', 31, 3.3, 'img_4012927120088_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:44:12', '2025-07-02 20:42:02', 'available'),
+(23, 18, 'Spider-Man 2', 'Desta vez lá é onde que você não pode ir.\n\nDois anos se passaram desde que Peter Parker primeiro hit nas ruas de Nova York como o combatente do crime em conflito Spider-Man. Agora ele encontra-se lutando contra seu vilão mais diabólico, no entanto, a mecanizada, vários tentáculos Doc Ock. O Nefasto Doc Ock foi Dr. Otto Octavius, um brilhante físico nuclear. Mas um acidente transformou-o de um pesquisador tímido para criminosos insano megalomaníaco que culpa Spider-Man para sua transformação horrível. Agora o cientista Peter uma vez idolatrado por seu notável intelecto marcou nosso lançador-web para a morte.', 6.00, NULL, 'Jogos', 31, 3.3, 'img_5030917027598_l.webp', 'Rua dom Duarte 2, Amadora', '2025-01-11 23:44:12', '2025-07-02 20:42:48', 'available'),
 (24, 22, 'Gameboy Advance, Branco', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.', 90.00, 100.00, 'Retro Gaming', 1, 3.5, 'img_SNINGBACAW002_l.webp', NULL, '2025-02-19 00:10:21', '2025-06-29 17:55:46', 'available'),
-(105, 15, 'Mickey Mouse Magical Mirror', 'Em Mickey Mouse Magical Mirror, um fantasma travesso aprisiona um rato Mickey que anda dormindo no espelho titular. Preso em um universo alternativo que estranhamente se assemelha a sua própria casa, Mickey anseia para voltar através do espelho para sua cama e sonhos doces. Voltar não será fácil, embora Mickey deve primeiro recuperar as peças quebradas espelho que foram espalhados sobre a casa pelo poltergeist pranky.\r\n\r\nOs jovens têm a certeza de aplaudir o simples mas elegante jogo mecânica jogadores controlar uma luva, apontando e clicando para orientar Mickey para o seu próximo destino. Assim como em um autêntico Mickey cartoon, você terá que enganar os inimigos e puxar gags. Charme e grande humor resultam quando Mickey controla alguns brinquedos incríveis como faz o fantasma de fazer problemas.', 8.00, NULL, 'Jogos', 31, 4.2, 'img_686580175c7975.74578249.jpg', '', '2025-07-02 18:53:11', '2025-07-02 20:22:57', 'available'),
-(106, 15, 'LEGO Marvel Super Heroes: Universe in Peril', 'Os Avengers não são os únicos a juntar as peças em LEGO Marvel Super Heroes: Universe in Peril! O Dr. Doom alia vários supervilões para criar a arma derradeira e Nick Fury vê-se obrigado a convocar super-heróis de todo o mundo para que, juntos, possam derrotar os mauzões! Será que os maiores heróis do mundo conseguirão suplantar o poder combinado de Dr. Doom, Loki, Dr. Octopus e tantos outros para salvar o planeta?\r\n\r\nO LEGO Marvel Super Heroes: Universe in Peril reúne personagens do universo Marvel, desde as favoritas dos fãs Iron Man, Spider-Man e Wolverine às menos conhecidas, tais como Squirrel Girl e Howard the Duck! Há mais de 150 super-heróis e supervilões para desbloquear, cada qual com as suas próprias habilidades e animações. O Captain America pode usar o escudo para redirecionar lasers e criar novas plataformas, e o Iron Man consegue voar, disparar mísseis e lançar o seu poderoso Unibeam do peito – e se te vires rodeado de inimigos ferozes, o Hulk esmaga-os por ti!\r\n\r\nLuta como nunca antes lutaste com o Hulk, o Abomination e outros – Minifiguras enormes com uma força inigualável! Certas personagens podem tornar-se gigantes para desferir golpes devastadores sobre os inimigos e desbloquear novas habilidades. Os jogadores mais criativos podem também inventar super-heróis personalizados ao combinar partes e poderes de várias personagens para criar uma figura única que combata o crime – ou que o cometa.', 8.00, NULL, 'Jogos', 31, 3.8, 'img_68658062ebd063.47804790.jpg', '', '2025-07-02 18:54:26', '2025-07-02 20:22:57', 'available'),
-(107, 15, 'Wii Sports (Cardboard Sleeve)', 'Faz o aquecimento e entra em acção com o famoso jogo de desportos que te vai cativar desde o primeiro balançar de raquete! Wii Sports oferece cinco experiências desportivas distintas, utilizando o Comando Remoto Wii para proporcionar uma sensação natural, intuitiva e realista. No jogo de Ténis, segura o comando como se fosse uma raquete e balança-o de maneira a poderes fazer todo o tipo de jogadas jogadas batidas do lado direito ou esquerdo, bolas altas e baixas, dependendo da velocidade a que balanças e do ângulo. No jogo de Basebol, o comando é manuseado como um taco com o qual vais poder bater bolas rápidas e fazer um home run.\r\n\r\nNo Golfe, agarra o comando como se de um taco de golfe se tratasse e balança-o de forma a atirar a bola para o green. Com o Bowling, levanta o Comando Remoto Wii como se fosse mesmo uma bola de bowling, e balança os braços para a lançares. No jogo de Boxe, usa o comando Nunchuck e o Comando Remoto Wii como se fossem luvas, de maneira a fintares e soqueares os teus adversários. Independentemente de seres um desportista exímio ou um principiante, o Wii Sports é uma experiência que vais querer sempre repetir!', 8.00, NULL, 'Jogos', 31, 3.6, 'img_686580954fa1d6.44155101.jpg', '', '2025-07-02 18:55:17', '2025-07-02 20:22:57', 'available'),
-(108, 15, 'Wii Fit Plus - Game Only', 'Wii Fit Plus agora vai permitir que você verifique e monitorar 4 áreas do seu físico, IMC (índice de massa corporal), centro de gravidade, e calorias queimadas durante o treino você pode então definir seus objetivos, contra essas áreas. O teste de IMC mede o seu peso/altura Wii Fit Plus tomará esta medida e deixá-lo-á saber como você justo em comparação com o ideal. Uma vez que você está ciente de seu IMC você pode definir metas para reduzir esta medida, por participar da Wii Fit Plus exercícios e apresentando um estilo de vida mais saudável. O seu centro de gravidade é medido através do Wii Fit Plus teste de idade em que você vai assumir o equilíbrio de vários em uma tentativa de manter o seu Wii Fit Plus idade tão perto ou menor do que a idade real.', 1.00, NULL, 'Jogos', 31, 4.2, 'img_686580c5d4a2c4.24642675.jpg', '', '2025-07-02 18:55:55', '2025-07-02 20:22:57', 'available'),
-(109, 15, 'Wii Sports Resort (Normal DVD Case)', 'Em Wii Sports Resort és convidado a viajar até a uma soalheira ilha onde a diversão e a competição se unem e onde toda a acção desportiva pode ser controlada com um comando fantástico! Lembras-te da emoção de bateres a bola pela primeira vez em Wii Sports Tennis? Nesses primeiros momentos com o Comando Wii na tua mão, tornou-se claro que estavas perante uma nova era no mundo dos videojogos.\r\n\r\nO Wii Sports Resort eleva os controlos divertidos e intuitivos do Wii Sports original a um novo nível, introduzindo toda uma nova gama de actividades divertidas e fisicamente envolventes. Num desafio, ver-te-ás envolvido em acção de esgrima numa plataforma cercada de um mar azul tranquilo. Mas por mais apelativa que a água possa parecer, o objectivo do exercício é certificares-te de que é o teu adversário que acaba por ir parar à água! Os controlos com precisão garantem que cada movimento que fazes com a espada é reproduzido com a máxima precisão.', 19.98, NULL, 'Jogos', 31, 3.8, 'img_686581037bc700.59793341.jpg', '', '2025-07-02 18:57:07', '2025-07-02 20:22:57', 'available'),
-(110, 15, 'Tomb Raider II starring Lara Croft, Platinum Ed., Perfeito', '', 46.92, NULL, 'Jogos', 31, 3.6, 'img_68658145ace471.38514579.jpg', '', '2025-07-02 18:58:06', '2025-07-02 20:22:57', 'available'),
-(111, 15, 'MediEvil, Platinum Ed., Caixa', '', 30.00, NULL, 'Jogos', 31, 4.2, 'img_68658170a146d9.75882565.jpg', '', '2025-07-02 18:58:56', '2025-07-02 20:22:57', 'available'),
-(112, 15, 'Final Fantasy VIII (4 Discos), Caixa', '', 35.00, NULL, 'Jogos', 31, 3.6, 'img_686581a8c952b0.13122351.jpg', '', '2025-07-02 18:59:52', '2025-07-02 20:22:57', 'available'),
-(113, 15, 'Red Dead Redemption 2 (2 Disc) (Sem DLC)', 'Conhecido como Grand Theft Auto do velho oeste, dá sequência a Red Dead Redemption, trazendo muita ação numa aventura. Considerado um \"conto épico da vida no interior implacável da América\", o game sempre surpreendeu seus fãs, com a riqueza na história do game, da jogabilidade, seus personagens com suas personalidades bem marcantes e de seus mapas com suas diversas opções de exploração. Red Dead Redemption 2 o jogo possui mundo aberto, criando muito mais possibilidades para os jogadores. Sinta-se no velho oeste, a ambientação do game tenta trazer aos players uma imersão a época que o jogo se passa, utilize seus revólveres, monte em seu cavalo e explore as cidades, florestas, lagos, fazendas e muitas outras coisas presentes em Red Dead Redemption.', 28.00, NULL, 'Jogos', 31, 4.2, 'img_686581d63337a2.25015618.jpg', '', '2025-07-02 19:00:25', '2025-07-02 20:22:57', 'available'),
-(114, 15, 'FIFA 17', 'FIFA 17 transforma a maneira de jogar, competir e conectar emocionalmente com o jogo. FIFA 17 submerge-lo em experiências futebol autênticos, aproveitando a sofisticação de um novo motor de jogo, enquanto introduzindo-lhe jogadores de futebol cheio de profundidade e emoção, e levá-lo a marca novos mundos acessíveis apenas no jogo. completa inovação na forma como os jogadores pensam e movimento, interagir fisicamente com os adversários, e executar no ataque permite que você possui todos os momentos em campo.', 3.50, NULL, 'Jogos', 31, 4.2, 'img_68658207b2e5c1.65756193.jpg', '', '2025-07-02 19:01:27', '2025-07-02 20:22:57', 'available'),
-(115, 15, 'Mario Kart 8 Deluxe', 'Acertar a estrada com a versão definitiva do Mario Kart 8 e jogar a qualquer hora, em qualquer lugar! Corrida seus amigos ou batalha-los em um modo de batalha revista em campos de batalha novos e de retorno. Reproduza localmente em até 4 jogadores multiplayer em 1080p enquanto estiver jogando no modo TV. Além disso, os Inklings aparecem como novos personagens convidados, juntamente com os favoritos que retornam, como King Boo, Dry Bones e Bowser Jr.!', 48.00, NULL, 'Jogos', 31, 3.6, 'img_686582376969a8.98180526.jpg', '', '2025-07-02 19:02:15', '2025-07-02 20:22:57', 'available'),
-(116, 15, 'Gran Turismo 5', 'Isto é sem demo ou spin-off, este é jogo que todos carro entusiastas está esperando como lendário real condução simulador finalmente rola fora da produção linha. O resultado do quatro anos trabalho por uma equipe de centenas.\r\n\r\nEscusado será dizer que o novo jogo parece surpreendente - mesmo distante melhor do que Gran Turismo 5 Prologue - mas como sempre beleza do Gran Turismo é que conduz tão realista quanto parece. Com 950 carros diferentes modelados para um maior grau de precisão do que nunca, isto também possui fabricantes mais do que qualquer outro jogo - incluindo, pela primeira vez, Lamborghini e Bugatti.\r\n\r\nOutras fã demandas que finalmente foram atendidas, incluindo totalmente realista danos-modelagem, um 16 jogadores online modo, dinâmico tempo mudanças e noite corridas. Mais realista do que isso e você iria ser nocauteado pelos vapores de gasolina.', 4.00, NULL, 'Jogos', 31, 3.6, 'img_6865826140bd17.87980173.jpg', '', '2025-07-02 19:02:57', '2025-07-02 20:23:42', 'available'),
-(117, 15, 'Call of Duty: Modern Warfare (2019)', 'Acelera para uma reinvenção inovadora e orientada para a narrativa da clássica série Call Of Duty: Modern Warfare.\r\n\r\nMergulha numa inovadora e ousada encarnação da série Modern Warfare.\r\n\r\nDesenvolvido pela Infinity Ward, os criadores originais da série Modern Warfare, esta versão embarca-te numa visceral campanha de um jogador, que irá desafiar os teus limites e desbravar caminhos para esta série de jogos.\r\n\r\nEnvolve-te em vertiginosas operações secretas juntamente com um equipa internacional de operacionais especialistas e lutadores pela liberdade, abrindo o teu caminho por entre icónicos monumentos europeus e zonas voláteis do Médio Oriente.', 20.00, NULL, 'Jogos', 31, 4.2, 'img_686582875433a1.07305475.jpg', '', '2025-07-02 19:03:35', '2025-07-02 20:23:42', 'available'),
-(118, 15, 'New Super Mario Bros 2', 'Mario e seus amigos do Reino do cogumelo estão nesta última parcela da série de aventura de plataforma lateral famoso. Mais recente aventura de Mario está repleto de todo a lado-desdobramento jogabilidade clássica que pode desfrutar de todas as idades. Mas o que realmente torna o padrão-ouro em divertido de plataformas é a verdadeira riqueza de novos recursos e elementos de jogabilidade.\r\n\r\nJunte-se a Mario e Luigi como você joga através de mais de 80 níveis, enfrentar novos inimigos e tentativa de alcançar o objetivo final, para coletar moedas 1 milhão. New Super Mario Bros. 2 promete entregar uma divertida aventura cheia de jogabilidade que pode desfrutar de todas as idades.', 15.00, NULL, 'Jogos', 31, 3.8, 'img_686582adbe4e32.19149268.jpg', '', '2025-07-02 19:04:13', '2025-07-02 20:23:42', 'available'),
-(119, 15, 'Buzz Controllers Wired (PS2/PS3)', 'Os Buzz controladores para Playstation 2..', 25.00, NULL, 'Acessórios', 31, 3.6, 'img_686584f8a4a6e3.81758202.jpg', '', '2025-07-02 19:14:00', '2025-07-02 20:23:42', 'available'),
-(120, 15, 'Official Sony PlayStation 2 DualShock 2 Controller - Prateado', '', 40.00, NULL, 'Acessórios', 31, 3.8, 'img_686585275834e2.64609742.jpg', '', '2025-07-02 19:14:47', '2025-07-02 20:23:42', 'available'),
-(121, 15, 'Eye Toy Camara', 'EyeToy é uma câmera USB que representa um aprimoramento tecnológico emocionante para PlayStation 2. Ele literalmente coloca os jogadores no centro de uma experiência de jogo única. Pela primeira vez, os jogadores contará ao vivo na tela dentro do jogo em si e serão capazes de fisicamente interagir com e manipular caracteres jogo-destaque e removendo o controlador de jogos tradicionais e usando o movimento do corpo, tecnologia sem fio do EyeToy é incrivelmente simples e instantaneamente jogável, oferecendo entretenimento convincente para experientes e jogadores novatos.', 0.75, NULL, 'Acessórios', 31, 4.2, 'img_68658555ea1426.70273372.jpg', '', '2025-07-02 19:15:33', '2025-07-02 20:23:42', 'available'),
-(122, 15, 'Xbox S-Controller', '', 30.00, NULL, 'Acessórios', 31, 3.8, 'img_686585785599c5.01915973.jpg', '', '2025-07-02 19:16:08', '2025-07-02 20:23:42', 'available'),
-(123, 15, 'Generico XBox Remote Control + Dongle', '', 0.50, NULL, 'Acessórios', 31, 4.2, 'img_686585a05122a2.36973331.jpg', '', '2025-07-02 19:16:48', '2025-07-02 20:23:42', 'available'),
-(124, 15, 'Logic3 TopDrive GT-X Wheel & Pedals', '', 12.00, NULL, 'Acessórios', 31, 3.8, 'img_686585e4339d62.07099423.jpg', '', '2025-07-02 19:17:56', '2025-07-02 20:23:42', 'available'),
-(125, 15, 'Xbox360 Oficial Controller (Wireless)', 'Características:\r\nTecnologia sem fios de 2.4 GHz com alcance de 30-pés.\r\nUsar até quatro controladores simultaneamente no único console.\r\nPorta de fone de ouvido integrado para Xbox LIVE jogar.\r\nBotões de ombro direito e nova esquerda são projetados para facilidade de uso', 35.00, NULL, 'Acessórios', 31, 3.8, 'img_68658614329776.65705059.jpg', '', '2025-07-02 19:18:44', '2025-07-02 20:23:42', 'available'),
-(126, 15, 'Mad Catz - Gears Of War 3 Headset', 'Com Gears do TRITTON of War 3 Dolby 7.1 Surround Sound Headset. Poderosa tecnologia Dolby Headphone empurra no meio de uma zona de guerra 3D, onde os sons de cada bala espaciais e explosão em expansão são ouvidos com extrema precisão.\r\n\r\nDiodos emissores de luz pulsante luz vermelha para fazer a mola de gráficos para a vida. E com a característica distinta de monitoramento seletivo de voz, você tem a opção de ouvir sua própria voz através de fone de ouvido.', 55.00, NULL, 'Colecionáveis', 31, 3.6, 'img_6865862f78c037.86682373.jpg', '', '2025-07-02 19:19:11', '2025-07-02 20:23:42', 'available'),
-(127, 15, 'X360 Official Wireless Pad Halo Reach', 'O planeta depende de você. Dinamitar as forças da Aliança como nunca antes com o Xbox 360 Halo: controlador sem fios de alcance. Projetado pela Bungie em prata elegante e completa com um Halo: hélice de veículo atingir Banshee para seu avatar e salvar a humanidade. acessar seus jogos e mídia, ou ligar e desligar o console Xbox 360.', 55.00, NULL, 'Colecionáveis', 31, 4.2, 'img_6865865bbff505.49030100.jpg', '', '2025-07-02 19:19:55', '2025-07-02 20:23:42', 'available'),
-(128, 15, 'Gamecube Memory Card 59', '', 18.00, NULL, 'Acessórios', 31, 3.8, 'img_686586e1000f62.41947582.jpg', '', '2025-07-02 19:22:08', '2025-07-02 20:23:42', 'available'),
-(129, 15, 'Generico PSP Speaker Set (3rd Party)', '', 8.00, NULL, 'Acessórios', 31, 4.2, 'img_686587073ea663.69674748.jpg', '', '2025-07-02 19:22:47', '2025-07-02 20:23:42', 'available'),
-(130, 15, 'Guitar Hero (Solo Guitarra Inalambrica)', 'Guitar Hero sem fio apenas guitarra para Xbox 360.', 52.00, NULL, 'Acessórios', 31, 4.2, 'img_68658749146dd7.77475128.jpg', '', '2025-07-02 19:23:53', '2025-07-02 20:26:09', 'available'),
-(131, 15, 'Pokewalker', '', 58.00, NULL, 'Acessórios', 31, 3.8, 'img_68658769e0c0b5.98464910.jpg', '', '2025-07-02 19:24:25', '2025-07-02 20:26:09', 'available'),
-(132, 15, 'Guitar Hero On Tour (Solo Accesorio)', '', 10.00, NULL, 'Acessórios', 31, 3.6, 'img_68658795896e05.55865093.jpg', '', '2025-07-02 19:25:09', '2025-07-02 20:26:09', 'available'),
-(133, 15, 'Nintendo DS MP3 Player', 'Com o Nintendo MP3 Player, os jogadores agora só têm que carregar um dispositivo para desfrutar de dois dos seus passatempos favoritos - jogos e música. Este simples, fácil de usar acessório permite que os fãs da Nintendo desfrutar em 150 de suas músicas selecionadas, enquanto em movimento. Do cada canção título claramente listadas as informações na tela do Nintendo DS para que canções podem ser selecionadas facilmente.', 15.00, NULL, 'Acessórios', 31, 4.2, 'img_686587bc1572d3.80311178.jpg', '', '2025-07-02 19:25:48', '2025-07-02 20:26:09', 'available'),
-(134, 15, 'Cargador Nintendo DS Lite Generico', '', 6.00, NULL, 'Acessórios', 31, 3.6, 'img_686587e0406761.53616619.jpg', '', '2025-07-02 19:26:24', '2025-07-02 20:26:09', 'available'),
-(135, 15, 'Gameboy Advance, SP AGS-001, Mario Ed. Limitada (Sem Jogo), Descontada', '', 115.00, NULL, 'Colecionáveis', 31, 3.6, 'img_686588e8af5875.05841196.jpg', '', '2025-07-02 19:30:48', '2025-07-02 20:26:09', 'available'),
-(136, 15, 'Gameboy Advance, SP AGS-001, Zelda Ed. Limitada (Sin Juego), Caixa', '', 290.00, NULL, 'Colecionáveis', 31, 4.2, 'img_6865891a77f587.67543269.jpg', '', '2025-07-02 19:31:38', '2025-07-02 20:26:09', 'available'),
-(137, 15, 'Gameboy Advance, SP AGS-001, Tribal Ed. Limitada, Descontada', '', 115.00, NULL, 'Colecionáveis', 31, 3.6, 'img_68658936848e45.21835908.jpg', '', '2025-07-02 19:32:06', '2025-07-02 20:26:09', 'available'),
-(138, 15, 'Sony PSone Consola, Branco, Sem Caixa', '', 75.00, NULL, 'Retro Gaming', 31, 4.2, 'img_6865896ac9c0b5.24295446.jpg', '', '2025-07-02 19:32:58', '2025-07-02 20:26:09', 'available'),
-(139, 15, 'Sony Playstation Net Yaroze Consola DTL-H3002, Preto, Descontada', '', 520.00, NULL, 'Retro Gaming', 31, 3.6, 'img_68658988b32619.56979582.jpg', '', '2025-07-02 19:33:28', '2025-07-02 20:26:09', 'available'),
-(140, 15, 'Gameboy Advance, Glaciar, Descontada', '', 80.00, NULL, 'Retro Gaming', 31, 3.8, 'img_686589b9a8b552.51730003.jpg', '', '2025-07-02 19:34:17', '2025-07-02 20:26:09', 'available'),
-(142, 15, 'Gameboy Advance, SP AGS-001, Prateado, Descontada', '', 110.00, NULL, 'Retro Gaming', 31, 3.6, 'img_686589de2edff2.23383184.jpg', '', '2025-07-02 19:34:54', '2025-07-02 20:26:09', 'available'),
-(143, 15, 'Sega Multi-Mega, Caixa', 'O Sega Multi-Mega é um sistema de videogame que combina os recursos do console Mega Drive e o complemento Mega-CD em uma unidade. Esse console da Sega garante uma experiência de jogo suave. Com um slot para cartucho e uma unidade de CD, o console Sega Multi-Mega permite reproduzir convenientemente cartuchos e CDs. Ele também suporta os formatos de áudio e CD + G CD. Construído com uma tela LCD retroiluminada e botões de controle de CD, esse console da Sega é fácil de operar.', 850.00, NULL, 'Retro Gaming', 31, 3.8, 'img_68658a61b365b4.40210747.jpg', '', '2025-07-02 19:37:05', '2025-07-02 20:26:09', 'available'),
-(144, 15, 'Sega Mega CD 1, Caixa', '', 500.00, NULL, 'Retro Gaming', 31, 4.2, 'img_68658a90679131.82806766.jpg', '', '2025-07-02 19:37:52', '2025-07-02 20:26:09', 'available'),
-(145, 15, 'Sega Mega Drive II (Sem Jogo), Caixa', '', 120.00, NULL, 'Retro Gaming', 31, 3.6, 'img_68658aac037124.63370805.jpg', '', '2025-07-02 19:38:20', '2025-07-02 20:26:09', 'available'),
-(147, 15, 'Xbox One S 500GB Branco, Descontada', 'Joga maiores jogos line-up, incluindo Xbox 360 clássicos, em um console de 40% menor. Só não deixe que seu tamanho enganá-lo: com uma fonte de alimentação interna e até 500GB de armazenamento interno, o Xbox One S é o mais avançado Xbox nunca.', 125.00, NULL, 'Consolas', 31, 3.8, 'img_68658b67707435.53950979.jpg', '', '2025-07-02 19:41:27', '2025-07-02 20:26:09', 'available'),
-(148, 15, 'Xbox One S 1TB Military Verde (Sem Jogo), Descontada', 'Joga maiores jogos line-up, incluindo Xbox 360 clássicos, em um console de 40% menor. Só não deixe que seu tamanho enganá-lo: com uma fonte de alimentação interna e até 1TB de armazenamento interno, o Xbox One S é o mais avançado Xbox nunca.', 160.00, NULL, 'Consolas', 31, 4.2, 'img_68658b8f3d4ba7.03614852.jpg', '', '2025-07-02 19:42:07', '2025-07-02 20:26:09', 'available'),
-(150, 15, 'Xbox One X, 1TB, Preto, Descontada', 'O console mais poderoso do mundo.\r\nA Experiência imersiva true Gaming 4K com 40% mais poderoso do que qualquer outro console.', 170.00, NULL, 'Consolas', 31, 3.6, 'img_68658bc437c1a0.18414608.jpg', '', '2025-07-02 19:43:00', '2025-07-02 20:26:09', 'available'),
-(151, 15, 'PS3 Super Slim 500GB, Descontada', 'O menor e mais leve \"Super Slim PS3\" embala toda a diversão do jogo que você esperaria do PlayStation mas numa estrutura super fina.\r\n\r\nPor alterar a arquitetura do design interno e remover o disc-fed tray para uma deslizante tampa superior do disco de carga, o \"Super Slim PS3\" é o PS3 lançado até à data.', 120.00, NULL, 'Consolas', 31, 3.8, 'img_68658c12c677b0.77277030.jpg', '', '2025-07-02 19:44:18', '2025-07-02 20:26:09', 'available'),
-(152, 15, 'PS3 80GB Descontada', 'PS3 oferece a próxima geração de entretenimento interativo. Desfrute de filmes de disco Blu-ray, a alta definição de ponta de jogos, música fácil, vídeo e foto de armazenamento, acesso gratuito à PLAYSTATION rede e muito mais.', 95.00, NULL, 'Consolas', 31, 3.8, 'img_68658c2f2c24e1.56874598.jpg', '', '2025-07-02 19:44:47', '2025-07-02 20:26:09', 'available'),
-(153, 15, 'PS3 Slim 320GB Vermelho, Descontada', 'Então o que ele tem de diferente? Para começar isso é muito mais leve, fresco e mais quieto do que o anterior, isso armazena muito mais!\r\n\r\nO novo Playstation 3 Slim pesa aproximadamente dois-terços do tamanho do primeiro PS3, mas embala um hard drive de duas vezes o seu tamanho original - agora confortavelmente grande320GB.', 185.00, NULL, 'Consolas', 31, 4.2, 'img_68658c575bb989.25720472.jpg', '', '2025-07-02 19:45:27', '2025-07-02 20:26:09', 'available'),
-(154, 15, 'Playstation 5 Console, 825GB, Branco, Sem Caixa', '', 420.00, NULL, 'Consolas', 31, 4.2, 'img_68658c75343b84.08553720.jpg', '', '2025-07-02 19:45:57', '2025-07-02 20:26:09', 'available'),
-(155, 15, 'Playstation 5 Pro, 2TB, Branco, Caixa', '', 770.00, NULL, 'Consolas', 31, 3.8, 'img_68658c97affd52.10153414.jpg', '', '2025-07-02 19:46:31', '2025-07-02 20:26:09', 'available'),
-(156, 15, 'Playstation 4 Slim 1TB Preto, Caixa', 'Experimente, cores vibrantes incrivelmente vivas, com efeitos visuais deslumbrantes HDR. 30% mais fino, 16% mais leve do que o modelo PS4 originais. Todos os maiores de TV, filmes e mais de seus aplicativos de entretenimento favoritas.\r\n\r\n', 230.00, NULL, 'Consolas', 31, 3.8, 'img_68658cb85e15e7.89416155.jpg', '', '2025-07-02 19:47:04', '2025-07-02 20:26:09', 'available'),
-(157, 15, 'Switch 2 Console, 256GB + Preto Joy-Con 2, (Sem DLC) Caixa', '', 470.00, NULL, 'Consolas', 31, 3.8, 'img_68658cd42f5e44.32299930.jpg', '', '2025-07-02 19:47:32', '2025-07-02 20:26:09', 'available'),
-(158, 15, 'Switch 2 Console, 256GB + Preto Joy-Con 2, (Sem DLC) Descontada', '', 450.00, NULL, 'Consolas', 31, 3.8, 'img_68658ce9df2a34.25153620.jpg', '', '2025-07-02 19:47:53', '2025-07-02 20:26:09', 'available');
+(105, 15, 'Mickey Mouse Magical Mirror', 'Em Mickey Mouse Magical Mirror, um fantasma travesso aprisiona um rato Mickey que anda dormindo no espelho titular. Preso em um universo alternativo que estranhamente se assemelha a sua própria casa, Mickey anseia para voltar através do espelho para sua cama e sonhos doces. Voltar não será fácil, embora Mickey deve primeiro recuperar as peças quebradas espelho que foram espalhados sobre a casa pelo poltergeist pranky.\r\n\r\nOs jovens têm a certeza de aplaudir o simples mas elegante jogo mecânica jogadores controlar uma luva, apontando e clicando para orientar Mickey para o seu próximo destino. Assim como em um autêntico Mickey cartoon, você terá que enganar os inimigos e puxar gags. Charme e grande humor resultam quando Mickey controla alguns brinquedos incríveis como faz o fantasma de fazer problemas.', 8.00, NULL, 'Jogos', 31, 4.2, 'img_686580175c7975.74578249.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 18:53:11', '2025-07-02 20:42:02', 'available'),
+(106, 15, 'LEGO Marvel Super Heroes: Universe in Peril', 'Os Avengers não são os únicos a juntar as peças em LEGO Marvel Super Heroes: Universe in Peril! O Dr. Doom alia vários supervilões para criar a arma derradeira e Nick Fury vê-se obrigado a convocar super-heróis de todo o mundo para que, juntos, possam derrotar os mauzões! Será que os maiores heróis do mundo conseguirão suplantar o poder combinado de Dr. Doom, Loki, Dr. Octopus e tantos outros para salvar o planeta?\r\n\r\nO LEGO Marvel Super Heroes: Universe in Peril reúne personagens do universo Marvel, desde as favoritas dos fãs Iron Man, Spider-Man e Wolverine às menos conhecidas, tais como Squirrel Girl e Howard the Duck! Há mais de 150 super-heróis e supervilões para desbloquear, cada qual com as suas próprias habilidades e animações. O Captain America pode usar o escudo para redirecionar lasers e criar novas plataformas, e o Iron Man consegue voar, disparar mísseis e lançar o seu poderoso Unibeam do peito – e se te vires rodeado de inimigos ferozes, o Hulk esmaga-os por ti!\r\n\r\nLuta como nunca antes lutaste com o Hulk, o Abomination e outros – Minifiguras enormes com uma força inigualável! Certas personagens podem tornar-se gigantes para desferir golpes devastadores sobre os inimigos e desbloquear novas habilidades. Os jogadores mais criativos podem também inventar super-heróis personalizados ao combinar partes e poderes de várias personagens para criar uma figura única que combata o crime – ou que o cometa.', 8.00, NULL, 'Jogos', 31, 3.8, 'img_68658062ebd063.47804790.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 18:54:26', '2025-07-02 20:42:02', 'available'),
+(107, 15, 'Wii Sports (Cardboard Sleeve)', 'Faz o aquecimento e entra em acção com o famoso jogo de desportos que te vai cativar desde o primeiro balançar de raquete! Wii Sports oferece cinco experiências desportivas distintas, utilizando o Comando Remoto Wii para proporcionar uma sensação natural, intuitiva e realista. No jogo de Ténis, segura o comando como se fosse uma raquete e balança-o de maneira a poderes fazer todo o tipo de jogadas jogadas batidas do lado direito ou esquerdo, bolas altas e baixas, dependendo da velocidade a que balanças e do ângulo. No jogo de Basebol, o comando é manuseado como um taco com o qual vais poder bater bolas rápidas e fazer um home run.\r\n\r\nNo Golfe, agarra o comando como se de um taco de golfe se tratasse e balança-o de forma a atirar a bola para o green. Com o Bowling, levanta o Comando Remoto Wii como se fosse mesmo uma bola de bowling, e balança os braços para a lançares. No jogo de Boxe, usa o comando Nunchuck e o Comando Remoto Wii como se fossem luvas, de maneira a fintares e soqueares os teus adversários. Independentemente de seres um desportista exímio ou um principiante, o Wii Sports é uma experiência que vais querer sempre repetir!', 8.00, NULL, 'Jogos', 30, 3.6, 'img_686580954fa1d6.44155101.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 18:55:17', '2025-07-03 11:55:46', 'available'),
+(108, 15, 'Wii Fit Plus - Game Only', 'Wii Fit Plus agora vai permitir que você verifique e monitorar 4 áreas do seu físico, IMC (índice de massa corporal), centro de gravidade, e calorias queimadas durante o treino você pode então definir seus objetivos, contra essas áreas. O teste de IMC mede o seu peso/altura Wii Fit Plus tomará esta medida e deixá-lo-á saber como você justo em comparação com o ideal. Uma vez que você está ciente de seu IMC você pode definir metas para reduzir esta medida, por participar da Wii Fit Plus exercícios e apresentando um estilo de vida mais saudável. O seu centro de gravidade é medido através do Wii Fit Plus teste de idade em que você vai assumir o equilíbrio de vários em uma tentativa de manter o seu Wii Fit Plus idade tão perto ou menor do que a idade real.', 1.00, NULL, 'Jogos', 31, 4.2, 'img_686580c5d4a2c4.24642675.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 18:55:55', '2025-07-02 20:42:02', 'available'),
+(109, 15, 'Wii Sports Resort (Normal DVD Case)', 'Em Wii Sports Resort és convidado a viajar até a uma soalheira ilha onde a diversão e a competição se unem e onde toda a acção desportiva pode ser controlada com um comando fantástico! Lembras-te da emoção de bateres a bola pela primeira vez em Wii Sports Tennis? Nesses primeiros momentos com o Comando Wii na tua mão, tornou-se claro que estavas perante uma nova era no mundo dos videojogos.\r\n\r\nO Wii Sports Resort eleva os controlos divertidos e intuitivos do Wii Sports original a um novo nível, introduzindo toda uma nova gama de actividades divertidas e fisicamente envolventes. Num desafio, ver-te-ás envolvido em acção de esgrima numa plataforma cercada de um mar azul tranquilo. Mas por mais apelativa que a água possa parecer, o objectivo do exercício é certificares-te de que é o teu adversário que acaba por ir parar à água! Os controlos com precisão garantem que cada movimento que fazes com a espada é reproduzido com a máxima precisão.', 19.98, NULL, 'Jogos', 31, 3.8, 'img_686581037bc700.59793341.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 18:57:07', '2025-07-02 20:42:02', 'available'),
+(110, 15, 'Tomb Raider II starring Lara Croft, Platinum Ed., Perfeito', '', 46.92, NULL, 'Jogos', 31, 3.6, 'img_68658145ace471.38514579.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 18:58:06', '2025-07-02 20:42:02', 'available'),
+(111, 15, 'MediEvil, Platinum Ed., Caixa', '', 30.00, NULL, 'Jogos', 30, 4.2, 'img_68658170a146d9.75882565.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 18:58:56', '2025-07-03 11:55:46', 'available'),
+(112, 15, 'Final Fantasy VIII (4 Discos), Caixa', '', 35.00, NULL, 'Jogos', 31, 3.6, 'img_686581a8c952b0.13122351.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 18:59:52', '2025-07-02 20:42:02', 'available'),
+(113, 15, 'Red Dead Redemption 2 (2 Disc) (Sem DLC)', 'Conhecido como Grand Theft Auto do velho oeste, dá sequência a Red Dead Redemption, trazendo muita ação numa aventura. Considerado um \"conto épico da vida no interior implacável da América\", o game sempre surpreendeu seus fãs, com a riqueza na história do game, da jogabilidade, seus personagens com suas personalidades bem marcantes e de seus mapas com suas diversas opções de exploração. Red Dead Redemption 2 o jogo possui mundo aberto, criando muito mais possibilidades para os jogadores. Sinta-se no velho oeste, a ambientação do game tenta trazer aos players uma imersão a época que o jogo se passa, utilize seus revólveres, monte em seu cavalo e explore as cidades, florestas, lagos, fazendas e muitas outras coisas presentes em Red Dead Redemption.', 28.00, NULL, 'Jogos', 31, 4.2, 'img_686581d63337a2.25015618.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:00:25', '2025-07-02 20:42:02', 'available'),
+(114, 15, 'FIFA 17', 'FIFA 17 transforma a maneira de jogar, competir e conectar emocionalmente com o jogo. FIFA 17 submerge-lo em experiências futebol autênticos, aproveitando a sofisticação de um novo motor de jogo, enquanto introduzindo-lhe jogadores de futebol cheio de profundidade e emoção, e levá-lo a marca novos mundos acessíveis apenas no jogo. completa inovação na forma como os jogadores pensam e movimento, interagir fisicamente com os adversários, e executar no ataque permite que você possui todos os momentos em campo.', 3.50, NULL, 'Jogos', 31, 4.2, 'img_68658207b2e5c1.65756193.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:01:27', '2025-07-02 20:42:02', 'available'),
+(115, 15, 'Mario Kart 8 Deluxe', 'Acertar a estrada com a versão definitiva do Mario Kart 8 e jogar a qualquer hora, em qualquer lugar! Corrida seus amigos ou batalha-los em um modo de batalha revista em campos de batalha novos e de retorno. Reproduza localmente em até 4 jogadores multiplayer em 1080p enquanto estiver jogando no modo TV. Além disso, os Inklings aparecem como novos personagens convidados, juntamente com os favoritos que retornam, como King Boo, Dry Bones e Bowser Jr.!', 48.00, NULL, 'Jogos', 31, 3.6, 'img_686582376969a8.98180526.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:02:15', '2025-07-02 20:42:02', 'available'),
+(116, 15, 'Gran Turismo 5', 'Isto é sem demo ou spin-off, este é jogo que todos carro entusiastas está esperando como lendário real condução simulador finalmente rola fora da produção linha. O resultado do quatro anos trabalho por uma equipe de centenas.\r\n\r\nEscusado será dizer que o novo jogo parece surpreendente - mesmo distante melhor do que Gran Turismo 5 Prologue - mas como sempre beleza do Gran Turismo é que conduz tão realista quanto parece. Com 950 carros diferentes modelados para um maior grau de precisão do que nunca, isto também possui fabricantes mais do que qualquer outro jogo - incluindo, pela primeira vez, Lamborghini e Bugatti.\r\n\r\nOutras fã demandas que finalmente foram atendidas, incluindo totalmente realista danos-modelagem, um 16 jogadores online modo, dinâmico tempo mudanças e noite corridas. Mais realista do que isso e você iria ser nocauteado pelos vapores de gasolina.', 4.00, NULL, 'Jogos', 31, 3.6, 'img_6865826140bd17.87980173.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:02:57', '2025-07-02 20:42:02', 'available'),
+(117, 15, 'Call of Duty: Modern Warfare (2019)', 'Acelera para uma reinvenção inovadora e orientada para a narrativa da clássica série Call Of Duty: Modern Warfare.\r\n\r\nMergulha numa inovadora e ousada encarnação da série Modern Warfare.\r\n\r\nDesenvolvido pela Infinity Ward, os criadores originais da série Modern Warfare, esta versão embarca-te numa visceral campanha de um jogador, que irá desafiar os teus limites e desbravar caminhos para esta série de jogos.\r\n\r\nEnvolve-te em vertiginosas operações secretas juntamente com um equipa internacional de operacionais especialistas e lutadores pela liberdade, abrindo o teu caminho por entre icónicos monumentos europeus e zonas voláteis do Médio Oriente.', 20.00, NULL, 'Jogos', 31, 4.2, 'img_686582875433a1.07305475.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:03:35', '2025-07-02 20:42:02', 'available'),
+(118, 15, 'New Super Mario Bros 2', 'Mario e seus amigos do Reino do cogumelo estão nesta última parcela da série de aventura de plataforma lateral famoso. Mais recente aventura de Mario está repleto de todo a lado-desdobramento jogabilidade clássica que pode desfrutar de todas as idades. Mas o que realmente torna o padrão-ouro em divertido de plataformas é a verdadeira riqueza de novos recursos e elementos de jogabilidade.\r\n\r\nJunte-se a Mario e Luigi como você joga através de mais de 80 níveis, enfrentar novos inimigos e tentativa de alcançar o objetivo final, para coletar moedas 1 milhão. New Super Mario Bros. 2 promete entregar uma divertida aventura cheia de jogabilidade que pode desfrutar de todas as idades.', 15.00, NULL, 'Jogos', 30, 3.8, 'img_686582adbe4e32.19149268.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:04:13', '2025-07-03 19:30:03', 'available'),
+(119, 15, 'Buzz Controllers Wired (PS2/PS3)', 'Os Buzz controladores para Playstation 2..', 25.00, NULL, 'Acessórios', 31, 3.6, 'img_686584f8a4a6e3.81758202.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:14:00', '2025-07-02 20:42:02', 'available'),
+(120, 15, 'Official Sony PlayStation 2 DualShock 2 Controller - Prateado', '', 40.00, NULL, 'Acessórios', 31, 3.8, 'img_686585275834e2.64609742.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:14:47', '2025-07-02 20:42:02', 'available'),
+(121, 15, 'Eye Toy Camara', 'EyeToy é uma câmera USB que representa um aprimoramento tecnológico emocionante para PlayStation 2. Ele literalmente coloca os jogadores no centro de uma experiência de jogo única. Pela primeira vez, os jogadores contará ao vivo na tela dentro do jogo em si e serão capazes de fisicamente interagir com e manipular caracteres jogo-destaque e removendo o controlador de jogos tradicionais e usando o movimento do corpo, tecnologia sem fio do EyeToy é incrivelmente simples e instantaneamente jogável, oferecendo entretenimento convincente para experientes e jogadores novatos.', 0.75, NULL, 'Acessórios', 31, 4.2, 'img_68658555ea1426.70273372.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:15:33', '2025-07-02 20:42:02', 'available'),
+(122, 15, 'Xbox S-Controller', '', 30.00, NULL, 'Acessórios', 31, 3.8, 'img_686585785599c5.01915973.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:16:08', '2025-07-02 20:42:02', 'available'),
+(123, 15, 'Generico XBox Remote Control + Dongle', '', 0.50, NULL, 'Acessórios', 31, 4.2, 'img_686585a05122a2.36973331.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:16:48', '2025-07-02 20:42:02', 'available'),
+(124, 15, 'Logic3 TopDrive GT-X Wheel & Pedals', '', 12.00, NULL, 'Acessórios', 31, 3.8, 'img_686585e4339d62.07099423.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:17:56', '2025-07-02 20:42:02', 'available'),
+(125, 15, 'Xbox360 Oficial Controller (Wireless)', 'Características:\r\nTecnologia sem fios de 2.4 GHz com alcance de 30-pés.\r\nUsar até quatro controladores simultaneamente no único console.\r\nPorta de fone de ouvido integrado para Xbox LIVE jogar.\r\nBotões de ombro direito e nova esquerda são projetados para facilidade de uso', 35.00, NULL, 'Acessórios', 31, 3.8, 'img_68658614329776.65705059.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:18:44', '2025-07-02 20:42:02', 'available'),
+(126, 15, 'Mad Catz - Gears Of War 3 Headset', 'Com Gears do TRITTON of War 3 Dolby 7.1 Surround Sound Headset. Poderosa tecnologia Dolby Headphone empurra no meio de uma zona de guerra 3D, onde os sons de cada bala espaciais e explosão em expansão são ouvidos com extrema precisão.\r\n\r\nDiodos emissores de luz pulsante luz vermelha para fazer a mola de gráficos para a vida. E com a característica distinta de monitoramento seletivo de voz, você tem a opção de ouvir sua própria voz através de fone de ouvido.', 55.00, NULL, 'Colecionáveis', 31, 3.6, 'img_6865862f78c037.86682373.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:19:11', '2025-07-02 20:42:02', 'available'),
+(127, 15, 'X360 Official Wireless Pad Halo Reach', 'O planeta depende de você. Dinamitar as forças da Aliança como nunca antes com o Xbox 360 Halo: controlador sem fios de alcance. Projetado pela Bungie em prata elegante e completa com um Halo: hélice de veículo atingir Banshee para seu avatar e salvar a humanidade. acessar seus jogos e mídia, ou ligar e desligar o console Xbox 360.', 55.00, NULL, 'Colecionáveis', 31, 4.2, 'img_6865865bbff505.49030100.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:19:55', '2025-07-02 20:42:02', 'available'),
+(128, 15, 'Gamecube Memory Card 59', '', 18.00, NULL, 'Acessórios', 31, 3.8, 'img_686586e1000f62.41947582.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:22:08', '2025-07-02 20:42:02', 'available'),
+(129, 15, 'Generico PSP Speaker Set (3rd Party)', '', 8.00, NULL, 'Acessórios', 31, 4.2, 'img_686587073ea663.69674748.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:22:47', '2025-07-02 20:42:02', 'available'),
+(130, 15, 'Guitar Hero (Solo Guitarra Inalambrica)', 'Guitar Hero sem fio apenas guitarra para Xbox 360.', 52.00, NULL, 'Acessórios', 31, 4.2, 'img_68658749146dd7.77475128.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:23:53', '2025-07-02 20:42:02', 'available'),
+(131, 15, 'Pokewalker', '', 58.00, NULL, 'Acessórios', 2, 3.8, 'img_68658769e0c0b5.98464910.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:24:25', '2025-07-03 19:05:10', 'available'),
+(132, 15, 'Guitar Hero On Tour (Solo Accesorio)', '', 10.00, NULL, 'Acessórios', 31, 3.6, 'img_68658795896e05.55865093.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:25:09', '2025-07-02 20:42:02', 'available'),
+(133, 15, 'Nintendo DS MP3 Player', 'Com o Nintendo MP3 Player, os jogadores agora só têm que carregar um dispositivo para desfrutar de dois dos seus passatempos favoritos - jogos e música. Este simples, fácil de usar acessório permite que os fãs da Nintendo desfrutar em 150 de suas músicas selecionadas, enquanto em movimento. Do cada canção título claramente listadas as informações na tela do Nintendo DS para que canções podem ser selecionadas facilmente.', 15.00, NULL, 'Acessórios', 31, 4.2, 'img_686587bc1572d3.80311178.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:25:48', '2025-07-02 20:42:02', 'available'),
+(134, 15, 'Cargador Nintendo DS Lite Generico', '', 6.00, NULL, 'Acessórios', 31, 3.6, 'img_686587e0406761.53616619.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:26:24', '2025-07-02 20:42:02', 'available'),
+(135, 15, 'Gameboy Advance, SP AGS-001, Mario Ed. Limitada (Sem Jogo), Descontada', '', 115.00, NULL, 'Colecionáveis', 31, 3.6, 'img_686588e8af5875.05841196.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:30:48', '2025-07-02 20:42:02', 'available'),
+(136, 15, 'Gameboy Advance, SP AGS-001, Zelda Ed. Limitada (Sin Juego), Caixa', '', 290.00, NULL, 'Colecionáveis', 31, 4.2, 'img_6865891a77f587.67543269.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:31:38', '2025-07-02 20:42:02', 'available'),
+(137, 15, 'Gameboy Advance, SP AGS-001, Tribal Ed. Limitada, Descontada', '', 115.00, NULL, 'Colecionáveis', 31, 3.6, 'img_68658936848e45.21835908.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:32:06', '2025-07-02 20:42:02', 'available'),
+(138, 15, 'Sony PSone Consola, Branco, Sem Caixa', '', 75.00, NULL, 'Retro Gaming', 31, 4.2, 'img_6865896ac9c0b5.24295446.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:32:58', '2025-07-02 20:42:02', 'available'),
+(139, 15, 'Sony Playstation Net Yaroze Consola DTL-H3002, Preto, Descontada', '', 520.00, NULL, 'Retro Gaming', 31, 3.6, 'img_68658988b32619.56979582.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:33:28', '2025-07-02 20:42:02', 'available'),
+(140, 15, 'Gameboy Advance, Glaciar, Descontada', '', 80.00, NULL, 'Retro Gaming', 4, 3.8, 'img_686589b9a8b552.51730003.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:34:17', '2025-07-03 19:05:04', 'available'),
+(142, 15, 'Gameboy Advance, SP AGS-001, Prateado, Descontada', '', 110.00, NULL, 'Retro Gaming', 31, 3.6, 'img_686589de2edff2.23383184.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:34:54', '2025-07-02 20:42:02', 'available'),
+(143, 15, 'Sega Multi-Mega, Caixa', 'O Sega Multi-Mega é um sistema de videogame que combina os recursos do console Mega Drive e o complemento Mega-CD em uma unidade. Esse console da Sega garante uma experiência de jogo suave. Com um slot para cartucho e uma unidade de CD, o console Sega Multi-Mega permite reproduzir convenientemente cartuchos e CDs. Ele também suporta os formatos de áudio e CD + G CD. Construído com uma tela LCD retroiluminada e botões de controle de CD, esse console da Sega é fácil de operar.', 850.00, NULL, 'Retro Gaming', 31, 3.8, 'img_68658a61b365b4.40210747.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:37:05', '2025-07-02 20:42:02', 'available'),
+(144, 15, 'Sega Mega CD 1, Caixa', '', 500.00, NULL, 'Retro Gaming', 31, 4.2, 'img_68658a90679131.82806766.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:37:52', '2025-07-02 20:42:02', 'available'),
+(145, 15, 'Sega Mega Drive II (Sem Jogo), Caixa', '', 120.00, NULL, 'Retro Gaming', 31, 3.6, 'img_68658aac037124.63370805.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:38:20', '2025-07-02 20:42:02', 'available'),
+(147, 15, 'Xbox One S 500GB Branco, Descontada', 'Joga maiores jogos line-up, incluindo Xbox 360 clássicos, em um console de 40% menor. Só não deixe que seu tamanho enganá-lo: com uma fonte de alimentação interna e até 500GB de armazenamento interno, o Xbox One S é o mais avançado Xbox nunca.', 125.00, NULL, 'Consolas', 31, 3.8, 'img_68658b67707435.53950979.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:41:27', '2025-07-02 20:42:02', 'available'),
+(148, 15, 'Xbox One S 1TB Military Verde (Sem Jogo), Descontada', 'Joga maiores jogos line-up, incluindo Xbox 360 clássicos, em um console de 40% menor. Só não deixe que seu tamanho enganá-lo: com uma fonte de alimentação interna e até 1TB de armazenamento interno, o Xbox One S é o mais avançado Xbox nunca.', 160.00, NULL, 'Consolas', 31, 4.2, 'img_68658b8f3d4ba7.03614852.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:42:07', '2025-07-02 20:42:02', 'available'),
+(150, 15, 'Xbox One X, 1TB, Preto, Descontada', 'O console mais poderoso do mundo.\r\nA Experiência imersiva true Gaming 4K com 40% mais poderoso do que qualquer outro console.', 170.00, NULL, 'Consolas', 31, 3.6, 'img_68658bc437c1a0.18414608.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:43:00', '2025-07-02 20:42:02', 'available'),
+(151, 15, 'PS3 Super Slim 500GB, Descontada', 'O menor e mais leve \"Super Slim PS3\" embala toda a diversão do jogo que você esperaria do PlayStation mas numa estrutura super fina.\r\n\r\nPor alterar a arquitetura do design interno e remover o disc-fed tray para uma deslizante tampa superior do disco de carga, o \"Super Slim PS3\" é o PS3 lançado até à data.', 120.00, NULL, 'Consolas', 31, 3.8, 'img_68658c12c677b0.77277030.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:44:18', '2025-07-02 20:42:02', 'available'),
+(152, 15, 'PS3 80GB Descontada', 'PS3 oferece a próxima geração de entretenimento interativo. Desfrute de filmes de disco Blu-ray, a alta definição de ponta de jogos, música fácil, vídeo e foto de armazenamento, acesso gratuito à PLAYSTATION rede e muito mais.', 95.00, NULL, 'Consolas', 31, 3.8, 'img_68658c2f2c24e1.56874598.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:44:47', '2025-07-02 20:42:02', 'available'),
+(153, 15, 'PS3 Slim 320GB Vermelho, Descontada', 'Então o que ele tem de diferente? Para começar isso é muito mais leve, fresco e mais quieto do que o anterior, isso armazena muito mais!\r\n\r\nO novo Playstation 3 Slim pesa aproximadamente dois-terços do tamanho do primeiro PS3, mas embala um hard drive de duas vezes o seu tamanho original - agora confortavelmente grande320GB.', 185.00, NULL, 'Consolas', 6, 4.2, 'img_68658c575bb989.25720472.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:45:27', '2025-07-03 19:04:22', 'available'),
+(154, 15, 'Playstation 5 Console, 825GB, Branco, Sem Caixa', '', 420.00, NULL, 'Consolas', 31, 4.2, 'img_68658c75343b84.08553720.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:45:57', '2025-07-02 20:42:02', 'available'),
+(155, 15, 'Playstation 5 Pro, 2TB, Branco, Caixa', '', 770.00, NULL, 'Consolas', 31, 3.8, 'img_68658c97affd52.10153414.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:46:31', '2025-07-02 20:42:02', 'available'),
+(156, 15, 'Playstation 4 Slim 1TB Preto, Caixa', 'Experimente, cores vibrantes incrivelmente vivas, com efeitos visuais deslumbrantes HDR. 30% mais fino, 16% mais leve do que o modelo PS4 originais. Todos os maiores de TV, filmes e mais de seus aplicativos de entretenimento favoritas.\r\n\r\n', 230.00, NULL, 'Consolas', 31, 3.8, 'img_68658cb85e15e7.89416155.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:47:04', '2025-07-02 20:42:02', 'available'),
+(157, 15, 'Switch 2 Console, 256GB + Preto Joy-Con 2, (Sem DLC) Caixa', '', 470.00, NULL, 'Consolas', 8, 3.8, 'img_68658cd42f5e44.32299930.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:47:32', '2025-07-03 19:04:13', 'available'),
+(158, 15, 'Switch 2 Console, 256GB + Preto Joy-Con 2, (Sem DLC) Descontada', '', 450.00, NULL, 'Consolas', 5, 3.8, 'img_68658ce9df2a34.25153620.jpg', 'Rua dom Duarte 2, Amadora', '2025-07-02 19:47:53', '2025-07-03 19:04:56', 'available');
 
 --
 -- Acionadores `products`
@@ -622,6 +637,29 @@ INSERT INTO `products_views` (`product_id`, `view_count`) VALUES
 (22, 29),
 (23, 10),
 (24, 80);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `refund_requests`
+--
+
+CREATE TABLE `refund_requests` (
+  `refund_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `reason` text DEFAULT NULL,
+  `status` enum('pendente','aprovado','rejeitado') DEFAULT 'pendente',
+  `created_at` datetime DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `refund_requests`
+--
+
+INSERT INTO `refund_requests` (`refund_id`, `order_id`, `user_id`, `reason`, `status`, `created_at`, `updated_at`) VALUES
+(1, 88, 28, 'Não gostei do produto, veio todo podi', 'pendente', '2025-07-03 20:31:15', '2025-07-03 21:48:39');
 
 -- --------------------------------------------------------
 
@@ -1067,7 +1105,8 @@ INSERT INTO `saved` (`saved_id`, `user_id`, `product_id`, `tipo`, `quantity`, `c
 (508, 52, 9, 0, 1, '2025-06-23 15:23:17'),
 (509, 52, 17, 0, 1, '2025-06-23 15:23:22'),
 (529, 52, 21, 1, 1, '2025-06-29 16:51:04'),
-(530, 28, 16, 1, 1, '2025-07-02 11:44:27');
+(530, 28, 16, 1, 1, '2025-07-02 11:44:27'),
+(541, 58, 111, 0, 1, '2025-07-03 12:23:14');
 
 -- --------------------------------------------------------
 
@@ -1101,7 +1140,9 @@ INSERT INTO `users` (`user_id`, `firebase_uid`, `name`, `email`, `avatar`, `phon
 (25, 'QFTTiIROtzLbSR0GpAslYStGYwD2', 'Diogo', 'diogadaesteves@gmail.com', 'poggers-11645679-default-avatar.png', '', 'user', 1, '2025-02-07 03:25:13'),
 (28, '6P6mwx4gURUuk4CDPda8zQbcB1q1', 'Mordekai', 'mordekaias360@gmail.com', 'avatar_68651bf1999314.15505745.jpg', '910937520', 'user', 1, '2025-03-10 17:49:41'),
 (52, 'vbxr9cOIaCUTcNezNMg6BiaqoVF3', 'Kauan Fortunato', 'kauansitesaleatorios@gmail.com', 'avatar_686186a7c69280.19976823.jpg', '910937520', 'user', 1, '2025-06-17 21:01:21'),
-(56, 'mTzlbv4FhAcZVWDoI2lGdTiU7xX2', 'Kauan Fortunato', 'kauan1312@gmail.com', 'poggers-11645679-default-avatar.png', NULL, 'user', 1, '2025-06-21 22:15:03');
+(56, 'mTzlbv4FhAcZVWDoI2lGdTiU7xX2', 'Kauan Fortunato', 'kauan1312@gmail.com', 'poggers-11645679-default-avatar.png', NULL, 'user', 1, '2025-06-21 22:15:03'),
+(57, 'qdoYa5EE2yYlhRvzgEyOBPIF3uX2', 'Admin', 'admin@gmail.com', 'avatar_6865ad44cdafb8.02635573.jpg', '910937520', 'admin', 1, '2025-07-02 22:04:07'),
+(58, 'XBPM50iypnU8ey4u9aOGfF55koE2', 'Nuno', 'nuno@gmail.com', 'avatar_68666dba6905b5.69010440.jpg', '910937520', 'user', 1, '2025-07-03 11:46:58');
 
 --
 -- Acionadores `users`
@@ -1135,7 +1176,8 @@ INSERT INTO `users_tokens` (`id_token`, `user_id`, `token`, `create_at`) VALUES
 (16, 15, 'cfqdAvsOTqurJQWIaM3Efe:APA91bGozKvoQ-OnoMCawcnIxnUJlhJJ-99KxuaQSgyAS-WZOLo10-kcR8tR3yeJHfyWoEtfTYdiVsn8IeI_67_5jn6zWOhl2bFxSUrwbRNXO7G7LPsZrqI', '2025-04-14 15:58:39'),
 (38, 28, 'cNQrYoKhSM6dH3bJuAwcR8:APA91bFfhjZ0pEB_D54I_lNHUEkVzi2xl16-Xpiy7agTAy3uG4HrKWpYP1f93bV5oMzugcut77XFDkCX8Phw4xN0ygEQt_u0cPkCTBV5OjbaJ8m4tVfjMhU', '2025-06-04 08:49:10'),
 (40, 28, 'f_6YJWjtQ3in1Yz7MgMSxC:APA91bGOYT-tDAmo3H29OATztCwX6JAQXpiTDJ7v2sBWr3Pa6lE262rubmRGqNdiyb0cccCYBMFkCQMQptJnuGvvdVAJjhB3iYRygT8p9cW8pIdJP2pPTOU', '2025-06-05 12:35:34'),
-(108, 20, 'cfTlNz3vQ5q-M5jAGegdWG:APA91bG0FUU2f20E95el8SWL2Nlb2ltApE7RiaRfEnJLMqNDmDVjRv4bIYAb59evEms3zcNSxqjweHg-kVN2FnVBAQ07ng4beCXGNcY3r9ZCImFc0ntgkkU', '2025-06-29 20:19:51');
+(108, 20, 'cfTlNz3vQ5q-M5jAGegdWG:APA91bG0FUU2f20E95el8SWL2Nlb2ltApE7RiaRfEnJLMqNDmDVjRv4bIYAb59evEms3zcNSxqjweHg-kVN2FnVBAQ07ng4beCXGNcY3r9ZCImFc0ntgkkU', '2025-06-29 20:19:51'),
+(116, 28, 'eDcIEM4uT967Uxo_R-ga-4:APA91bH-dhCjPx9NVuCVhfDrwhdK4sg4wQdXqyEQEPNumE2u-G5pX6nwMZ9WA_T_sQ-SniVv1rU_6BIxxIhumuCHCfho3jZtVHmYtU3HMdtyJ-weZbYcl64', '2025-07-03 19:29:27');
 
 -- --------------------------------------------------------
 
@@ -2351,7 +2393,35 @@ INSERT INTO `user_history` (`user_history_id`, `user_id`, `product_id`, `action`
 (1751, 15, 3, 'view', '2025-06-29 20:19:24'),
 (1752, 15, 9, 'view', '2025-06-29 20:19:28'),
 (1753, 28, 5, 'view', '2025-07-02 10:57:06'),
-(1754, 28, 5, 'view', '2025-07-02 18:40:29');
+(1754, 28, 5, 'view', '2025-07-02 18:40:29'),
+(1755, 28, 16, 'view', '2025-07-02 21:21:31'),
+(1756, 28, 16, 'view', '2025-07-02 21:21:33'),
+(1757, 28, 155, 'view', '2025-07-02 21:24:09'),
+(1758, 28, 135, 'view', '2025-07-02 21:24:17'),
+(1759, 15, 24, 'view', '2025-07-02 21:54:17'),
+(1760, 15, 8, 'view', '2025-07-02 21:54:36'),
+(1761, 58, 107, 'fav', '2025-07-03 11:47:48'),
+(1762, 58, 111, 'view', '2025-07-03 11:47:52'),
+(1763, 58, 111, 'fav', '2025-07-03 11:47:53'),
+(1764, 58, 111, 'fav', '2025-07-03 12:23:14'),
+(1765, 15, 16, 'view', '2025-07-03 15:31:43'),
+(1766, 15, 109, 'view', '2025-07-03 15:36:52'),
+(1767, 28, 148, 'view', '2025-07-03 15:37:13'),
+(1768, 28, 148, 'fav', '2025-07-03 15:37:14'),
+(1769, 15, 6, 'view', '2025-07-03 16:32:03'),
+(1770, 15, 6, 'view', '2025-07-03 16:42:26'),
+(1771, 15, 145, 'view', '2025-07-03 18:43:08'),
+(1772, 15, 144, 'view', '2025-07-03 18:49:02'),
+(1773, 15, 144, 'view', '2025-07-03 19:00:20'),
+(1774, 15, 144, 'view', '2025-07-03 19:00:59'),
+(1775, 15, 144, 'view', '2025-07-03 19:02:13'),
+(1776, 15, 144, 'view', '2025-07-03 19:02:38'),
+(1777, 15, 144, 'view', '2025-07-03 19:03:21'),
+(1778, 15, 140, 'view', '2025-07-03 19:07:36'),
+(1779, 15, 109, 'view', '2025-07-03 19:09:56'),
+(1780, 28, 158, 'view', '2025-07-03 19:29:39'),
+(1781, 28, 118, 'view', '2025-07-03 19:29:45'),
+(1782, 28, 118, 'fav', '2025-07-03 19:29:46');
 
 -- --------------------------------------------------------
 
@@ -2596,15 +2666,17 @@ CREATE TABLE `wallet` (
 
 INSERT INTO `wallet` (`id`, `user_id`, `balance`) VALUES
 (1, 22, 0.00),
-(3, 28, 999284.13),
+(3, 28, 9969.13),
 (4, 18, 0.00),
-(6, 15, 99998890.19),
+(6, 15, 9140.19),
 (8, 21, 0.00),
 (9, 19, 0.00),
 (10, 25, 0.00),
 (11, 20, 25895.97),
 (33, 52, 280.40),
-(37, 56, 1.00);
+(37, 56, 1.00),
+(38, 57, 0.00),
+(39, 58, 462.00);
 
 -- --------------------------------------------------------
 
@@ -2796,6 +2868,14 @@ ALTER TABLE `products_views`
   ADD PRIMARY KEY (`product_id`);
 
 --
+-- Índices de tabela `refund_requests`
+--
+ALTER TABLE `refund_requests`
+  ADD PRIMARY KEY (`refund_id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Índices de tabela `reviews`
 --
 ALTER TABLE `reviews`
@@ -2857,7 +2937,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT de tabela `chats`
 --
 ALTER TABLE `chats`
-  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `chat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT de tabela `gallery`
@@ -2869,37 +2949,43 @@ ALTER TABLE `gallery`
 -- AUTO_INCREMENT de tabela `images`
 --
 ALTER TABLE `images`
-  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=269;
+  MODIFY `image_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=271;
 
 --
 -- AUTO_INCREMENT de tabela `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=481;
+  MODIFY `id_message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=485;
 
 --
 -- AUTO_INCREMENT de tabela `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT de tabela `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de tabela `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT de tabela `products`
 --
 ALTER TABLE `products`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=159;
+
+--
+-- AUTO_INCREMENT de tabela `refund_requests`
+--
+ALTER TABLE `refund_requests`
+  MODIFY `refund_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `reviews`
@@ -2911,31 +2997,31 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT de tabela `saved`
 --
 ALTER TABLE `saved`
-  MODIFY `saved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=539;
+  MODIFY `saved_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=544;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de tabela `users_tokens`
 --
 ALTER TABLE `users_tokens`
-  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id_token` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT de tabela `user_history`
 --
 ALTER TABLE `user_history`
-  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1755;
+  MODIFY `user_history_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1783;
 
 --
 -- AUTO_INCREMENT de tabela `wallet`
 --
 ALTER TABLE `wallet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- Restrições para tabelas despejadas
@@ -3000,6 +3086,13 @@ ALTER TABLE `products`
 --
 ALTER TABLE `products_views`
   ADD CONSTRAINT `products_views_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE;
+
+--
+-- Restrições para tabelas `refund_requests`
+--
+ALTER TABLE `refund_requests`
+  ADD CONSTRAINT `refund_requests_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
+  ADD CONSTRAINT `refund_requests_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 
 --
 -- Restrições para tabelas `reviews`
